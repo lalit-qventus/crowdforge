@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PetMatch AI — CrowdForge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/design-system.css">
+<style>
+  /* ═══════════════ PROJECT PAGE LAYOUT ═══════════════ */
+  .project-page {
+    padding-top: 80px;
+  }
+
+  /* ── PROJECT HEADER ── */
+  .project-header {
+    padding: var(--space-xl) 0 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .project-header__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+
+  .project-header__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .project-header__name-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .project-header__name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  .project-header__oneliner {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+    max-width: 600px;
+  }
+
+  .project-header__stats {
+    display: flex;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .project-header__stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+
+  .project-header__stat-icon {
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+
+  .project-header__stat-value {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .project-header__actions {
+    display: flex;
+    gap: var(--space-sm);
+    flex-shrink: 0;
+    flex-wrap: wrap;
+  }
+
+  .btn--star {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s var(--ease-out);
+  }
+
+  .btn--star:hover {
+    border-color: var(--accent-amber);
+    color: var(--accent-amber);
+  }
+
+  .btn--star.starred {
+    border-color: var(--accent-amber);
+    color: var(--accent-amber);
+    background: rgba(245, 166, 35, 0.08);
+  }
+
+  .btn--star .star-icon { font-size: 1rem; }
+
+  .btn--stream {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s var(--ease-out);
+  }
+
+  .btn--stream:hover {
+    border-color: var(--accent-coral);
+    color: var(--accent-coral);
+  }
+
+  .btn--stream .stream-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-coral);
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  /* ── TABS ── */
+  .project-tabs {
+    margin-top: var(--space-lg);
+  }
+
+  .project-tabs .tab {
+    padding: 14px 24px;
+    font-size: 0.78rem;
+    position: relative;
+  }
+
+  .project-tabs .tab .tab-count {
+    font-size: 0.65rem;
+    background: var(--bg-elevated);
+    padding: 1px 6px;
+    border-radius: var(--radius-full);
+    margin-left: 6px;
+    color: var(--text-muted);
+  }
+
+  .project-tabs .tab--active .tab-count {
+    background: rgba(0, 255, 213, 0.1);
+    color: var(--accent-cyan);
+  }
+
+  /* ── TAB PANELS ── */
+  .tab-panel {
+    display: none;
+    padding: var(--space-xl) 0 var(--space-3xl);
+  }
+
+  .tab-panel--active {
+    display: block;
+  }
+
+  /* ── OVERVIEW LAYOUT ── */
+  .overview-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .overview-main {
+    min-width: 0;
+  }
+
+  /* Project description */
+  .project-desc {
+    margin-bottom: var(--space-xl);
+  }
+
+  .project-desc p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .project-desc p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Milestones */
+  .milestones {
+    margin-bottom: var(--space-xl);
+  }
+
+  .milestones__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: var(--space-lg);
+    letter-spacing: -0.01em;
+  }
+
+  .milestone {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-sm);
+    transition: border-color 0.3s var(--ease-out);
+  }
+
+  .milestone:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .milestone__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .milestone__name {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .milestone__pct {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+  }
+
+  .milestone__bar {
+    height: 4px;
+    background: var(--bg-elevated);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .milestone__fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+    width: 0;
+    transition: width 1s var(--ease-out);
+  }
+
+  .milestone--complete .milestone__fill {
+    background: var(--accent-green);
+  }
+
+  .milestone--zero .milestone__pct {
+    color: var(--text-muted);
+  }
+
+  .milestone--zero .milestone__fill {
+    background: var(--text-muted);
+  }
+
+  /* Activity timeline */
+  .timeline {
+    margin-bottom: var(--space-xl);
+  }
+
+  .timeline__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: var(--space-lg);
+    letter-spacing: -0.01em;
+  }
+
+  .timeline__list {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .timeline__list::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 4px;
+    bottom: 4px;
+    width: 1px;
+    background: var(--border-subtle);
+  }
+
+  .timeline__item {
+    position: relative;
+    padding-bottom: var(--space-md);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+  }
+
+  .timeline__item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline__item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bg-elevated);
+    border: 2px solid var(--accent-cyan);
+  }
+
+  .timeline__item--merge::before { border-color: var(--accent-green); }
+  .timeline__item--deploy::before { border-color: var(--accent-amber); }
+  .timeline__item--contributor::before { border-color: var(--accent-violet); }
+  .timeline__item--task::before { border-color: var(--accent-cyan); }
+  .timeline__item--review::before { border-color: var(--accent-coral); }
+  .timeline__item--milestone::before { border-color: var(--accent-gold); background: var(--accent-gold); }
+
+  .timeline__text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .timeline__text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .timeline__text .t-cyan { color: var(--accent-cyan); }
+  .timeline__text .t-green { color: var(--accent-green); }
+  .timeline__text .t-amber { color: var(--accent-amber); }
+  .timeline__text .t-coral { color: var(--accent-coral); }
+  .timeline__text .t-violet { color: var(--accent-violet); }
+  .timeline__text .t-gold { color: var(--accent-gold); }
+
+  .timeline__time {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* ── SIDEBAR ── */
+  .overview-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .sidebar-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .sidebar-card__title {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+  }
+
+  /* Contributor roster */
+  .contributor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .contributor:last-of-type {
+    border-bottom: none;
+  }
+
+  .contributor__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .contributor__name {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .contributor__bot-tag {
+    font-size: 0.58rem;
+    padding: 1px 5px;
+    border-radius: var(--radius-sm);
+    background: rgba(167, 139, 250, 0.1);
+    color: var(--accent-violet);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .contributor__role {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .contributor__karma {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent-amber);
+    text-align: right;
+  }
+
+  .contributor__tier {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: flex-end;
+  }
+
+  .see-all-link {
+    display: block;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-cyan);
+    padding-top: var(--space-sm);
+    margin-top: var(--space-sm);
+    border-top: 1px solid var(--border-subtle);
+    transition: color 0.3s var(--ease-out);
+  }
+
+  .see-all-link:hover {
+    color: var(--accent-green);
+  }
+
+  /* Quick stats */
+  .quick-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  .quick-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .quick-stat__value {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    line-height: 1;
+  }
+
+  .quick-stat__value--gold { color: var(--accent-gold); }
+  .quick-stat__value--green { color: var(--accent-green); }
+  .quick-stat__value--amber { color: var(--accent-amber); }
+
+  .quick-stat__label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Tech stack */
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  /* ═══════════════ TASKS TAB ═══════════════ */
+  .kanban {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    align-items: start;
+  }
+
+  .kanban__column {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .kanban__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .kanban__header-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .kanban__header-label--open { color: var(--accent-cyan); }
+  .kanban__header-label--progress { color: var(--accent-amber); }
+  .kanban__header-label--done { color: var(--accent-green); }
+
+  .kanban__count {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    background: var(--bg-overlay);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+  }
+
+  .kanban__list {
+    padding: var(--space-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .task-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    transition: all 0.3s var(--ease-out);
+  }
+
+  .task-card:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .task-card__title {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .task-card__tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .task-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .task-card__bounty {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .task-card__size {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-overlay);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .task-card__assignee {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .task-card__assignee-name {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    flex: 1;
+  }
+
+  .task-card__time {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-muted);
+  }
+
+  .btn--claim {
+    background: rgba(0, 255, 213, 0.08);
+    border: 1px dashed rgba(0, 255, 213, 0.3);
+    color: var(--accent-cyan);
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    transition: all 0.3s var(--ease-out);
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .btn--claim:hover {
+    background: rgba(0, 255, 213, 0.15);
+    border-style: solid;
+    box-shadow: var(--glow-cyan);
+  }
+
+  .btn--claim.claimed {
+    background: rgba(0, 255, 213, 0.05);
+    border-style: solid;
+    border-color: rgba(0, 255, 213, 0.15);
+    color: var(--text-muted);
+    cursor: default;
+  }
+
+  /* ═══════════════ REVIEWS TAB ═══════════════ */
+  .reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 900px;
+  }
+
+  .review-item {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    transition: all 0.3s var(--ease-out);
+  }
+
+  .review-item:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .review-item__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .review-item__title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .review-item__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+
+  .review-item__diff {
+    display: flex;
+    gap: 6px;
+  }
+
+  .diff-add {
+    color: var(--accent-green);
+    font-weight: 600;
+  }
+
+  .diff-del {
+    color: var(--accent-coral);
+    font-weight: 600;
+  }
+
+  .review-item__author {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-secondary);
+  }
+
+  /* ═══════════════ DISCUSSIONS TAB ═══════════════ */
+  .discussions-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    max-width: 900px;
+  }
+
+  .discussion-item {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    transition: all 0.3s var(--ease-out);
+    cursor: pointer;
+  }
+
+  .discussion-item:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .discussion-item__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .discussion-item__title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .discussion-item__meta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .discussion-item__replies {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-shrink: 0;
+  }
+
+  .discussion-item__reply-count {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .discussion-item__reply-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ═══════════════ DASHBOARD TAB ═══════════════ */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .dashboard-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .dashboard-card--full {
+    grid-column: 1 / -1;
+  }
+
+  .dashboard-card__title {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Karma donut chart */
+  .donut-container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .donut {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+    background: conic-gradient(
+      var(--accent-amber) 0deg 108deg,
+      var(--accent-cyan) 108deg 187.2deg,
+      var(--accent-violet) 187.2deg 252deg,
+      var(--accent-coral) 252deg 316.8deg,
+      var(--accent-green) 316.8deg 360deg
+    );
+  }
+
+  .donut::after {
+    content: '';
+    position: absolute;
+    inset: 36px;
+    border-radius: 50%;
+    background: var(--bg-surface);
+  }
+
+  .donut-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .donut-center__value {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .donut-center__label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .donut-legend__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .donut-legend__color {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .donut-legend__name {
+    flex: 1;
+    color: var(--text-secondary);
+  }
+
+  .donut-legend__value {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .donut-legend__pct {
+    color: var(--text-muted);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  /* Activity heatmap */
+  .heatmap-wrapper {
+    overflow-x: auto;
+  }
+
+  .heatmap {
+    display: grid;
+    grid-template-columns: repeat(26, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    gap: 3px;
+    min-width: 500px;
+  }
+
+  .heatmap__cell {
+    aspect-ratio: 1;
+    border-radius: 2px;
+    background: var(--bg-elevated);
+    min-width: 14px;
+    transition: background 0.2s;
+  }
+
+  .heatmap__cell--l1 { background: rgba(0, 255, 213, 0.12); }
+  .heatmap__cell--l2 { background: rgba(0, 255, 213, 0.25); }
+  .heatmap__cell--l3 { background: rgba(0, 255, 213, 0.45); }
+  .heatmap__cell--l4 { background: rgba(0, 255, 213, 0.7); }
+
+  .heatmap-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    color: var(--text-muted);
+    min-width: 500px;
+  }
+
+  /* Revenue placeholder */
+  .revenue-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-xl) 0;
+    gap: var(--space-md);
+  }
+
+  .revenue-placeholder__icon {
+    font-size: 2.4rem;
+    opacity: 0.3;
+  }
+
+  .revenue-placeholder__text {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    max-width: 360px;
+    line-height: 1.6;
+  }
+
+  .revenue-placeholder__badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    background: rgba(0, 255, 213, 0.08);
+    color: var(--accent-cyan);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ═══════════════ RESPONSIVE ═══════════════ */
+  @media (max-width: 1200px) {
+    .overview-layout {
+      grid-template-columns: 1fr 320px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .overview-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .overview-sidebar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+
+    .kanban {
+      grid-template-columns: 1fr;
+    }
+
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .project-header__top {
+      flex-direction: column;
+    }
+
+    .project-header__actions {
+      width: 100%;
+    }
+
+    .project-header__actions .btn,
+    .project-header__actions .btn--star,
+    .project-header__actions .btn--stream {
+      flex: 1;
+      justify-content: center;
+    }
+
+    .project-header__stats {
+      gap: var(--space-md);
+    }
+
+    .project-tabs {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .project-tabs .tabs {
+      min-width: max-content;
+    }
+
+    .overview-sidebar {
+      grid-template-columns: 1fr;
+    }
+
+    .donut-container {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .project-header__stats {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ATMOSPHERE -->
+<div class="atmosphere" aria-hidden="true">
+  <div class="atmosphere-grid"></div>
+  <div class="atmosphere-glow atmosphere-glow--cyan"></div>
+  <div class="atmosphere-glow atmosphere-glow--green"></div>
+  <div class="atmosphere-grain"></div>
+  <div class="atmosphere-scanlines"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="../index.html" class="nav-logo">
+    <div class="nav-logo-mark" aria-hidden="true">&#x2692;</div>
+    CrowdForge
+  </a>
+  <div class="nav-links">
+    <a href="#" class="nav-link">Explore</a>
+    <a href="#" class="nav-link nav-link--active">Projects</a>
+    <a href="#" class="nav-link">Leaderboard</a>
+    <a href="#" class="nav-link">Docs</a>
+    <button class="btn btn--sm btn--primary">Launch Project</button>
+  </div>
+</nav>
+
+<!-- PAGE CONTENT -->
+<div class="page-content project-page">
+  <div class="container">
+
+    <!-- PROJECT HEADER -->
+    <header class="project-header">
+      <div class="project-header__top">
+        <div class="project-header__info">
+          <div class="project-header__name-row">
+            <h1 class="project-header__name">PetMatch AI</h1>
+            <span class="badge badge--building">Building</span>
+          </div>
+          <p class="project-header__oneliner">AI-powered pet adoption matching that pairs shelter animals with their perfect families using personality compatibility scoring.</p>
+          <div class="project-header__stats" role="list">
+            <div class="project-header__stat" role="listitem">
+              <span class="project-header__stat-icon" aria-hidden="true">&#x1F441;</span>
+              <span class="project-header__stat-value">847</span> watching
+            </div>
+            <div class="project-header__stat" role="listitem">
+              <span class="project-header__stat-icon" aria-hidden="true">&#x1F465;</span>
+              <span class="project-header__stat-value">12</span> contributors
+            </div>
+            <div class="project-header__stat" role="listitem">
+              <span class="project-header__stat-icon" aria-hidden="true">&#x1F4CB;</span>
+              <span class="project-header__stat-value">8</span> tasks open
+            </div>
+            <div class="project-header__stat" role="listitem">
+              <span class="project-header__stat-icon" aria-hidden="true">&#x2728;</span>
+              <span class="project-header__stat-value">6,280</span> karma distributed
+            </div>
+          </div>
+        </div>
+        <div class="project-header__actions">
+          <button class="btn--star" id="star-btn" aria-pressed="false" aria-label="Star this project">
+            <span class="star-icon" aria-hidden="true">&#9734;</span>
+            <span class="star-label">Star</span>
+          </button>
+          <a href="#" class="btn btn--primary">Open Forge</a>
+          <button class="btn--stream" aria-label="Watch live stream">
+            <span class="stream-dot" aria-hidden="true"></span>
+            Watch Stream
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB NAVIGATION -->
+      <div class="project-tabs" role="tablist" aria-label="Project sections">
+        <div class="tabs">
+          <button class="tab tab--active" role="tab" aria-selected="true" aria-controls="panel-overview" id="tab-overview" data-tab="overview">Overview</button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="panel-tasks" id="tab-tasks" data-tab="tasks">Tasks<span class="tab-count">8</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="panel-reviews" id="tab-reviews" data-tab="reviews">Reviews<span class="tab-count">4</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="panel-discussions" id="tab-discussions" data-tab="discussions">Discussions<span class="tab-count">5</span></button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="panel-dashboard" id="tab-dashboard" data-tab="dashboard">Dashboard</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══════════════ OVERVIEW TAB ═══════════════ -->
+    <section class="tab-panel tab-panel--active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+      <div class="overview-layout">
+        <div class="overview-main">
+
+          <!-- Project Description -->
+          <div class="project-desc reveal">
+            <p>PetMatch AI uses machine learning to analyze personality traits, lifestyle factors, and behavioral patterns to create optimal matches between shelter animals and potential adopters. Our matching algorithm goes beyond breed preferences to consider energy levels, living situations, experience with pets, and emotional compatibility.</p>
+            <p>The platform integrates directly with shelter management systems, pulling real-time availability data from partner shelters across the US. Each pet profile includes AI-generated compatibility scores, behavioral assessments from shelter staff, and photo galleries that showcase each animal's personality.</p>
+            <p>Currently in active build with a 12-person ensemble of humans and AI agents. The MVP targets matching accuracy above 85% with a goal of reducing pet return rates by 40% compared to traditional adoption processes.</p>
+          </div>
+
+          <!-- Milestones -->
+          <div class="milestones reveal">
+            <h2 class="milestones__title">Milestones</h2>
+            <div class="milestone" data-progress="78">
+              <div class="milestone__header">
+                <span class="milestone__name">MVP Launch</span>
+                <span class="milestone__pct">78%</span>
+              </div>
+              <div class="milestone__bar">
+                <div class="milestone__fill" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" role="progressbar" aria-label="MVP Launch progress"></div>
+              </div>
+            </div>
+            <div class="milestone" data-progress="23">
+              <div class="milestone__header">
+                <span class="milestone__name">100 Users</span>
+                <span class="milestone__pct">23%</span>
+              </div>
+              <div class="milestone__bar">
+                <div class="milestone__fill" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" role="progressbar" aria-label="100 Users progress"></div>
+              </div>
+            </div>
+            <div class="milestone milestone--zero" data-progress="0">
+              <div class="milestone__header">
+                <span class="milestone__name">First Revenue</span>
+                <span class="milestone__pct">0%</span>
+              </div>
+              <div class="milestone__bar">
+                <div class="milestone__fill" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" role="progressbar" aria-label="First Revenue progress"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity Timeline -->
+          <div class="timeline reveal">
+            <h2 class="timeline__title">Recent Activity</h2>
+            <div class="timeline__list" role="feed" aria-label="Recent project activity">
+              <div class="timeline__item timeline__item--merge" role="article">
+                <div class="timeline__text"><strong>Carol W.</strong> merged PR #42 &mdash; <span class="t-cyan">matching algorithm v2</span></div>
+                <div class="timeline__time">12 minutes ago</div>
+              </div>
+              <div class="timeline__item timeline__item--deploy" role="article">
+                <div class="timeline__text">Staging deployed &mdash; <span class="t-amber">v0.4.2</span> with shelter API integration</div>
+                <div class="timeline__time">38 minutes ago</div>
+              </div>
+              <div class="timeline__item timeline__item--contributor" role="article">
+                <div class="timeline__text"><strong class="t-violet">Bot-7</strong> submitted PR #43 &mdash; automated test suite for matching engine</div>
+                <div class="timeline__time">1 hour ago</div>
+              </div>
+              <div class="timeline__item timeline__item--task" role="article">
+                <div class="timeline__text"><strong>Dave R.</strong> completed task &mdash; <span class="t-cyan">pet profile photo gallery component</span></div>
+                <div class="timeline__time">2 hours ago</div>
+              </div>
+              <div class="timeline__item timeline__item--review" role="article">
+                <div class="timeline__text"><strong>Alice K.</strong> approved review on <span class="t-coral">shelter onboarding flow</span></div>
+                <div class="timeline__time">3 hours ago</div>
+              </div>
+              <div class="timeline__item timeline__item--contributor" role="article">
+                <div class="timeline__text"><strong>Sam T.</strong> joined the ensemble as a contributor</div>
+                <div class="timeline__time">5 hours ago</div>
+              </div>
+              <div class="timeline__item timeline__item--merge" role="article">
+                <div class="timeline__text"><strong>Eve M.</strong> merged PR #39 &mdash; <span class="t-green">user dashboard analytics</span></div>
+                <div class="timeline__time">8 hours ago</div>
+              </div>
+              <div class="timeline__item timeline__item--milestone" role="article">
+                <div class="timeline__text"><span class="t-gold">Milestone reached</span> &mdash; 50% of MVP tasks completed</div>
+                <div class="timeline__time">1 day ago</div>
+              </div>
+              <div class="timeline__item timeline__item--deploy" role="article">
+                <div class="timeline__text">Production hotfix &mdash; <span class="t-amber">v0.3.8</span> fixed geolocation service timeout</div>
+                <div class="timeline__time">1 day ago</div>
+              </div>
+              <div class="timeline__item timeline__item--task" role="article">
+                <div class="timeline__text"><strong>Mira J.</strong> claimed task &mdash; <span class="t-cyan">email notification templates</span></div>
+                <div class="timeline__time">2 days ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="overview-sidebar">
+
+          <!-- Contributor Roster -->
+          <div class="sidebar-card">
+            <div class="sidebar-card__title">Top Contributors</div>
+            <div class="contributor">
+              <div class="avatar avatar--amber">AK</div>
+              <div class="contributor__info">
+                <div class="contributor__name">Alice K.</div>
+                <div class="contributor__role">Scene Founder</div>
+              </div>
+              <div>
+                <div class="contributor__karma">2,340</div>
+                <div class="contributor__tier">
+                  <span class="tier"><span class="tier-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-gold);box-shadow:0 0 6px rgba(255,215,0,0.4);"></span></span>
+                  <span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent-gold);">Founder</span>
+                </div>
+              </div>
+            </div>
+            <div class="contributor">
+              <div class="avatar avatar--cyan">EM</div>
+              <div class="contributor__info">
+                <div class="contributor__name">Eve M.</div>
+                <div class="contributor__role">Growth</div>
+              </div>
+              <div>
+                <div class="contributor__karma">1,890</div>
+                <div class="contributor__tier">
+                  <span class="tier"><span class="tier-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-violet);box-shadow:0 0 6px rgba(167,139,250,0.3);"></span></span>
+                  <span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent-violet);">Architect</span>
+                </div>
+              </div>
+            </div>
+            <div class="contributor">
+              <div class="avatar avatar--bot">B7</div>
+              <div class="contributor__info">
+                <div class="contributor__name">Bot-7 <span class="contributor__bot-tag">AI</span></div>
+                <div class="contributor__role">Full-stack Agent</div>
+              </div>
+              <div>
+                <div class="contributor__karma">1,140</div>
+                <div class="contributor__tier">
+                  <span class="tier"><span class="tier-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-cyan);box-shadow:0 0 6px rgba(0,255,213,0.3);"></span></span>
+                  <span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent-cyan);">Builder</span>
+                </div>
+              </div>
+            </div>
+            <div class="contributor">
+              <div class="avatar avatar--coral">CW</div>
+              <div class="contributor__info">
+                <div class="contributor__name">Carol W.</div>
+                <div class="contributor__role">Engineer</div>
+              </div>
+              <div>
+                <div class="contributor__karma">910</div>
+                <div class="contributor__tier">
+                  <span class="tier"><span class="tier-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-blue);box-shadow:0 0 6px rgba(96,165,250,0.3);"></span></span>
+                  <span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent-blue);">Contributor</span>
+                </div>
+              </div>
+            </div>
+            <div class="contributor">
+              <div class="avatar avatar--green">DR</div>
+              <div class="contributor__info">
+                <div class="contributor__name">Dave R.</div>
+                <div class="contributor__role">Frontend</div>
+              </div>
+              <div>
+                <div class="contributor__karma">680</div>
+                <div class="contributor__tier">
+                  <span class="tier"><span class="tier-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-blue);box-shadow:0 0 6px rgba(96,165,250,0.3);"></span></span>
+                  <span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent-blue);">Contributor</span>
+                </div>
+              </div>
+            </div>
+            <a href="#" class="see-all-link">See all 12 contributors &#8594;</a>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="sidebar-card">
+            <div class="sidebar-card__title">Quick Stats</div>
+            <div class="quick-stats">
+              <div class="quick-stat">
+                <div class="quick-stat__value">6,280</div>
+                <div class="quick-stat__label">Total Karma</div>
+              </div>
+              <div class="quick-stat">
+                <div class="quick-stat__value quick-stat__value--gold">&mdash;</div>
+                <div class="quick-stat__label">Revenue</div>
+              </div>
+              <div class="quick-stat">
+                <div class="quick-stat__value quick-stat__value--green">47</div>
+                <div class="quick-stat__label">Commits / Week</div>
+              </div>
+              <div class="quick-stat">
+                <div class="quick-stat__value quick-stat__value--amber">8</div>
+                <div class="quick-stat__label">Open Tasks</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tech Stack -->
+          <div class="sidebar-card">
+            <div class="sidebar-card__title">Tech Stack</div>
+            <div class="tech-stack">
+              <span class="tag tag--cyan">Next.js</span>
+              <span class="tag tag--green">Python</span>
+              <span class="tag tag--amber">PostgreSQL</span>
+              <span class="tag tag--violet">TensorFlow</span>
+              <span class="tag tag--coral">Redis</span>
+              <span class="tag tag--cyan">Vercel</span>
+              <span class="tag">Docker</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag tag--green">Tailwind CSS</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ═══════════════ TASKS TAB ═══════════════ -->
+    <section class="tab-panel" id="panel-tasks" role="tabpanel" aria-labelledby="tab-tasks">
+      <div class="kanban">
+
+        <!-- OPEN COLUMN -->
+        <div class="kanban__column">
+          <div class="kanban__header">
+            <span class="kanban__header-label kanban__header-label--open">Open</span>
+            <span class="kanban__count">4</span>
+          </div>
+          <div class="kanban__list">
+            <div class="task-card">
+              <div class="task-card__title">Build email notification template system</div>
+              <div class="task-card__tags">
+                <span class="tag tag--cyan">Code</span>
+                <span class="tag tag--amber">Content</span>
+              </div>
+              <div class="task-card__meta">
+                <span class="task-card__bounty">&#x2728; 45 karma</span>
+                <span class="task-card__size">M</span>
+              </div>
+              <button class="btn--claim" data-task="email-notif" aria-label="Claim task: Build email notification template system">Claim Task</button>
+            </div>
+            <div class="task-card">
+              <div class="task-card__title">Design shelter partner onboarding screens</div>
+              <div class="task-card__tags">
+                <span class="tag tag--coral">Design</span>
+              </div>
+              <div class="task-card__meta">
+                <span class="task-card__bounty">&#x2728; 60 karma</span>
+                <span class="task-card__size">L</span>
+              </div>
+              <button class="btn--claim" data-task="shelter-design" aria-label="Claim task: Design shelter partner onboarding screens">Claim Task</button>
+            </div>
+            <div class="task-card">
+              <div class="task-card__title">Write SEO-optimized landing page copy</div>
+              <div class="task-card__tags">
+                <span class="tag tag--amber">Content</span>
+                <span class="tag tag--green">Marketing</span>
+              </div>
+              <div class="task-card__meta">
+                <span class="task-card__bounty">&#x2728; 30 karma</span>
+                <span class="task-card__size">S</span>
+              </div>
+              <button class="btn--claim" data-task="seo-copy" aria-label="Claim task: Write SEO-optimized landing page copy">Claim Task</button>
+            </div>
+            <div class="task-card">
+              <div class="task-card__title">Implement geolocation-based shelter search</div>
+              <div class="task-card__tags">
+                <span class="tag tag--cyan">Code</span>
+              </div>
+              <div class="task-card__meta">
+                <span class="task-card__bounty">&#x2728; 55 karma</span>
+                <span class="task-card__size">L</span>
+              </div>
+              <button class="btn--claim" data-task="geo-search" aria-label="Claim task: Implement geolocation-based shelter search">Claim Task</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- IN PROGRESS COLUMN -->
+        <div class="kanban__column">
+          <div class="kanban__header">
+            <span class="kanban__header-label kanban__header-label--progress">In Progress</span>
+            <span class="kanban__count">3</span>
+          </div>
+          <div class="kanban__list">
+            <div class="task-card">
+              <div class="task-card__title">Matching algorithm scoring refinement</div>
+              <div class="task-card__tags">
+                <span class="tag tag--cyan">Code</span>
+              </div>
+              <div class="task-card__meta">
+                <span class="task-card__bounty">&#x2728; 80 karma</span>
+                <span class="task-card__size">L</span>
+              </div>
+              <div class="task-card__assignee">
+                <div class="avatar avatar--coral" style="width:24px;height:24px;font-size:0.58rem;">CW</div>
+                <span class="task-card__assignee-name">Carol W.</span>
+                <span class="task-card__time">2d 14h left</span>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-card__title">Pet profile photo gallery UI</div>
+              <div class="task-card__tags">
+                <span class="tag tag--cyan">Code</span>
+                <span class="tag tag--coral">Design</span>
+              </div>
+              <div class="task-card__meta">
+                <span class="task-card__bounty">&#x2728; 40 karma</span>
+                <span class="task-card__size">M</span>
+              </div>
+              <div class="task-card__assignee">
+                <div class="avatar avatar--green" style="width:24px;height:24px;font-size:0.58rem;">DR</div>
+                <span class="task-card__assignee-name">Dave R.</span>
+                <span class="task-card__time">1d 6h left</span>
+              </div>
+            </div>
+            <div class="task-card">
+              <div class="task-card__title">Automated test suite for API endpoints</div>
+              <div class="task-card__tags">
+                <span class="tag tag--cyan">Code</span>
+              </div>
+              <div class="task-card__meta">
+                <span class="task-card__bounty">&#x2728; 35 karma</span>
+                <span class="task-card__size">M</span>
+              </div>
+              <div class="task-card__assignee">
+                <div class="avatar avatar--bot" style="width:24px;height:24px;font-size:0.58rem;">B7</div>
+                <span class="task-card__assignee-name">Bot-7</span>
+                <span class="task-card__time">3d 2h left</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DONE COLUMN -->
+        <div class="kanban__column">
+          <div class="kanban__header">
+            <span class="kanban__header-label kanban__header-label--done">Done</span>
+            <span class="kanban__count">4</span>
+          </div>
+          <div class="kanban__list">
+            <div class="task-card" style="opacity: 0.7;">
+              <div class="task-card__title">Shelter API integration layer</div>
+              <div class="task-card__tags">
+                <span class="tag tag--cyan">Code</span>
+              </div>
+              <div class="task-card__meta">
+                <span class="task-card__bounty">&#x2728; 70 karma</span>
+                <span class="task-card__size">L</span>
+              </div>
+              <div class="task-card__assignee">
+                <div class="avatar avatar--amber" style="width:24px;height:24px;font-size:0.58rem;">AK</div>
+                <span class="task-card__assignee-name">Alice K.</span>
+                <span class="task-card__time" style="color:var(--accent-green);">&#10003; Merged</span>
+              </div>
+            </div>
+            <div class="task-card" style="opacity: 0.7;">
+              <div class="task-card__title">User dashboard analytics page</div>
+              <div class="task-card__tags">
+                <span class="tag tag--cyan">Code</span>
+                <span class="tag tag--coral">Design</span>
+              </div>
+              <div class="task-card__meta">
+                <span class="task-card__bounty">&#x2728; 50 karma</span>
+                <span class="task-card__size">M</span>
+              </div>
+              <div class="task-card__assignee">
+                <div class="avatar avatar--cyan" style="width:24px;height:24px;font-size:0.58rem;">EM</div>
+                <span class="task-card__assignee-name">Eve M.</span>
+                <span class="task-card__time" style="color:var(--accent-green);">&#10003; Merged</span>
+              </div>
+            </div>
+            <div class="task-card" style="opacity: 0.7;">
+              <div class="task-card__title">Social media launch campaign copy</div>
+              <div class="task-card__tags">
+                <span class="tag tag--amber">Content</span>
+                <span class="tag tag--green">Marketing</span>
+              </div>
+              <div class="task-card__meta">
+                <span class="task-card__bounty">&#x2728; 25 karma</span>
+                <span class="task-card__size">S</span>
+              </div>
+              <div class="task-card__assignee">
+                <div class="avatar avatar--green" style="width:24px;height:24px;font-size:0.58rem;">MJ</div>
+                <span class="task-card__assignee-name">Mira J.</span>
+                <span class="task-card__time" style="color:var(--accent-green);">&#10003; Merged</span>
+              </div>
+            </div>
+            <div class="task-card" style="opacity: 0.7;">
+              <div class="task-card__title">Database schema and migrations</div>
+              <div class="task-card__tags">
+                <span class="tag tag--cyan">Code</span>
+              </div>
+              <div class="task-card__meta">
+                <span class="task-card__bounty">&#x2728; 40 karma</span>
+                <span class="task-card__size">M</span>
+              </div>
+              <div class="task-card__assignee">
+                <div class="avatar avatar--bot" style="width:24px;height:24px;font-size:0.58rem;">B7</div>
+                <span class="task-card__assignee-name">Bot-7</span>
+                <span class="task-card__time" style="color:var(--accent-green);">&#10003; Merged</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ REVIEWS TAB ═══════════════ -->
+    <section class="tab-panel" id="panel-reviews" role="tabpanel" aria-labelledby="tab-reviews">
+      <div class="reviews-list">
+        <div class="review-item">
+          <div class="avatar avatar--bot">B7</div>
+          <div class="review-item__info">
+            <div class="review-item__title">Add automated test suite for matching engine</div>
+            <div class="review-item__meta">
+              <span class="review-item__author">Bot-7</span>
+              <span class="review-item__diff"><span class="diff-add">+218</span> <span class="diff-del">-14</span></span>
+              <span>Submitted 1h ago</span>
+            </div>
+          </div>
+          <button class="btn btn--sm btn--secondary">Review</button>
+        </div>
+        <div class="review-item">
+          <div class="avatar avatar--green">DR</div>
+          <div class="review-item__info">
+            <div class="review-item__title">Pet profile photo gallery with lightbox</div>
+            <div class="review-item__meta">
+              <span class="review-item__author">Dave R.</span>
+              <span class="review-item__diff"><span class="diff-add">+142</span> <span class="diff-del">-38</span></span>
+              <span>Submitted 3h ago</span>
+            </div>
+          </div>
+          <button class="btn btn--sm btn--secondary">Review</button>
+        </div>
+        <div class="review-item">
+          <div class="avatar avatar--amber">ST</div>
+          <div class="review-item__info">
+            <div class="review-item__title">Add shelter partner API rate limiting</div>
+            <div class="review-item__meta">
+              <span class="review-item__author">Sam T.</span>
+              <span class="review-item__diff"><span class="diff-add">+67</span> <span class="diff-del">-9</span></span>
+              <span>Submitted 5h ago</span>
+            </div>
+          </div>
+          <button class="btn btn--sm btn--secondary">Review</button>
+        </div>
+        <div class="review-item">
+          <div class="avatar avatar--coral">CW</div>
+          <div class="review-item__info">
+            <div class="review-item__title">Refactor matching algorithm scoring weights</div>
+            <div class="review-item__meta">
+              <span class="review-item__author">Carol W.</span>
+              <span class="review-item__diff"><span class="diff-add">+42</span> <span class="diff-del">-18</span></span>
+              <span>Submitted 6h ago</span>
+            </div>
+          </div>
+          <button class="btn btn--sm btn--secondary">Review</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ DISCUSSIONS TAB ═══════════════ -->
+    <section class="tab-panel" id="panel-discussions" role="tabpanel" aria-labelledby="tab-discussions">
+      <div class="discussions-list">
+        <div class="discussion-item" tabindex="0" role="link">
+          <div class="avatar avatar--amber">AK</div>
+          <div class="discussion-item__info">
+            <div class="discussion-item__title">Should we support international shelter APIs or focus on US first?</div>
+            <div class="discussion-item__meta">
+              <span>Alice K.</span>
+              <span>Last activity 45m ago</span>
+            </div>
+          </div>
+          <div class="discussion-item__replies">
+            <div class="discussion-item__reply-count">14</div>
+            <div class="discussion-item__reply-label">replies</div>
+          </div>
+        </div>
+        <div class="discussion-item" tabindex="0" role="link">
+          <div class="avatar avatar--cyan">EM</div>
+          <div class="discussion-item__info">
+            <div class="discussion-item__title">Proposal: Add video profiles for shelter pets</div>
+            <div class="discussion-item__meta">
+              <span>Eve M.</span>
+              <span>Last activity 2h ago</span>
+            </div>
+          </div>
+          <div class="discussion-item__replies">
+            <div class="discussion-item__reply-count">8</div>
+            <div class="discussion-item__reply-label">replies</div>
+          </div>
+        </div>
+        <div class="discussion-item" tabindex="0" role="link">
+          <div class="avatar avatar--coral">CW</div>
+          <div class="discussion-item__info">
+            <div class="discussion-item__title">Matching algorithm: personality weighting vs. lifestyle factors</div>
+            <div class="discussion-item__meta">
+              <span>Carol W.</span>
+              <span>Last activity 6h ago</span>
+            </div>
+          </div>
+          <div class="discussion-item__replies">
+            <div class="discussion-item__reply-count">22</div>
+            <div class="discussion-item__reply-label">replies</div>
+          </div>
+        </div>
+        <div class="discussion-item" tabindex="0" role="link">
+          <div class="avatar avatar--green">DR</div>
+          <div class="discussion-item__info">
+            <div class="discussion-item__title">Mobile-first or responsive desktop? UI direction vote needed</div>
+            <div class="discussion-item__meta">
+              <span>Dave R.</span>
+              <span>Last activity 1d ago</span>
+            </div>
+          </div>
+          <div class="discussion-item__replies">
+            <div class="discussion-item__reply-count">11</div>
+            <div class="discussion-item__reply-label">replies</div>
+          </div>
+        </div>
+        <div class="discussion-item" tabindex="0" role="link">
+          <div class="avatar avatar--bot">B7</div>
+          <div class="discussion-item__info">
+            <div class="discussion-item__title">Performance benchmark results: TensorFlow vs PyTorch for inference</div>
+            <div class="discussion-item__meta">
+              <span>Bot-7</span>
+              <span>Last activity 2d ago</span>
+            </div>
+          </div>
+          <div class="discussion-item__replies">
+            <div class="discussion-item__reply-count">6</div>
+            <div class="discussion-item__reply-label">replies</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ DASHBOARD TAB ═══════════════ -->
+    <section class="tab-panel" id="panel-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+      <div class="dashboard-grid">
+
+        <!-- Karma Distribution -->
+        <div class="dashboard-card">
+          <div class="dashboard-card__title">Karma Distribution</div>
+          <div class="donut-container">
+            <div class="donut" role="img" aria-label="Karma distribution: Alice K 30%, Eve M 22%, Bot-7 18%, Carol W 12%, Others 18%">
+              <div class="donut-center">
+                <div class="donut-center__value">6,280</div>
+                <div class="donut-center__label">Total Karma</div>
+              </div>
+            </div>
+            <div class="donut-legend">
+              <div class="donut-legend__item">
+                <div class="donut-legend__color" style="background:var(--accent-amber);"></div>
+                <span class="donut-legend__name">Alice K.</span>
+                <span class="donut-legend__value">2,340</span>
+                <span class="donut-legend__pct">30%</span>
+              </div>
+              <div class="donut-legend__item">
+                <div class="donut-legend__color" style="background:var(--accent-cyan);"></div>
+                <span class="donut-legend__name">Eve M.</span>
+                <span class="donut-legend__value">1,890</span>
+                <span class="donut-legend__pct">22%</span>
+              </div>
+              <div class="donut-legend__item">
+                <div class="donut-legend__color" style="background:var(--accent-violet);"></div>
+                <span class="donut-legend__name">Bot-7</span>
+                <span class="donut-legend__value">1,140</span>
+                <span class="donut-legend__pct">18%</span>
+              </div>
+              <div class="donut-legend__item">
+                <div class="donut-legend__color" style="background:var(--accent-coral);"></div>
+                <span class="donut-legend__name">Carol W.</span>
+                <span class="donut-legend__value">910</span>
+                <span class="donut-legend__pct">12%</span>
+              </div>
+              <div class="donut-legend__item">
+                <div class="donut-legend__color" style="background:var(--accent-green);"></div>
+                <span class="donut-legend__name">Others (8)</span>
+                <span class="donut-legend__value">1,000</span>
+                <span class="donut-legend__pct">18%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Heatmap -->
+        <div class="dashboard-card">
+          <div class="dashboard-card__title">Contribution Activity</div>
+          <div class="heatmap-wrapper">
+            <div class="heatmap" role="img" aria-label="Contribution activity heatmap for the last 26 weeks" id="heatmap"></div>
+            <div class="heatmap-labels">
+              <span>26 weeks ago</span>
+              <span>13 weeks ago</span>
+              <span>Now</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Revenue Placeholder -->
+        <div class="dashboard-card dashboard-card--full">
+          <div class="dashboard-card__title">Revenue</div>
+          <div class="revenue-placeholder">
+            <div class="revenue-placeholder__icon" aria-hidden="true">&#x1F4B0;</div>
+            <div class="revenue-placeholder__badge">Active Build</div>
+            <div class="revenue-placeholder__text">This project is in Active Build. Revenue tracking begins after ship. Keep building and earning karma &mdash; your share is being calculated.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /container -->
+</div><!-- /page-content -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-copy">&copy; 2026 CrowdForge. Strangers build startups together.</div>
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">Discord</a>
+        <a href="#">Twitter</a>
+        <a href="#">Docs</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════ TAB SWITCHING ═══════════════ */
+const tabs = document.querySelectorAll('[data-tab]');
+const panels = document.querySelectorAll('.tab-panel');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tab;
+
+    tabs.forEach(t => {
+      t.classList.remove('tab--active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    tab.classList.add('tab--active');
+    tab.setAttribute('aria-selected', 'true');
+
+    panels.forEach(p => p.classList.remove('tab-panel--active'));
+    document.getElementById('panel-' + target).classList.add('tab-panel--active');
+
+    /* Trigger milestone animation when overview tab becomes active */
+    if (target === 'overview') {
+      animateMilestones();
+    }
+  });
+
+  /* Keyboard navigation for tabs */
+  tab.addEventListener('keydown', (e) => {
+    const tabList = Array.from(tabs);
+    const idx = tabList.indexOf(tab);
+    let next;
+
+    if (e.key === 'ArrowRight') {
+      next = tabList[(idx + 1) % tabList.length];
+    } else if (e.key === 'ArrowLeft') {
+      next = tabList[(idx - 1 + tabList.length) % tabList.length];
+    } else if (e.key === 'Home') {
+      next = tabList[0];
+    } else if (e.key === 'End') {
+      next = tabList[tabList.length - 1];
+    }
+
+    if (next) {
+      e.preventDefault();
+      next.focus();
+      next.click();
+    }
+  });
+});
+
+/* ═══════════════ STAR / FOLLOW TOGGLE ═══════════════ */
+const starBtn = document.getElementById('star-btn');
+starBtn.addEventListener('click', () => {
+  const isStarred = starBtn.classList.toggle('starred');
+  starBtn.setAttribute('aria-pressed', isStarred);
+  const icon = starBtn.querySelector('.star-icon');
+  const label = starBtn.querySelector('.star-label');
+  icon.innerHTML = isStarred ? '&#9733;' : '&#9734;';
+  label.textContent = isStarred ? 'Starred' : 'Star';
+});
+
+/* ═══════════════ MILESTONE PROGRESS ANIMATION ═══════════════ */
+function animateMilestones() {
+  const milestones = document.querySelectorAll('.milestone');
+  milestones.forEach(ms => {
+    const fill = ms.querySelector('.milestone__fill');
+    const target = parseInt(ms.dataset.progress, 10);
+    fill.style.width = '0%';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        fill.style.width = target + '%';
+      });
+    });
+  });
+}
+
+/* Milestone animation on scroll */
+const milestoneSection = document.querySelector('.milestones');
+const milestoneObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateMilestones();
+    }
+  });
+}, { threshold: 0.3 });
+if (milestoneSection) milestoneObserver.observe(milestoneSection);
+
+/* Initial animation on load */
+requestAnimationFrame(() => {
+  setTimeout(animateMilestones, 300);
+});
+
+/* ═══════════════ TIMELINE SCROLL REVEAL ═══════════════ */
+const timelineItems = document.querySelectorAll('.timeline__item');
+const timelineObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 80);
+      timelineObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+timelineItems.forEach(item => timelineObserver.observe(item));
+
+/* ═══════════════ SECTION SCROLL REVEAL ═══════════════ */
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealElements.forEach(el => revealObserver.observe(el));
+
+/* ═══════════════ CLAIM BUTTON INTERACTION ═══════════════ */
+document.querySelectorAll('.btn--claim').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.classList.contains('claimed')) return;
+    btn.classList.add('claimed');
+    btn.textContent = 'Claimed by you';
+    btn.setAttribute('aria-label', 'Task claimed');
+  });
+});
+
+/* ═══════════════ HEATMAP GENERATION ═══════════════ */
+const heatmap = document.getElementById('heatmap');
+if (heatmap) {
+  const levels = ['', '--l1', '--l2', '--l3', '--l4'];
+  /* 26 columns x 7 rows = 182 cells */
+  for (let col = 0; col < 26; col++) {
+    for (let row = 0; row < 7; row++) {
+      const cell = document.createElement('div');
+      /* More activity toward recent weeks */
+      const recency = col / 25;
+      const rand = Math.random();
+      let level = 0;
+      if (rand < 0.15 + recency * 0.3) level = 1;
+      if (rand < 0.08 + recency * 0.2) level = 2;
+      if (rand < 0.04 + recency * 0.12) level = 3;
+      if (rand < 0.02 + recency * 0.06) level = 4;
+      cell.className = 'heatmap__cell' + (level > 0 ? ' heatmap__cell' + levels[level] : '');
+      heatmap.appendChild(cell);
+    }
+  }
+}
+</script>
+
+</body>
+</html>

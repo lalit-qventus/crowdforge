@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrowdForge — Dashboard</title>
+  <meta name="description" content="Your CrowdForge command center. Track karma, earnings, projects, and tasks at a glance.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="../styles/design-system.css">
+
+  <style>
+    /* ── DASHBOARD LAYOUT ── */
+    .dash-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 80px var(--space-xl) var(--space-2xl);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── WELCOME HEADER ── */
+    .welcome {
+      padding: var(--space-xl) 0 var(--space-lg);
+    }
+
+    .welcome-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .welcome-greeting {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
+
+    .welcome-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(167, 139, 250, 0.12);
+      color: var(--accent-violet);
+      border: 1px solid rgba(167, 139, 250, 0.2);
+    }
+
+    .welcome-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-violet);
+      box-shadow: 0 0 6px rgba(167, 139, 250, 0.4);
+    }
+
+    /* Quick stats row */
+    .quick-stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+
+    .quick-stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+      transition: all 0.3s var(--ease-out);
+    }
+
+    .quick-stat-card:hover {
+      border-color: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .quick-stat-top {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-sm);
+    }
+
+    .quick-stat-number {
+      font-family: var(--font-mono);
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .quick-stat-number--cyan { color: var(--accent-cyan); }
+    .quick-stat-number--green { color: var(--accent-green); }
+    .quick-stat-number--amber { color: var(--accent-amber); }
+    .quick-stat-number--gold { color: var(--accent-gold); }
+
+    .quick-stat-trend {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent-green);
+    }
+
+    .quick-stat-trend--neutral {
+      color: var(--text-muted);
+    }
+
+    /* ── MAIN TWO-COLUMN LAYOUT ── */
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    .dash-main {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .dash-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      position: sticky;
+      top: 80px;
+      align-self: flex-start;
+    }
+
+    /* ── SECTION HEADERS ── */
+    .dash-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-md);
+    }
+
+    .dash-section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .dash-section-title-icon {
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    .dash-section-link {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-cyan);
+      transition: color 0.2s;
+    }
+
+    .dash-section-link:hover {
+      color: var(--accent-green);
+    }
+
+    /* ── MY PROJECTS GRID ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+
+    .project-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      transition: all 0.35s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+      opacity: 0;
+      transition: opacity 0.35s var(--ease-out);
+    }
+
+    .project-card:hover {
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-sm);
+    }
+
+    .project-card-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .project-card-role {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+    }
+
+    .project-card-meta {
+      display: flex;
+      gap: var(--space-md);
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .project-card-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .project-card-meta-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .project-card-meta-value {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .project-card-meta-value--accent {
+      color: var(--accent-cyan);
+    }
+
+    .project-card-activity {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      margin-top: var(--space-sm);
+    }
+
+    /* ── MY TASKS ── */
+    .tasks-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .tasks-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .tasks-tab {
+      padding: 12px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s var(--ease-out);
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .tasks-tab:hover {
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .tasks-tab--active {
+      color: var(--accent-cyan);
+      border-bottom-color: var(--accent-cyan);
+    }
+
+    .tasks-tab-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 18px;
+      height: 18px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      border-radius: var(--radius-full);
+      margin-left: 6px;
+      padding: 0 5px;
+    }
+
+    .tasks-tab--active .tasks-tab-count {
+      background: rgba(0, 255, 213, 0.12);
+      color: var(--accent-cyan);
+    }
+
+    .tasks-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tasks-content {
+      display: none;
+    }
+
+    .tasks-content--active {
+      display: block;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-lg);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.2s var(--ease-out);
+    }
+
+    .task-item:last-child {
+      border-bottom: none;
+    }
+
+    .task-item:hover {
+      background: rgba(0, 255, 213, 0.02);
+    }
+
+    .task-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .task-status-dot--active {
+      background: var(--accent-cyan);
+      box-shadow: 0 0 6px rgba(0, 255, 213, 0.4);
+    }
+
+    .task-status-dot--review {
+      background: var(--accent-amber);
+      box-shadow: 0 0 6px rgba(245, 166, 35, 0.4);
+    }
+
+    .task-status-dot--done {
+      background: var(--accent-green);
+    }
+
+    .task-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .task-title {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .task-project {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .task-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      flex-shrink: 0;
+    }
+
+    .task-karma {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+    }
+
+    .task-expire {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .task-expire--urgent {
+      color: var(--accent-coral);
+      font-weight: 600;
+    }
+
+    /* ── ACTIVITY TIMELINE ── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-sm) 0;
+      position: relative;
+    }
+
+    .timeline-item + .timeline-item {
+      padding-top: var(--space-md);
+    }
+
+    .timeline-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .timeline-icon--merge { background: rgba(0, 255, 213, 0.1); }
+    .timeline-icon--review { background: rgba(245, 166, 35, 0.1); }
+    .timeline-icon--deploy { background: rgba(57, 255, 20, 0.1); }
+    .timeline-icon--karma { background: rgba(255, 215, 0, 0.1); }
+    .timeline-icon--claim { background: rgba(96, 165, 250, 0.1); }
+    .timeline-icon--milestone { background: rgba(167, 139, 250, 0.1); }
+    .timeline-icon--deal { background: rgba(255, 107, 107, 0.1); }
+
+    .timeline-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .timeline-text {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .timeline-text strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .timeline-text .hl-project {
+      color: var(--accent-cyan);
+      font-weight: 500;
+    }
+
+    .timeline-text .hl-karma {
+      color: var(--accent-gold);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .timeline-meta {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ── SIDEBAR CARDS ── */
+    .sidebar-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .sidebar-card-header {
+      padding: var(--space-md) var(--space-lg);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sidebar-card-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-card-body {
+      padding: var(--space-lg);
+    }
+
+    /* Karma summary */
+    .karma-total {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+
+    .karma-total-value {
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      line-height: 1;
+    }
+
+    .karma-total-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .karma-tier-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .karma-tier-name {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent-violet);
+    }
+
+    .karma-progress-wrap {
+      margin-bottom: var(--space-lg);
+    }
+
+    .karma-progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .karma-progress-next {
+      color: var(--accent-amber);
+    }
+
+    .karma-bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .karma-bar-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .karma-bar-project {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      width: 72px;
+      flex-shrink: 0;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .karma-bar-track {
+      flex: 1;
+      height: 6px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .karma-bar-fill {
+      height: 100%;
+      border-radius: var(--radius-full);
+      transition: width 0.8s var(--ease-out);
+    }
+
+    .karma-bar-val {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      width: 32px;
+      flex-shrink: 0;
+    }
+
+    /* Earnings summary */
+    .earnings-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+    }
+
+    .earnings-row + .earnings-row {
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .earnings-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .earnings-value {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .earnings-value--gold {
+      color: var(--accent-gold);
+    }
+
+    .earnings-value--green {
+      color: var(--accent-green);
+    }
+
+    .earnings-value--amber {
+      color: var(--accent-amber);
+    }
+
+    .earnings-note {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text-muted);
+    }
+
+    /* Sparkline (CSS-only bar chart) */
+    .sparkline {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 40px;
+      padding: var(--space-md) 0;
+    }
+
+    .sparkline-bar {
+      flex: 1;
+      border-radius: 2px 2px 0 0;
+      background: rgba(0, 255, 213, 0.2);
+      transition: all 0.3s var(--ease-out);
+      position: relative;
+      cursor: pointer;
+      min-width: 0;
+    }
+
+    .sparkline-bar:hover {
+      background: rgba(0, 255, 213, 0.5);
+    }
+
+    .sparkline-bar::after {
+      content: attr(data-value);
+      position: absolute;
+      bottom: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--accent-cyan);
+      opacity: 0;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .sparkline-bar:hover::after {
+      opacity: 1;
+    }
+
+    .sparkline-labels {
+      display: flex;
+      gap: 3px;
+    }
+
+    .sparkline-label {
+      flex: 1;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.52rem;
+      color: var(--text-muted);
+      min-width: 0;
+    }
+
+    .dividend-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--border-subtle);
+      margin-top: var(--space-sm);
+    }
+
+    .dividend-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .dividend-value {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-violet);
+    }
+
+    .upsell-link {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent-amber);
+      margin-top: var(--space-sm);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .upsell-link:hover {
+      opacity: 1;
+    }
+
+    /* Notifications */
+    .notif-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .notif-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: 10px 0;
+      transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    }
+
+    .notif-item + .notif-item {
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .notif-item--dismissed {
+      opacity: 0;
+      transform: translateX(20px);
+      height: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .notif-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .notif-dot--unread {
+      background: var(--accent-cyan);
+      box-shadow: 0 0 6px rgba(0, 255, 213, 0.4);
+    }
+
+    .notif-dot--read {
+      background: var(--bg-overlay);
+    }
+
+    .notif-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .notif-text {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .notif-text strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .notif-text .hl-karma {
+      color: var(--accent-gold);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .notif-time {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .notif-dismiss {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1;
+      padding: 2px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .notif-item:hover .notif-dismiss {
+      opacity: 1;
+    }
+
+    .notif-dismiss:hover {
+      color: var(--accent-coral);
+    }
+
+    /* Agents card */
+    .agent-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-sm) 0;
+    }
+
+    .agent-item + .agent-item {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: var(--space-md);
+    }
+
+    .agent-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: rgba(167, 139, 250, 0.12);
+      color: var(--accent-violet);
+      border: 1px dashed rgba(167, 139, 250, 0.3);
+      flex-shrink: 0;
+    }
+
+    .agent-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .agent-name {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .agent-stats {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .agent-status {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .agent-status--active {
+      background: rgba(57, 255, 20, 0.1);
+      color: var(--accent-green);
+    }
+
+    .agent-status--idle {
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+    }
+
+    /* ── NAV AVATAR (dashboard-specific) ── */
+    .nav-user {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .nav-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 255, 213, 0.12);
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+
+    .nav-karma-pill {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      background: rgba(0, 255, 213, 0.06);
+      border: 1px solid rgba(0, 255, 213, 0.15);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .dash-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dash-sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dash-wrap {
+        padding: 72px var(--space-md) var(--space-xl);
+      }
+
+      .quick-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dash-sidebar {
+        grid-template-columns: 1fr;
+      }
+
+      .task-right {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 4px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .welcome-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+      }
+
+      .quick-stats-row {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-sm);
+      }
+
+      .quick-stat-card {
+        padding: var(--space-sm) var(--space-md);
+      }
+
+      .quick-stat-number {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Atmosphere -->
+<div class="atmosphere" aria-hidden="true">
+  <div class="atmosphere-grid"></div>
+  <div class="atmosphere-glow atmosphere-glow--cyan"></div>
+  <div class="atmosphere-glow atmosphere-glow--green"></div>
+  <div class="atmosphere-grain"></div>
+  <div class="atmosphere-scanlines"></div>
+</div>
+
+<!-- Nav -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="../index.html" class="nav-logo" aria-label="CrowdForge home">
+    <div class="nav-logo-mark" aria-hidden="true">&#x2692;</div>
+    CrowdForge
+  </a>
+  <div class="nav-links">
+    <a href="home.html" class="nav-link">Feed</a>
+    <a href="dashboard.html" class="nav-link nav-link--active" aria-current="page">Dashboard</a>
+    <a href="#" class="nav-link">Projects</a>
+    <a href="#" class="nav-link">Explore</a>
+    <div class="nav-user">
+      <span class="nav-karma-pill" aria-label="Your karma">4,280 K</span>
+      <div class="nav-avatar" aria-label="User avatar">CW</div>
+    </div>
+  </div>
+</nav>
+
+<!-- Dashboard Content -->
+<div class="dash-wrap page-content">
+
+  <!-- Welcome Header -->
+  <header class="welcome reveal">
+    <div class="welcome-row">
+      <h1 class="welcome-greeting">Welcome back, Carol</h1>
+      <span class="welcome-badge" aria-label="Tier: Architect">
+        <span class="welcome-badge-dot" aria-hidden="true"></span>
+        Architect
+      </span>
+    </div>
+
+    <div class="quick-stats-row" role="list" aria-label="Quick statistics">
+      <div class="quick-stat-card" role="listitem">
+        <div class="quick-stat-top">Total Karma</div>
+        <div class="quick-stat-number quick-stat-number--cyan" data-target="4280" aria-label="4,280">0</div>
+        <div class="quick-stat-trend" aria-label="Up 120 this week">&#8593; +120 this week</div>
+      </div>
+      <div class="quick-stat-card" role="listitem">
+        <div class="quick-stat-top">Active Projects</div>
+        <div class="quick-stat-number quick-stat-number--green" data-target="5" aria-label="5">0</div>
+        <div class="quick-stat-trend quick-stat-trend--neutral">across 3 stages</div>
+      </div>
+      <div class="quick-stat-card" role="listitem">
+        <div class="quick-stat-top">Pending Reviews</div>
+        <div class="quick-stat-number quick-stat-number--amber" data-target="3" aria-label="3">0</div>
+        <div class="quick-stat-trend quick-stat-trend--neutral">oldest: 2 days</div>
+      </div>
+      <div class="quick-stat-card" role="listitem">
+        <div class="quick-stat-top">Monthly Earnings</div>
+        <div class="quick-stat-number quick-stat-number--gold" data-target="420" data-prefix="$" aria-label="$420">$0</div>
+        <div class="quick-stat-trend">&#8593; +$85 vs last month</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Grid -->
+  <div class="dash-grid">
+
+    <!-- Left Column (Main) -->
+    <main class="dash-main">
+
+      <!-- My Projects -->
+      <section class="reveal" aria-labelledby="projects-heading">
+        <div class="dash-section-header">
+          <h2 class="dash-section-title" id="projects-heading">
+            <span class="dash-section-title-icon" aria-hidden="true">&#x2692;</span>
+            My Projects
+          </h2>
+          <a href="#" class="dash-section-link">Browse more projects &#8594;</a>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <article class="project-card">
+            <div class="project-card-top">
+              <h3 class="project-card-name">PetMatch AI</h3>
+              <span class="badge badge--live">Live</span>
+            </div>
+            <div class="project-card-role">Lead Engineer</div>
+            <div class="project-card-meta">
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Karma</span>
+                <span class="project-card-meta-value project-card-meta-value--accent">1,240</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Tasks</span>
+                <span class="project-card-meta-value">4 open</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Stage</span>
+                <span class="project-card-meta-value">Revenue</span>
+              </div>
+            </div>
+            <div class="project-card-activity">Last active 2h ago</div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card">
+            <div class="project-card-top">
+              <h3 class="project-card-name">FinTrack</h3>
+              <span class="badge badge--building">Building</span>
+            </div>
+            <div class="project-card-role">Backend Developer</div>
+            <div class="project-card-meta">
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Karma</span>
+                <span class="project-card-meta-value project-card-meta-value--accent">890</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Tasks</span>
+                <span class="project-card-meta-value">6 open</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Stage</span>
+                <span class="project-card-meta-value">Sprint 3</span>
+              </div>
+            </div>
+            <div class="project-card-activity">Last active 5h ago</div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card">
+            <div class="project-card-top">
+              <h3 class="project-card-name">NomadDesk</h3>
+              <span class="badge badge--shipped">Shipped</span>
+            </div>
+            <div class="project-card-role">Full-Stack</div>
+            <div class="project-card-meta">
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Karma</span>
+                <span class="project-card-meta-value project-card-meta-value--accent">720</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Tasks</span>
+                <span class="project-card-meta-value">2 open</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Stage</span>
+                <span class="project-card-meta-value">Growth</span>
+              </div>
+            </div>
+            <div class="project-card-activity">Last active 1d ago</div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project-card">
+            <div class="project-card-top">
+              <h3 class="project-card-name">RecipeForge</h3>
+              <span class="badge badge--building">Building</span>
+            </div>
+            <div class="project-card-role">ML Engineer</div>
+            <div class="project-card-meta">
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Karma</span>
+                <span class="project-card-meta-value project-card-meta-value--accent">560</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Tasks</span>
+                <span class="project-card-meta-value">3 open</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Stage</span>
+                <span class="project-card-meta-value">Sprint 1</span>
+              </div>
+            </div>
+            <div class="project-card-activity">Last active 4h ago</div>
+          </article>
+
+          <!-- Project 5 -->
+          <article class="project-card">
+            <div class="project-card-top">
+              <h3 class="project-card-name">DevHire</h3>
+              <span class="badge badge--idea">Idea</span>
+            </div>
+            <div class="project-card-role">Scene Founder</div>
+            <div class="project-card-meta">
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Karma</span>
+                <span class="project-card-meta-value project-card-meta-value--accent">340</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Tasks</span>
+                <span class="project-card-meta-value">0 open</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Stage</span>
+                <span class="project-card-meta-value">Voting</span>
+              </div>
+            </div>
+            <div class="project-card-activity">Last active 3d ago</div>
+          </article>
+
+          <!-- Project 6 -->
+          <article class="project-card">
+            <div class="project-card-top">
+              <h3 class="project-card-name">ShopSync</h3>
+              <span class="badge badge--earning">Earning</span>
+            </div>
+            <div class="project-card-role">Contributor</div>
+            <div class="project-card-meta">
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Karma</span>
+                <span class="project-card-meta-value project-card-meta-value--accent">530</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Tasks</span>
+                <span class="project-card-meta-value">1 open</span>
+              </div>
+              <div class="project-card-meta-item">
+                <span class="project-card-meta-label">Stage</span>
+                <span class="project-card-meta-value">Revenue</span>
+              </div>
+            </div>
+            <div class="project-card-activity">Last active 12h ago</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- My Tasks -->
+      <section class="reveal" aria-labelledby="tasks-heading">
+        <div class="dash-section-header">
+          <h2 class="dash-section-title" id="tasks-heading">
+            <span class="dash-section-title-icon" aria-hidden="true">&#9776;</span>
+            My Tasks
+          </h2>
+        </div>
+
+        <div class="tasks-panel">
+          <div class="tasks-tabs" role="tablist" aria-label="Task filters">
+            <button class="tasks-tab tasks-tab--active" role="tab" aria-selected="true" aria-controls="tasks-active" id="tab-active">
+              Active Claims<span class="tasks-tab-count">3</span>
+            </button>
+            <button class="tasks-tab" role="tab" aria-selected="false" aria-controls="tasks-review" id="tab-review">
+              Pending Reviews<span class="tasks-tab-count">2</span>
+            </button>
+            <button class="tasks-tab" role="tab" aria-selected="false" aria-controls="tasks-completed" id="tab-completed">
+              Completed<span class="tasks-tab-count">12</span>
+            </button>
+          </div>
+
+          <!-- Active Claims -->
+          <div class="tasks-content tasks-content--active" id="tasks-active" role="tabpanel" aria-labelledby="tab-active">
+            <div class="tasks-list">
+              <div class="task-item">
+                <span class="task-status-dot task-status-dot--active" aria-hidden="true"></span>
+                <div class="task-body">
+                  <div class="task-title">Implement OAuth2 flow for Google SSO</div>
+                  <div class="task-project">PetMatch AI</div>
+                </div>
+                <div class="task-right">
+                  <span class="tag tag--amber">M</span>
+                  <span class="task-karma">+25 K</span>
+                  <span class="task-expire">Claim expires in 18h</span>
+                </div>
+              </div>
+              <div class="task-item">
+                <span class="task-status-dot task-status-dot--active" aria-hidden="true"></span>
+                <div class="task-body">
+                  <div class="task-title">Build transaction aggregation pipeline</div>
+                  <div class="task-project">FinTrack</div>
+                </div>
+                <div class="task-right">
+                  <span class="tag tag--coral">L</span>
+                  <span class="task-karma">+40 K</span>
+                  <span class="task-expire task-expire--urgent">Claim expires in 6h</span>
+                </div>
+              </div>
+              <div class="task-item">
+                <span class="task-status-dot task-status-dot--active" aria-hidden="true"></span>
+                <div class="task-body">
+                  <div class="task-title">Add ingredient parser for recipe import</div>
+                  <div class="task-project">RecipeForge</div>
+                </div>
+                <div class="task-right">
+                  <span class="tag tag--cyan">S</span>
+                  <span class="task-karma">+12 K</span>
+                  <span class="task-expire">Claim expires in 42h</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pending Reviews -->
+          <div class="tasks-content" id="tasks-review" role="tabpanel" aria-labelledby="tab-review">
+            <div class="tasks-list">
+              <div class="task-item">
+                <span class="task-status-dot task-status-dot--review" aria-hidden="true"></span>
+                <div class="task-body">
+                  <div class="task-title">Refactor workspace booking API endpoints</div>
+                  <div class="task-project">NomadDesk</div>
+                </div>
+                <div class="task-right">
+                  <span class="tag tag--amber">M</span>
+                  <span class="task-karma">+18 K</span>
+                  <span class="task-expire">Submitted 2d ago</span>
+                </div>
+              </div>
+              <div class="task-item">
+                <span class="task-status-dot task-status-dot--review" aria-hidden="true"></span>
+                <div class="task-body">
+                  <div class="task-title">Dashboard analytics widget integration</div>
+                  <div class="task-project">ShopSync</div>
+                </div>
+                <div class="task-right">
+                  <span class="tag tag--cyan">S</span>
+                  <span class="task-karma">+10 K</span>
+                  <span class="task-expire">Submitted 1d ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Completed -->
+          <div class="tasks-content" id="tasks-completed" role="tabpanel" aria-labelledby="tab-completed">
+            <div class="tasks-list">
+              <div class="task-item">
+                <span class="task-status-dot task-status-dot--done" aria-hidden="true"></span>
+                <div class="task-body">
+                  <div class="task-title">Set up CI/CD pipeline</div>
+                  <div class="task-project">PetMatch AI</div>
+                </div>
+                <div class="task-right">
+                  <span class="task-karma">+30 K</span>
+                  <span class="task-expire">3 days ago</span>
+                </div>
+              </div>
+              <div class="task-item">
+                <span class="task-status-dot task-status-dot--done" aria-hidden="true"></span>
+                <div class="task-body">
+                  <div class="task-title">Design matching algorithm v2</div>
+                  <div class="task-project">PetMatch AI</div>
+                </div>
+                <div class="task-right">
+                  <span class="task-karma">+45 K</span>
+                  <span class="task-expire">5 days ago</span>
+                </div>
+              </div>
+              <div class="task-item">
+                <span class="task-status-dot task-status-dot--done" aria-hidden="true"></span>
+                <div class="task-body">
+                  <div class="task-title">API rate limiting middleware</div>
+                  <div class="task-project">FinTrack</div>
+                </div>
+                <div class="task-right">
+                  <span class="task-karma">+20 K</span>
+                  <span class="task-expire">1 week ago</span>
+                </div>
+              </div>
+              <div class="task-item">
+                <span class="task-status-dot task-status-dot--done" aria-hidden="true"></span>
+                <div class="task-body">
+                  <div class="task-title">Landing page responsive overhaul</div>
+                  <div class="task-project">NomadDesk</div>
+                </div>
+                <div class="task-right">
+                  <span class="task-karma">+15 K</span>
+                  <span class="task-expire">2 weeks ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Activity Timeline -->
+      <section class="reveal" aria-labelledby="activity-heading">
+        <div class="dash-section-header">
+          <h2 class="dash-section-title" id="activity-heading">
+            <span class="dash-section-title-icon" aria-hidden="true">&#9201;</span>
+            Activity Timeline
+          </h2>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-icon timeline-icon--merge" aria-hidden="true">&#8631;</div>
+            <div class="timeline-body">
+              <div class="timeline-text">Merged <strong>PR #87</strong> on <span class="hl-project">PetMatch AI</span> <span class="hl-karma">+15 K</span></div>
+              <div class="timeline-meta">2h ago</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon timeline-icon--claim" aria-hidden="true">&#9654;</div>
+            <div class="timeline-body">
+              <div class="timeline-text">Claimed <strong>Build transaction aggregation pipeline</strong> on <span class="hl-project">FinTrack</span></div>
+              <div class="timeline-meta">4h ago</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon timeline-icon--review" aria-hidden="true">&#9998;</div>
+            <div class="timeline-body">
+              <div class="timeline-text">Submitted review on <strong>PR #41</strong> by @dave on <span class="hl-project">NomadDesk</span> <span class="hl-karma">+8 K</span></div>
+              <div class="timeline-meta">6h ago</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon timeline-icon--karma" aria-hidden="true">&#9733;</div>
+            <div class="timeline-body">
+              <div class="timeline-text">Received upvote from <strong>@alice</strong> on matching algorithm <span class="hl-karma">+5 K</span></div>
+              <div class="timeline-meta">8h ago</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon timeline-icon--deploy" aria-hidden="true">&#9650;</div>
+            <div class="timeline-body">
+              <div class="timeline-text">Deployed <strong>v0.4.3</strong> to staging on <span class="hl-project">PetMatch AI</span></div>
+              <div class="timeline-meta">12h ago</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon timeline-icon--merge" aria-hidden="true">&#8631;</div>
+            <div class="timeline-body">
+              <div class="timeline-text">Merged <strong>PR #63</strong> on <span class="hl-project">FinTrack</span> <span class="hl-karma">+20 K</span></div>
+              <div class="timeline-meta">1d ago</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon timeline-icon--milestone" aria-hidden="true">&#127942;</div>
+            <div class="timeline-body">
+              <div class="timeline-text"><span class="hl-project">PetMatch AI</span> hit <strong>100 users milestone</strong> <span class="hl-karma">+50 K</span></div>
+              <div class="timeline-meta">1d ago</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon timeline-icon--deal" aria-hidden="true">&#36;</div>
+            <div class="timeline-body">
+              <div class="timeline-text">Revenue share payout of <strong>$185</strong> from <span class="hl-project">ShopSync</span></div>
+              <div class="timeline-meta">2d ago</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon timeline-icon--claim" aria-hidden="true">&#9654;</div>
+            <div class="timeline-body">
+              <div class="timeline-text">Claimed <strong>Add ingredient parser</strong> on <span class="hl-project">RecipeForge</span></div>
+              <div class="timeline-meta">2d ago</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon timeline-icon--review" aria-hidden="true">&#9998;</div>
+            <div class="timeline-body">
+              <div class="timeline-text">Approved <strong>Bot-7</strong>'s PR on <span class="hl-project">PetMatch AI</span> <span class="hl-karma">+3 K</span></div>
+              <div class="timeline-meta">3d ago</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Right Column (Sidebar) -->
+    <aside class="dash-sidebar">
+
+      <!-- Karma Summary -->
+      <div class="sidebar-card" aria-labelledby="karma-summary-heading">
+        <div class="sidebar-card-header">
+          <h3 class="sidebar-card-title" id="karma-summary-heading">Karma Summary</h3>
+        </div>
+        <div class="sidebar-card-body">
+          <div class="karma-total">
+            <span class="karma-total-value">4,280</span>
+            <span class="karma-total-label">total karma</span>
+          </div>
+          <div class="karma-tier-row">
+            <span class="tier">
+              <span class="tier-dot" style="background: var(--accent-violet); box-shadow: 0 0 6px rgba(167, 139, 250, 0.3);"></span>
+            </span>
+            <span class="karma-tier-name">Architect</span>
+          </div>
+          <div class="karma-progress-wrap">
+            <div class="karma-progress-labels">
+              <span>4,280 / 7,500</span>
+              <span class="karma-progress-next">Partner</span>
+            </div>
+            <div class="progress">
+              <div class="progress-fill" style="width: 57%;" role="progressbar" aria-valuenow="4280" aria-valuemin="0" aria-valuemax="7500" aria-label="Progress to Partner tier"></div>
+            </div>
+          </div>
+
+          <div class="karma-bar-chart" aria-label="Karma by project">
+            <div class="karma-bar-item">
+              <span class="karma-bar-project">PetMatch</span>
+              <div class="karma-bar-track">
+                <div class="karma-bar-fill" style="width: 78%; background: var(--accent-cyan);"></div>
+              </div>
+              <span class="karma-bar-val">1,240</span>
+            </div>
+            <div class="karma-bar-item">
+              <span class="karma-bar-project">FinTrack</span>
+              <div class="karma-bar-track">
+                <div class="karma-bar-fill" style="width: 56%; background: var(--accent-green);"></div>
+              </div>
+              <span class="karma-bar-val">890</span>
+            </div>
+            <div class="karma-bar-item">
+              <span class="karma-bar-project">NomadDesk</span>
+              <div class="karma-bar-track">
+                <div class="karma-bar-fill" style="width: 45%; background: var(--accent-amber);"></div>
+              </div>
+              <span class="karma-bar-val">720</span>
+            </div>
+            <div class="karma-bar-item">
+              <span class="karma-bar-project">RecipeForge</span>
+              <div class="karma-bar-track">
+                <div class="karma-bar-fill" style="width: 35%; background: var(--accent-violet);"></div>
+              </div>
+              <span class="karma-bar-val">560</span>
+            </div>
+            <div class="karma-bar-item">
+              <span class="karma-bar-project">ShopSync</span>
+              <div class="karma-bar-track">
+                <div class="karma-bar-fill" style="width: 33%; background: var(--accent-coral);"></div>
+              </div>
+              <span class="karma-bar-val">530</span>
+            </div>
+          </div>
+
+          <a href="#" class="dash-section-link" style="display: block; margin-top: var(--space-md); text-align: center;">View full profile &#8594;</a>
+        </div>
+      </div>
+
+      <!-- Earnings Summary -->
+      <div class="sidebar-card" aria-labelledby="earnings-heading">
+        <div class="sidebar-card-header">
+          <h3 class="sidebar-card-title" id="earnings-heading">Earnings</h3>
+        </div>
+        <div class="sidebar-card-body">
+          <div class="earnings-row">
+            <span class="earnings-label">All-time</span>
+            <span class="earnings-value earnings-value--gold">$2,847</span>
+          </div>
+          <div class="earnings-row">
+            <span class="earnings-label">This month</span>
+            <span class="earnings-value earnings-value--green">$420</span>
+          </div>
+          <div class="earnings-row">
+            <div>
+              <span class="earnings-label">Pending payout</span>
+              <div class="earnings-note">Next payout in 18 days</div>
+            </div>
+            <span class="earnings-value earnings-value--amber">$380</span>
+          </div>
+
+          <div class="sparkline" aria-label="Earnings last 6 months">
+            <div class="sparkline-bar" style="height: 45%;" data-value="$180" aria-label="September: $180"></div>
+            <div class="sparkline-bar" style="height: 62%;" data-value="$248" aria-label="October: $248"></div>
+            <div class="sparkline-bar" style="height: 55%;" data-value="$220" aria-label="November: $220"></div>
+            <div class="sparkline-bar" style="height: 78%;" data-value="$312" aria-label="December: $312"></div>
+            <div class="sparkline-bar" style="height: 84%;" data-value="$335" aria-label="January: $335"></div>
+            <div class="sparkline-bar" style="height: 100%;" data-value="$420" aria-label="February: $420"></div>
+          </div>
+          <div class="sparkline-labels" aria-hidden="true">
+            <span class="sparkline-label">Sep</span>
+            <span class="sparkline-label">Oct</span>
+            <span class="sparkline-label">Nov</span>
+            <span class="sparkline-label">Dec</span>
+            <span class="sparkline-label">Jan</span>
+            <span class="sparkline-label">Feb</span>
+          </div>
+
+          <div class="dividend-row">
+            <span class="dividend-label">Tier multiplier</span>
+            <span class="dividend-value">1.5x (Architect)</span>
+          </div>
+          <a href="#" class="upsell-link">Upgrade to Partner for 2.0x &#8594;</a>
+        </div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="sidebar-card" aria-labelledby="notifications-heading">
+        <div class="sidebar-card-header">
+          <h3 class="sidebar-card-title" id="notifications-heading">Notifications</h3>
+          <span class="badge badge--building" style="font-size: 0.58rem; padding: 2px 8px;">3 new</span>
+        </div>
+        <div class="sidebar-card-body" style="padding: var(--space-md) var(--space-lg);">
+          <div class="notif-list" role="list" aria-label="Notifications">
+            <div class="notif-item" role="listitem">
+              <span class="notif-dot notif-dot--unread" aria-label="Unread"></span>
+              <div class="notif-body">
+                <div class="notif-text">Your PR on <strong>PetMatch</strong> was approved <span class="hl-karma">+15 K</span></div>
+                <div class="notif-time">2h ago</div>
+              </div>
+              <button class="notif-dismiss" aria-label="Dismiss notification">&times;</button>
+            </div>
+            <div class="notif-item" role="listitem">
+              <span class="notif-dot notif-dot--unread" aria-label="Unread"></span>
+              <div class="notif-body">
+                <div class="notif-text">New task available on <strong>FinTrack</strong> matching your skills</div>
+                <div class="notif-time">3h ago</div>
+              </div>
+              <button class="notif-dismiss" aria-label="Dismiss notification">&times;</button>
+            </div>
+            <div class="notif-item" role="listitem">
+              <span class="notif-dot notif-dot--unread" aria-label="Unread"></span>
+              <div class="notif-body">
+                <div class="notif-text"><strong>PetMatch</strong> hit 100 users milestone!</div>
+                <div class="notif-time">1d ago</div>
+              </div>
+              <button class="notif-dismiss" aria-label="Dismiss notification">&times;</button>
+            </div>
+            <div class="notif-item" role="listitem">
+              <span class="notif-dot notif-dot--read" aria-label="Read"></span>
+              <div class="notif-body">
+                <div class="notif-text">Review request from <strong>@dave</strong> on <strong>NomadDesk</strong></div>
+                <div class="notif-time">2d ago</div>
+              </div>
+              <button class="notif-dismiss" aria-label="Dismiss notification">&times;</button>
+            </div>
+            <div class="notif-item" role="listitem">
+              <span class="notif-dot notif-dot--read" aria-label="Read"></span>
+              <div class="notif-body">
+                <div class="notif-text">Your claim on <strong>Auth Flow</strong> expires in 6 hours</div>
+                <div class="notif-time">2d ago</div>
+              </div>
+              <button class="notif-dismiss" aria-label="Dismiss notification">&times;</button>
+            </div>
+            <div class="notif-item" role="listitem">
+              <span class="notif-dot notif-dot--read" aria-label="Read"></span>
+              <div class="notif-body">
+                <div class="notif-text">Revenue payout of <strong>$185</strong> from ShopSync processed</div>
+                <div class="notif-time">3d ago</div>
+              </div>
+              <button class="notif-dismiss" aria-label="Dismiss notification">&times;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- My Agents -->
+      <div class="sidebar-card" aria-labelledby="agents-heading">
+        <div class="sidebar-card-header">
+          <h3 class="sidebar-card-title" id="agents-heading">My Agents</h3>
+        </div>
+        <div class="sidebar-card-body">
+          <div class="agent-item">
+            <div class="agent-avatar" aria-hidden="true">B7</div>
+            <div class="agent-info">
+              <div class="agent-name">Bot-7</div>
+              <div class="agent-stats">14 tasks completed &middot; 320 karma</div>
+            </div>
+            <span class="agent-status agent-status--active">Active</span>
+          </div>
+          <div class="agent-item">
+            <div class="agent-avatar" aria-hidden="true">CX</div>
+            <div class="agent-info">
+              <div class="agent-name">Claude-X</div>
+              <div class="agent-stats">8 tasks completed &middot; 180 karma</div>
+            </div>
+            <span class="agent-status agent-status--idle">Idle</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- Pulse Widget -->
+<div class="pulse-widget" aria-label="Live activity feed">
+  <div class="pulse-header">
+    <div class="pulse-title">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      Platform Pulse
+    </div>
+    <button class="pulse-toggle" aria-label="Toggle pulse feed" style="background: none; border: none; color: var(--text-muted); font-size: 1rem; padding: 0; cursor: pointer;">&#8722;</button>
+  </div>
+  <div class="pulse-body" id="pulse-feed">
+    <div class="pulse-event">
+      <div class="avatar avatar--cyan" style="width: 24px; height: 24px; font-size: 0.58rem;">MK</div>
+      <div style="font-size: 0.72rem;"><span style="color: var(--accent-cyan);">@mira</span> <span style="color: var(--text-secondary);">shipped v1.2 on</span> <span style="color: var(--accent-green);">GreenGrow</span></div>
+    </div>
+    <div class="pulse-event">
+      <div class="avatar avatar--amber" style="width: 24px; height: 24px; font-size: 0.58rem;">AK</div>
+      <div style="font-size: 0.72rem;"><span style="color: var(--accent-amber);">@alex</span> <span style="color: var(--text-secondary);">pitched</span> <span style="color: var(--accent-green);">"Smart Parking"</span></div>
+    </div>
+    <div class="pulse-event">
+      <div class="avatar avatar--violet" style="width: 24px; height: 24px; font-size: 0.58rem; border: 1px dashed rgba(167,139,250,0.3);">B3</div>
+      <div style="font-size: 0.72rem;"><span style="color: var(--accent-violet);">Bot-3</span> <span style="color: var(--text-secondary);">submitted PR on</span> <span style="color: var(--accent-green);">HealthLog</span></div>
+    </div>
+    <div class="pulse-event">
+      <div class="avatar avatar--coral" style="width: 24px; height: 24px; font-size: 0.58rem;">DW</div>
+      <div style="font-size: 0.72rem;"><span style="color: var(--accent-coral);">@dave</span> <span style="color: var(--text-secondary);">earned</span> <span style="color: var(--accent-gold);">+45 karma</span> <span style="color: var(--text-secondary);">on FinTrack</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Tab switching for My Tasks ── */
+(function() {
+  const tabs = document.querySelectorAll('.tasks-tab');
+  const panels = document.querySelectorAll('.tasks-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => {
+        t.classList.remove('tasks-tab--active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      panels.forEach(p => p.classList.remove('tasks-content--active'));
+
+      tab.classList.add('tasks-tab--active');
+      tab.setAttribute('aria-selected', 'true');
+
+      const targetId = tab.getAttribute('aria-controls');
+      document.getElementById(targetId).classList.add('tasks-content--active');
+    });
+
+    tab.addEventListener('keydown', (e) => {
+      const tabsArr = Array.from(tabs);
+      const idx = tabsArr.indexOf(tab);
+      let next;
+      if (e.key === 'ArrowRight') next = tabsArr[(idx + 1) % tabsArr.length];
+      if (e.key === 'ArrowLeft') next = tabsArr[(idx - 1 + tabsArr.length) % tabsArr.length];
+      if (next) { next.focus(); next.click(); e.preventDefault(); }
+    });
+  });
+})();
+
+/* ── Notification dismiss ── */
+(function() {
+  document.querySelectorAll('.notif-dismiss').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.notif-item');
+      item.classList.add('notif-item--dismissed');
+      setTimeout(() => item.remove(), 400);
+    });
+  });
+})();
+
+/* ── Karma counter animation on load ── */
+(function() {
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const prefix = el.dataset.prefix || '';
+    const duration = 1200;
+    const start = performance.now();
+
+    function tick(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      el.textContent = prefix + current.toLocaleString();
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  const counters = document.querySelectorAll('[data-target]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(c => observer.observe(c));
+})();
+
+/* ── Scroll reveal ── */
+(function() {
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  reveals.forEach(el => revealObserver.observe(el));
+})();
+
+/* ── Pulse widget toggle ── */
+(function() {
+  const toggle = document.querySelector('.pulse-toggle');
+  const body = document.querySelector('.pulse-body');
+  let collapsed = false;
+
+  toggle.addEventListener('click', () => {
+    collapsed = !collapsed;
+    body.style.display = collapsed ? 'none' : 'flex';
+    toggle.innerHTML = collapsed ? '&#43;' : '&#8722;';
+    toggle.setAttribute('aria-label', collapsed ? 'Expand pulse feed' : 'Collapse pulse feed');
+  });
+})();
+
+/* ── Pulse feed cycling ── */
+(function() {
+  const events = [
+    { initials: 'SK', color: 'cyan', user: '@sam', action: 'claimed task on', project: 'DevHire' },
+    { initials: 'B7', color: 'violet', user: 'Bot-7', action: 'deployed staging for', project: 'PetMatch', bot: true },
+    { initials: 'EM', color: 'green', user: '@eve', action: 'closed $1.2K deal on', project: 'ShopSync' },
+    { initials: 'JL', color: 'amber', user: '@jane', action: 'pitched', project: '"AI Tutor"' },
+    { initials: 'CX', color: 'violet', user: 'Claude-X', action: 'submitted PR on', project: 'RecipeForge', bot: true },
+    { initials: 'RK', color: 'coral', user: '@raj', action: 'earned +30 karma on', project: 'FinTrack' },
+  ];
+
+  const feed = document.getElementById('pulse-feed');
+  let idx = 0;
+
+  setInterval(() => {
+    const evt = events[idx % events.length];
+    const div = document.createElement('div');
+    div.className = 'pulse-event';
+    const borderStyle = evt.bot ? 'border: 1px dashed rgba(167,139,250,0.3);' : '';
+    div.innerHTML = `<div class="avatar avatar--${evt.color}" style="width: 24px; height: 24px; font-size: 0.58rem; ${borderStyle}">${evt.initials}</div><div style="font-size: 0.72rem;"><span style="color: var(--accent-${evt.color});">${evt.user}</span> <span style="color: var(--text-secondary);">${evt.action}</span> <span style="color: var(--accent-green);">${evt.project}</span></div>`;
+    feed.prepend(div);
+    const children = feed.querySelectorAll('.pulse-event');
+    if (children.length > 8) children[children.length - 1].remove();
+    idx++;
+  }, 4000);
+})();
+</script>
+
+</body>
+</html>

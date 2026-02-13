@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carol Washington — CrowdForge Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/design-system.css">
+<style>
+/* ── PROFILE HEADER ── */
+.profile-header {
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--space-3xl) 0 var(--space-xl);
+  margin-top: 60px;
+}
+
+.profile-top {
+  display: flex;
+  gap: var(--space-xl);
+  align-items: flex-start;
+}
+
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--bg-deep);
+  background: linear-gradient(135deg, var(--accent-violet), #c4b5fd);
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: 0 0 0 3px var(--bg-elevated), 0 0 0 5px rgba(167, 139, 250, 0.4), 0 0 24px rgba(167, 139, 250, 0.25);
+}
+
+.profile-avatar::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: calc(var(--radius-lg) + 3px);
+  border: 2px solid rgba(167, 139, 250, 0.3);
+  animation: avatar-ring-pulse 3s ease-in-out infinite;
+}
+
+@keyframes avatar-ring-pulse {
+  0%, 100% { opacity: 0.4; box-shadow: 0 0 8px rgba(167, 139, 250, 0.15); }
+  50% { opacity: 1; box-shadow: 0 0 20px rgba(167, 139, 250, 0.3); }
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-xs);
+}
+
+.profile-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.8rem;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.profile-handle {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.profile-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-karma-display {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  margin: var(--space-sm) 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.profile-karma-display .karma-unit {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.profile-bio {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+  max-width: 560px;
+}
+
+.profile-stats-row {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+
+.profile-stat {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-stat strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.profile-stat-sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+/* Tier progress bar */
+.tier-progress {
+  margin-bottom: var(--space-lg);
+  max-width: 480px;
+}
+
+.tier-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  margin-bottom: var(--space-sm);
+}
+
+.tier-progress-current {
+  color: var(--accent-violet);
+}
+
+.tier-progress-next {
+  color: var(--text-muted);
+}
+
+.tier-progress-bar {
+  height: 6px;
+  background: var(--bg-overlay);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.tier-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--accent-violet), var(--accent-amber));
+  width: 0%;
+  transition: width 1.2s var(--ease-out);
+}
+
+.tier-progress-remaining {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.tier-progress-remaining span {
+  color: var(--accent-amber);
+}
+
+.profile-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+/* ── TIER LADDER ── */
+.tier-ladder-section {
+  padding: var(--space-xl) 0 var(--space-lg);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.tier-ladder {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  padding: var(--space-lg) 0;
+  overflow-x: auto;
+}
+
+.tier-ladder-track {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.tier-ladder-line {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--bg-overlay);
+  z-index: 0;
+}
+
+.tier-ladder-line-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan), var(--accent-violet));
+  border-radius: var(--radius-full);
+  transition: width 1.5s var(--ease-out);
+}
+
+.tier-ladder-nodes {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.tier-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 100px;
+  flex: 1;
+}
+
+.tier-node-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg-overlay);
+  border: 2px solid var(--text-muted);
+  transition: all 0.5s var(--ease-out);
+  position: relative;
+}
+
+.tier-node--reached .tier-node-dot {
+  border-color: transparent;
+}
+
+.tier-node--observer .tier-node-dot { background: var(--text-muted); border-color: var(--text-muted); }
+.tier-node--contributor .tier-node-dot { background: var(--accent-blue); border-color: var(--accent-blue); box-shadow: 0 0 8px rgba(96, 165, 250, 0.3); }
+.tier-node--builder .tier-node-dot { background: var(--accent-cyan); border-color: var(--accent-cyan); box-shadow: 0 0 8px rgba(0, 255, 213, 0.3); }
+.tier-node--architect .tier-node-dot { background: var(--accent-violet); border-color: var(--accent-violet); box-shadow: 0 0 8px rgba(167, 139, 250, 0.3); }
+
+.tier-node--current .tier-node-dot {
+  width: 16px;
+  height: 16px;
+  animation: tier-current-pulse 2s ease-in-out infinite;
+}
+
+@keyframes tier-current-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(167, 139, 250, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(167, 139, 250, 0.6), 0 0 40px rgba(167, 139, 250, 0.2); }
+}
+
+.tier-node--future .tier-node-dot {
+  background: var(--bg-overlay);
+  opacity: 0.5;
+}
+
+.tier-node-name {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.tier-node--reached .tier-node-name { color: var(--text-primary); }
+.tier-node--current .tier-node-name { color: var(--accent-violet); font-weight: 600; }
+.tier-node--future .tier-node-name { color: var(--text-muted); }
+
+.tier-node-threshold {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+.tier-node-multiplier {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+}
+
+.tier-node--reached .tier-node-multiplier { color: var(--accent-cyan); border-color: rgba(0, 255, 213, 0.15); }
+.tier-node--current .tier-node-multiplier { color: var(--accent-violet); border-color: rgba(167, 139, 250, 0.2); background: rgba(167, 139, 250, 0.08); }
+.tier-node--future .tier-node-multiplier { color: var(--text-muted); }
+
+.tier-benefits {
+  margin-top: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(167, 139, 250, 0.04);
+  border: 1px solid rgba(167, 139, 250, 0.1);
+  border-radius: var(--radius-md);
+  display: flex;
+  gap: var(--space-xl);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tier-benefits-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-violet);
+  white-space: nowrap;
+}
+
+.tier-benefits-list {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.tier-benefit {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tier-benefit::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-violet);
+  box-shadow: 0 0 4px rgba(167, 139, 250, 0.4);
+}
+
+/* ── TABS SECTION ── */
+.profile-tabs-section {
+  padding: var(--space-lg) 0 var(--space-3xl);
+}
+
+.profile-tabs {
+  margin-bottom: var(--space-xl);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel--active {
+  display: block;
+  animation: tab-fade 0.4s var(--ease-out);
+}
+
+@keyframes tab-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── PROJECTS GRID ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.project-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: all 0.4s var(--ease-out);
+}
+
+.project-card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.project-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
+}
+
+.project-card-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.project-card-meta {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  margin-bottom: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.project-card-role {
+  color: var(--text-secondary);
+}
+
+.project-card-karma {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.project-card-karma-value {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+}
+
+.project-card-karma-bar {
+  flex: 1;
+  max-width: 100px;
+  height: 4px;
+  background: var(--bg-overlay);
+  border-radius: var(--radius-full);
+  margin-left: var(--space-md);
+  overflow: hidden;
+}
+
+.project-card-karma-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+}
+
+/* ── CONTRIBUTIONS TAB ── */
+.heatmap-container {
+  margin-bottom: var(--space-xl);
+  overflow-x: auto;
+  padding-bottom: var(--space-sm);
+}
+
+.heatmap-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+.heatmap {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
+  gap: 3px;
+  width: max-content;
+}
+
+.heatmap-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--bg-overlay);
+  transition: all 0.2s var(--ease-out);
+  position: relative;
+  cursor: default;
+}
+
+.heatmap-cell[data-level="1"] { background: rgba(0, 255, 213, 0.12); }
+.heatmap-cell[data-level="2"] { background: rgba(0, 255, 213, 0.28); }
+.heatmap-cell[data-level="3"] { background: rgba(0, 255, 213, 0.48); }
+.heatmap-cell[data-level="4"] { background: rgba(0, 255, 213, 0.75); box-shadow: 0 0 4px rgba(0, 255, 213, 0.3); }
+
+.heatmap-tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.heatmap-cell:hover .heatmap-tooltip,
+.heatmap-cell:focus .heatmap-tooltip {
+  opacity: 1;
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+.heatmap-legend-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.contribution-breakdown {
+  margin-bottom: var(--space-xl);
+}
+
+.breakdown-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+.stacked-bar {
+  height: 8px;
+  border-radius: var(--radius-full);
+  display: flex;
+  overflow: hidden;
+  margin-bottom: var(--space-sm);
+}
+
+.stacked-bar-segment {
+  height: 100%;
+  transition: width 1s var(--ease-out);
+}
+
+.stacked-bar-segment--code { background: var(--accent-cyan); }
+.stacked-bar-segment--design { background: var(--accent-violet); }
+.stacked-bar-segment--review { background: var(--accent-amber); }
+.stacked-bar-segment--marketing { background: var(--accent-coral); }
+
+.breakdown-legend {
+  display: flex;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.breakdown-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.breakdown-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.breakdown-legend-dot--code { background: var(--accent-cyan); }
+.breakdown-legend-dot--design { background: var(--accent-violet); }
+.breakdown-legend-dot--review { background: var(--accent-amber); }
+.breakdown-legend-dot--marketing { background: var(--accent-coral); }
+
+/* Contribution list */
+.contribution-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.contribution-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.2s;
+}
+
+.contribution-item:last-child { border-bottom: none; }
+.contribution-item:hover { background: rgba(0, 255, 213, 0.02); }
+
+.contribution-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.contribution-icon--code { background: rgba(0, 255, 213, 0.08); }
+.contribution-icon--design { background: rgba(167, 139, 250, 0.08); }
+.contribution-icon--review { background: rgba(245, 166, 35, 0.08); }
+.contribution-icon--marketing { background: rgba(255, 107, 107, 0.08); }
+
+.contribution-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.contribution-desc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contribution-project {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.contribution-karma {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  white-space: nowrap;
+}
+
+.contribution-date {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ── BADGES TAB ── */
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+.badge-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  transition: all 0.4s var(--ease-out);
+  perspective: 600px;
+  cursor: default;
+  position: relative;
+  min-height: 160px;
+}
+
+.badge-card-inner {
+  transition: transform 0.6s var(--ease-out);
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.badge-card:hover .badge-card-inner {
+  transform: rotateY(180deg);
+}
+
+.badge-card-front,
+.badge-card-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.badge-card-front {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.badge-card-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+}
+
+.badge-card-icon {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.badge-card-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.badge-card-date {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+.badge-card-desc {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.badge-card--earned:hover {
+  border-color: rgba(0, 255, 213, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), var(--glow-cyan);
+}
+
+.badge-card--locked {
+  opacity: 0.4;
+  border-style: dashed;
+}
+
+.badge-card--locked .badge-card-icon {
+  filter: grayscale(1);
+}
+
+.badge-card--locked:hover {
+  opacity: 0.6;
+}
+
+.badge-card--locked .badge-card-inner {
+  pointer-events: none;
+}
+
+.badge-card--locked:hover .badge-card-inner {
+  transform: none;
+}
+
+.badge-lock-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── EARNINGS TAB ── */
+.earnings-private-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent-amber);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-lg);
+  padding: 4px 10px;
+  background: rgba(245, 166, 35, 0.08);
+  border: 1px solid rgba(245, 166, 35, 0.15);
+  border-radius: var(--radius-full);
+}
+
+.earnings-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.earnings-stat {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+.earnings-stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.earnings-stat-value--pending { color: var(--accent-amber); }
+.earnings-stat-value--date { color: var(--text-primary); font-size: 1rem; }
+
+.earnings-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Earnings chart */
+.earnings-chart-section {
+  margin-bottom: var(--space-xl);
+}
+
+.earnings-chart-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+.earnings-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-md);
+  height: 180px;
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.earnings-bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.earnings-bar {
+  width: 100%;
+  max-width: 48px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: linear-gradient(180deg, var(--accent-cyan), rgba(0, 255, 213, 0.3));
+  transition: height 1s var(--ease-out);
+  position: relative;
+}
+
+.earnings-bar::after {
+  content: attr(data-value);
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--accent-cyan);
+  white-space: nowrap;
+}
+
+.earnings-bar-month {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  .badges-grid { grid-template-columns: repeat(3, 1fr); }
+  .tier-ladder-nodes { gap: var(--space-sm); }
+}
+
+@media (max-width: 768px) {
+  .profile-top { flex-direction: column; align-items: center; text-align: center; }
+  .profile-name-row { justify-content: center; }
+  .profile-bio { margin-left: auto; margin-right: auto; }
+  .profile-stats-row { justify-content: center; }
+  .profile-actions { justify-content: center; }
+  .tier-progress { margin-left: auto; margin-right: auto; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .badges-grid { grid-template-columns: repeat(2, 1fr); }
+  .earnings-summary { grid-template-columns: 1fr; }
+  .tier-benefits { flex-direction: column; gap: var(--space-sm); align-items: flex-start; }
+}
+
+@media (max-width: 640px) {
+  .profile-header { padding-top: var(--space-2xl); }
+  .badges-grid { grid-template-columns: 1fr 1fr; }
+  .contribution-item { flex-wrap: wrap; }
+  .tier-ladder-nodes { flex-wrap: nowrap; overflow-x: auto; padding-bottom: var(--space-sm); }
+  .tier-node { min-width: 80px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Atmosphere -->
+<div class="atmosphere" aria-hidden="true">
+  <div class="atmosphere-grid"></div>
+  <div class="atmosphere-glow atmosphere-glow--cyan"></div>
+  <div class="atmosphere-glow--green atmosphere-glow"></div>
+  <div class="atmosphere-grain"></div>
+  <div class="atmosphere-scanlines"></div>
+</div>
+
+<!-- Nav -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="../index.html" class="nav-logo">
+    <span class="nav-logo-mark" aria-hidden="true">CF</span>
+    CrowdForge
+  </a>
+  <div class="nav-links">
+    <a href="#" class="nav-link">Explore</a>
+    <a href="#" class="nav-link">Projects</a>
+    <a href="#" class="nav-link nav-link--active" aria-current="page">Profile</a>
+    <a href="#" class="nav-link">Dashboard</a>
+    <a href="#" class="btn btn--primary btn--sm">Launch Project</a>
+  </div>
+</nav>
+
+<div class="page-content">
+
+  <!-- Profile Header -->
+  <header class="profile-header">
+    <div class="container">
+      <div class="profile-top">
+        <div class="profile-avatar" role="img" aria-label="Carol Washington's avatar">CW</div>
+        <div class="profile-info">
+          <div class="profile-name-row">
+            <h1 class="profile-name">Carol Washington</h1>
+            <span class="profile-handle t-mono">@carol</span>
+            <span class="badge badge--idea profile-tier-badge">
+              <span class="tier-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-violet);box-shadow:0 0 6px rgba(167,139,250,0.4);"></span>
+              Architect
+            </span>
+          </div>
+
+          <div class="profile-karma-display">
+            <span data-counter="4280">0</span>
+            <span class="karma-unit">total karma</span>
+          </div>
+
+          <p class="profile-bio">Full-stack engineer. React + Python. Building the future one PR at a time.</p>
+
+          <div class="profile-stats-row">
+            <span class="profile-stat"><strong>12</strong> Projects</span>
+            <span class="profile-stat-sep" aria-hidden="true"></span>
+            <span class="profile-stat"><strong>89</strong> Contributions</span>
+            <span class="profile-stat-sep" aria-hidden="true"></span>
+            <span class="profile-stat"><strong>34</strong> Reviews</span>
+            <span class="profile-stat-sep" aria-hidden="true"></span>
+            <span class="profile-stat">Joined <strong>8 months ago</strong></span>
+          </div>
+
+          <div class="tier-progress" role="progressbar" aria-valuenow="4280" aria-valuemin="1000" aria-valuemax="5000" aria-label="Tier progress from Architect to Partner">
+            <div class="tier-progress-labels">
+              <span class="tier-progress-current">Architect (1,000)</span>
+              <span class="tier-progress-next">Partner (5,000)</span>
+            </div>
+            <div class="tier-progress-bar">
+              <div class="tier-progress-fill" data-width="82"></div>
+            </div>
+            <div class="tier-progress-remaining"><span>720</span> karma to Partner</div>
+          </div>
+
+          <div class="profile-actions">
+            <button class="btn btn--secondary btn--sm" type="button">Follow</button>
+            <button class="btn btn--ghost btn--sm" type="button">Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tier Ladder -->
+  <section class="tier-ladder-section reveal" aria-label="Karma tier progression">
+    <div class="container">
+      <div class="tier-ladder">
+        <div class="tier-ladder-track">
+          <div class="tier-ladder-line" aria-hidden="true">
+            <div class="tier-ladder-line-fill" data-width="55"></div>
+          </div>
+          <div class="tier-ladder-nodes">
+            <div class="tier-node tier-node--reached tier-node--observer">
+              <div class="tier-node-dot"></div>
+              <span class="tier-node-name">Observer</span>
+              <span class="tier-node-threshold">0</span>
+              <span class="tier-node-multiplier">0x</span>
+            </div>
+            <div class="tier-node tier-node--reached tier-node--contributor">
+              <div class="tier-node-dot"></div>
+              <span class="tier-node-name">Contributor</span>
+              <span class="tier-node-threshold">50</span>
+              <span class="tier-node-multiplier">0.5x</span>
+            </div>
+            <div class="tier-node tier-node--reached tier-node--builder">
+              <div class="tier-node-dot"></div>
+              <span class="tier-node-name">Builder</span>
+              <span class="tier-node-threshold">250</span>
+              <span class="tier-node-multiplier">1.0x</span>
+            </div>
+            <div class="tier-node tier-node--reached tier-node--current tier-node--architect">
+              <div class="tier-node-dot"></div>
+              <span class="tier-node-name">Architect</span>
+              <span class="tier-node-threshold">1,000</span>
+              <span class="tier-node-multiplier">1.5x</span>
+            </div>
+            <div class="tier-node tier-node--future">
+              <div class="tier-node-dot" style="border-color:var(--accent-amber);"></div>
+              <span class="tier-node-name">Partner</span>
+              <span class="tier-node-threshold">5,000</span>
+              <span class="tier-node-multiplier">2.0x</span>
+            </div>
+            <div class="tier-node tier-node--future">
+              <div class="tier-node-dot" style="border-color:var(--accent-gold);"></div>
+              <span class="tier-node-name">Founder's Circle</span>
+              <span class="tier-node-threshold">25,000</span>
+              <span class="tier-node-multiplier">2.5x</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tier-benefits">
+        <span class="tier-benefits-label">Architect Benefits</span>
+        <div class="tier-benefits-list">
+          <span class="tier-benefit">1.5x dividend multiplier</span>
+          <span class="tier-benefit">Priority project access</span>
+          <span class="tier-benefit">Architecture review rights</span>
+          <span class="tier-benefit">Custom profile badge</span>
+          <span class="tier-benefit">Voting on platform proposals</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabs -->
+  <section class="profile-tabs-section">
+    <div class="container">
+      <div class="profile-tabs tabs" role="tablist" aria-label="Profile sections">
+        <button class="tab tab--active" role="tab" aria-selected="true" aria-controls="panel-projects" id="tab-projects" type="button">Projects</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-contributions" id="tab-contributions" type="button">Contributions</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-badges" id="tab-badges" type="button">Badges</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-earnings" id="tab-earnings" type="button">Earnings</button>
+      </div>
+
+      <!-- Projects Panel -->
+      <div class="tab-panel tab-panel--active" id="panel-projects" role="tabpanel" aria-labelledby="tab-projects">
+        <div class="projects-grid">
+
+          <div class="project-card">
+            <div class="project-card-header">
+              <span class="project-card-name">DevPulse</span>
+              <span class="badge badge--earning">Earning</span>
+            </div>
+            <div class="project-card-meta">
+              <span class="project-card-role">Founder</span>
+              <span class="profile-stat-sep" aria-hidden="true"></span>
+              <span>Joined Jun 2025</span>
+            </div>
+            <div class="project-card-karma">
+              <span class="project-card-karma-value">+1,240 karma</span>
+              <div class="project-card-karma-bar">
+                <div class="project-card-karma-bar-fill" style="width:72%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-header">
+              <span class="project-card-name">SnapAudit</span>
+              <span class="badge badge--shipped">Shipped</span>
+            </div>
+            <div class="project-card-meta">
+              <span class="project-card-role">Contributor</span>
+              <span class="profile-stat-sep" aria-hidden="true"></span>
+              <span>Joined Aug 2025</span>
+            </div>
+            <div class="project-card-karma">
+              <span class="project-card-karma-value">+880 karma</span>
+              <div class="project-card-karma-bar">
+                <div class="project-card-karma-bar-fill" style="width:54%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-header">
+              <span class="project-card-name">FlowBoard</span>
+              <span class="badge badge--building">Building</span>
+            </div>
+            <div class="project-card-meta">
+              <span class="project-card-role">Contributor</span>
+              <span class="profile-stat-sep" aria-hidden="true"></span>
+              <span>Joined Oct 2025</span>
+            </div>
+            <div class="project-card-karma">
+              <span class="project-card-karma-value">+620 karma</span>
+              <div class="project-card-karma-bar">
+                <div class="project-card-karma-bar-fill" style="width:38%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-header">
+              <span class="project-card-name">NightOwl Analytics</span>
+              <span class="badge badge--earning">Earning</span>
+            </div>
+            <div class="project-card-meta">
+              <span class="project-card-role">Contributor</span>
+              <span class="profile-stat-sep" aria-hidden="true"></span>
+              <span>Joined Jul 2025</span>
+            </div>
+            <div class="project-card-karma">
+              <span class="project-card-karma-value">+740 karma</span>
+              <div class="project-card-karma-bar">
+                <div class="project-card-karma-bar-fill" style="width:45%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-header">
+              <span class="project-card-name">Terracotta</span>
+              <span class="badge badge--shipped">Shipped</span>
+            </div>
+            <div class="project-card-meta">
+              <span class="project-card-role">Founder</span>
+              <span class="profile-stat-sep" aria-hidden="true"></span>
+              <span>Joined Sep 2025</span>
+            </div>
+            <div class="project-card-karma">
+              <span class="project-card-karma-value">+520 karma</span>
+              <div class="project-card-karma-bar">
+                <div class="project-card-karma-bar-fill" style="width:32%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-header">
+              <span class="project-card-name">PatchQL</span>
+              <span class="badge badge--building">Building</span>
+            </div>
+            <div class="project-card-meta">
+              <span class="project-card-role">Contributor</span>
+              <span class="profile-stat-sep" aria-hidden="true"></span>
+              <span>Joined Jan 2026</span>
+            </div>
+            <div class="project-card-karma">
+              <span class="project-card-karma-value">+280 karma</span>
+              <div class="project-card-karma-bar">
+                <div class="project-card-karma-bar-fill" style="width:17%"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Contributions Panel -->
+      <div class="tab-panel" id="panel-contributions" role="tabpanel" aria-labelledby="tab-contributions">
+
+        <div class="heatmap-container">
+          <div class="heatmap-label">Contribution Activity</div>
+          <div class="heatmap" id="heatmap" role="img" aria-label="Contribution heatmap showing activity over the past 52 weeks"></div>
+          <div class="heatmap-legend">
+            <span>Less</span>
+            <div class="heatmap-legend-cell" style="background:var(--bg-overlay)"></div>
+            <div class="heatmap-legend-cell" style="background:rgba(0,255,213,0.12)"></div>
+            <div class="heatmap-legend-cell" style="background:rgba(0,255,213,0.28)"></div>
+            <div class="heatmap-legend-cell" style="background:rgba(0,255,213,0.48)"></div>
+            <div class="heatmap-legend-cell" style="background:rgba(0,255,213,0.75)"></div>
+            <span>More</span>
+          </div>
+        </div>
+
+        <div class="contribution-breakdown">
+          <div class="breakdown-label">Contribution Breakdown</div>
+          <div class="stacked-bar" role="img" aria-label="Contribution types: Code 58%, Design 12%, Review 22%, Marketing 8%">
+            <div class="stacked-bar-segment stacked-bar-segment--code" style="width:58%"></div>
+            <div class="stacked-bar-segment stacked-bar-segment--design" style="width:12%"></div>
+            <div class="stacked-bar-segment stacked-bar-segment--review" style="width:22%"></div>
+            <div class="stacked-bar-segment stacked-bar-segment--marketing" style="width:8%"></div>
+          </div>
+          <div class="breakdown-legend">
+            <span class="breakdown-legend-item"><span class="breakdown-legend-dot breakdown-legend-dot--code"></span> Code 58%</span>
+            <span class="breakdown-legend-item"><span class="breakdown-legend-dot breakdown-legend-dot--design"></span> Design 12%</span>
+            <span class="breakdown-legend-item"><span class="breakdown-legend-dot breakdown-legend-dot--review"></span> Review 22%</span>
+            <span class="breakdown-legend-item"><span class="breakdown-legend-dot breakdown-legend-dot--marketing"></span> Marketing 8%</span>
+          </div>
+        </div>
+
+        <div class="breakdown-label">Recent Contributions</div>
+        <div class="contribution-list">
+          <div class="contribution-item">
+            <div class="contribution-icon contribution-icon--code" aria-hidden="true">&lt;/&gt;</div>
+            <div class="contribution-body">
+              <div class="contribution-desc">Implemented real-time WebSocket notifications</div>
+              <div class="contribution-project">DevPulse</div>
+            </div>
+            <span class="contribution-karma">+45 karma</span>
+            <span class="contribution-date">2d ago</span>
+          </div>
+          <div class="contribution-item">
+            <div class="contribution-icon contribution-icon--review" aria-hidden="true">&#9998;</div>
+            <div class="contribution-body">
+              <div class="contribution-desc">Reviewed authentication flow refactor</div>
+              <div class="contribution-project">SnapAudit</div>
+            </div>
+            <span class="contribution-karma">+18 karma</span>
+            <span class="contribution-date">3d ago</span>
+          </div>
+          <div class="contribution-item">
+            <div class="contribution-icon contribution-icon--code" aria-hidden="true">&lt;/&gt;</div>
+            <div class="contribution-body">
+              <div class="contribution-desc">Built dashboard analytics component</div>
+              <div class="contribution-project">FlowBoard</div>
+            </div>
+            <span class="contribution-karma">+38 karma</span>
+            <span class="contribution-date">4d ago</span>
+          </div>
+          <div class="contribution-item">
+            <div class="contribution-icon contribution-icon--design" aria-hidden="true">&#9671;</div>
+            <div class="contribution-body">
+              <div class="contribution-desc">Designed onboarding flow wireframes</div>
+              <div class="contribution-project">DevPulse</div>
+            </div>
+            <span class="contribution-karma">+22 karma</span>
+            <span class="contribution-date">5d ago</span>
+          </div>
+          <div class="contribution-item">
+            <div class="contribution-icon contribution-icon--code" aria-hidden="true">&lt;/&gt;</div>
+            <div class="contribution-body">
+              <div class="contribution-desc">Migrated database schema to PostgreSQL</div>
+              <div class="contribution-project">NightOwl Analytics</div>
+            </div>
+            <span class="contribution-karma">+52 karma</span>
+            <span class="contribution-date">1w ago</span>
+          </div>
+          <div class="contribution-item">
+            <div class="contribution-icon contribution-icon--review" aria-hidden="true">&#9998;</div>
+            <div class="contribution-body">
+              <div class="contribution-desc">Code review: payment processing module</div>
+              <div class="contribution-project">Terracotta</div>
+            </div>
+            <span class="contribution-karma">+15 karma</span>
+            <span class="contribution-date">1w ago</span>
+          </div>
+          <div class="contribution-item">
+            <div class="contribution-icon contribution-icon--marketing" aria-hidden="true">&#9733;</div>
+            <div class="contribution-body">
+              <div class="contribution-desc">Wrote launch announcement blog post</div>
+              <div class="contribution-project">SnapAudit</div>
+            </div>
+            <span class="contribution-karma">+12 karma</span>
+            <span class="contribution-date">2w ago</span>
+          </div>
+          <div class="contribution-item">
+            <div class="contribution-icon contribution-icon--code" aria-hidden="true">&lt;/&gt;</div>
+            <div class="contribution-body">
+              <div class="contribution-desc">Implemented rate limiting middleware</div>
+              <div class="contribution-project">PatchQL</div>
+            </div>
+            <span class="contribution-karma">+30 karma</span>
+            <span class="contribution-date">2w ago</span>
+          </div>
+          <div class="contribution-item">
+            <div class="contribution-icon contribution-icon--review" aria-hidden="true">&#9998;</div>
+            <div class="contribution-body">
+              <div class="contribution-desc">Security audit of API endpoints</div>
+              <div class="contribution-project">DevPulse</div>
+            </div>
+            <span class="contribution-karma">+28 karma</span>
+            <span class="contribution-date">3w ago</span>
+          </div>
+          <div class="contribution-item">
+            <div class="contribution-icon contribution-icon--code" aria-hidden="true">&lt;/&gt;</div>
+            <div class="contribution-body">
+              <div class="contribution-desc">Added CI/CD pipeline with GitHub Actions</div>
+              <div class="contribution-project">FlowBoard</div>
+            </div>
+            <span class="contribution-karma">+35 karma</span>
+            <span class="contribution-date">3w ago</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badges Panel -->
+      <div class="tab-panel" id="panel-badges" role="tabpanel" aria-labelledby="tab-badges">
+        <div class="badges-grid">
+
+          <div class="badge-card badge-card--earned">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#9872;</div>
+                <div class="badge-card-name">Pioneer</div>
+                <div class="badge-card-date">Jun 2025</div>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-name">Pioneer</div>
+                <div class="badge-card-desc">Among the first 100 contributors on a project. Early adopters shape the vision.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-card badge-card--earned">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#128027;</div>
+                <div class="badge-card-name">Bug Hunter</div>
+                <div class="badge-card-date">Aug 2025</div>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-name">Bug Hunter</div>
+                <div class="badge-card-desc">Found and reported 10+ bugs across projects. The codebase is safer because of you.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-card badge-card--earned">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#9875;</div>
+                <div class="badge-card-name">Ship Captain</div>
+                <div class="badge-card-date">Nov 2025</div>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-name">Ship Captain</div>
+                <div class="badge-card-desc">Shipped 3 projects to production. You turn ideas into real products.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-card badge-card--earned">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#9876;</div>
+                <div class="badge-card-name">Centurion</div>
+                <div class="badge-card-date">Dec 2025</div>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-name">Centurion</div>
+                <div class="badge-card-desc">Reached 100 total contributions. Consistency is the real superpower.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-card badge-card--earned">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#128176;</div>
+                <div class="badge-card-name">First Blood</div>
+                <div class="badge-card-date">Oct 2025</div>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-name">First Blood</div>
+                <div class="badge-card-desc">Earned your first revenue from a CrowdForge project. The grind pays off.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-card badge-card--earned">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#127769;</div>
+                <div class="badge-card-name">Night Owl</div>
+                <div class="badge-card-date">Sep 2025</div>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-name">Night Owl</div>
+                <div class="badge-card-desc">Contributed at 3am. The best code is written when the world sleeps.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-card badge-card--earned">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#127760;</div>
+                <div class="badge-card-name">Polyglot</div>
+                <div class="badge-card-date">Jan 2026</div>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-name">Polyglot</div>
+                <div class="badge-card-desc">Contributed to 5+ different tech stacks. A true full-spectrum engineer.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-card badge-card--locked">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#128142;</div>
+                <div class="badge-card-name">Mentor</div>
+                <span class="badge-lock-label">Locked</span>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-desc">Help 10 new contributors get their first merge.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-card badge-card--locked">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#9889;</div>
+                <div class="badge-card-name">Streak Master</div>
+                <span class="badge-lock-label">Locked</span>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-desc">Maintain a 30-day contribution streak.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-card badge-card--locked">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#127942;</div>
+                <div class="badge-card-name">Top Earner</div>
+                <span class="badge-lock-label">Locked</span>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-desc">Earn $10,000+ in total dividends from projects.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-card badge-card--locked">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#128640;</div>
+                <div class="badge-card-name">Rocketeer</div>
+                <span class="badge-lock-label">Locked</span>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-desc">Launch 5 projects as founder.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="badge-card badge-card--locked">
+            <div class="badge-card-inner">
+              <div class="badge-card-front">
+                <div class="badge-card-icon">&#127775;</div>
+                <div class="badge-card-name">Legend</div>
+                <span class="badge-lock-label">Locked</span>
+              </div>
+              <div class="badge-card-back">
+                <div class="badge-card-desc">Reach the Founder's Circle tier. Legends never die.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Earnings Panel -->
+      <div class="tab-panel" id="panel-earnings" role="tabpanel" aria-labelledby="tab-earnings">
+
+        <div class="earnings-private-label" aria-label="This section is private">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M9 5V4a3 3 0 10-6 0v1H2v6h8V5H9zM4 4a2 2 0 114 0v1H4V4z" fill="currentColor"/></svg>
+          Your eyes only
+        </div>
+
+        <div class="earnings-summary">
+          <div class="earnings-stat">
+            <div class="earnings-stat-value" data-counter-prefix="$" data-counter="2847">$0</div>
+            <div class="earnings-stat-label">Total Earned</div>
+          </div>
+          <div class="earnings-stat">
+            <div class="earnings-stat-value earnings-stat-value--pending" data-counter-prefix="$" data-counter="420">$0</div>
+            <div class="earnings-stat-label">Pending Payout</div>
+          </div>
+          <div class="earnings-stat">
+            <div class="earnings-stat-value earnings-stat-value--date">Mar 1, 2026</div>
+            <div class="earnings-stat-label">Next Payout</div>
+          </div>
+        </div>
+
+        <div class="earnings-chart-section">
+          <div class="earnings-chart-label">Monthly Earnings</div>
+          <div class="earnings-chart" role="img" aria-label="Bar chart showing monthly earnings: Sep $180, Oct $320, Nov $410, Dec $520, Jan $580, Feb $420">
+            <div class="earnings-bar-col">
+              <div class="earnings-bar" data-value="$180" data-height="31"></div>
+              <span class="earnings-bar-month">Sep</span>
+            </div>
+            <div class="earnings-bar-col">
+              <div class="earnings-bar" data-value="$320" data-height="55"></div>
+              <span class="earnings-bar-month">Oct</span>
+            </div>
+            <div class="earnings-bar-col">
+              <div class="earnings-bar" data-value="$410" data-height="71"></div>
+              <span class="earnings-bar-month">Nov</span>
+            </div>
+            <div class="earnings-bar-col">
+              <div class="earnings-bar" data-value="$520" data-height="90"></div>
+              <span class="earnings-bar-month">Dec</span>
+            </div>
+            <div class="earnings-bar-col">
+              <div class="earnings-bar" data-value="$580" data-height="100"></div>
+              <span class="earnings-bar-month">Jan</span>
+            </div>
+            <div class="earnings-bar-col">
+              <div class="earnings-bar" data-value="$420" data-height="72"></div>
+              <span class="earnings-bar-month">Feb</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="breakdown-label">Per-Project Earnings</div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Karma Share</th>
+                <th scope="col">Tier Multiplier</th>
+                <th scope="col">Monthly Dividend</th>
+                <th scope="col">Total Earned</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:var(--text-primary);font-weight:500;">DevPulse</td>
+                <td><span class="t-mono" style="color:var(--accent-cyan);">18.4%</span></td>
+                <td><span class="t-mono">1.5x</span></td>
+                <td><span class="t-mono" style="color:var(--accent-green);">$210/mo</span></td>
+                <td><span class="t-mono" style="color:var(--accent-green);font-weight:600;">$1,260</span></td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-primary);font-weight:500;">NightOwl Analytics</td>
+                <td><span class="t-mono" style="color:var(--accent-cyan);">12.1%</span></td>
+                <td><span class="t-mono">1.5x</span></td>
+                <td><span class="t-mono" style="color:var(--accent-green);">$145/mo</span></td>
+                <td><span class="t-mono" style="color:var(--accent-green);font-weight:600;">$870</span></td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-primary);font-weight:500;">SnapAudit</td>
+                <td><span class="t-mono" style="color:var(--accent-cyan);">8.7%</span></td>
+                <td><span class="t-mono">1.5x</span></td>
+                <td><span class="t-mono" style="color:var(--accent-green);">$82/mo</span></td>
+                <td><span class="t-mono" style="color:var(--accent-green);font-weight:600;">$492</span></td>
+              </tr>
+              <tr>
+                <td style="color:var(--text-primary);font-weight:500;">Terracotta</td>
+                <td><span class="t-mono" style="color:var(--accent-cyan);">5.3%</span></td>
+                <td><span class="t-mono">1.5x</span></td>
+                <td><span class="t-mono" style="color:var(--accent-green);">$38/mo</span></td>
+                <td><span class="t-mono" style="color:var(--accent-green);font-weight:600;">$225</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-copy">CrowdForge &copy; 2026</span>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Docs</a>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ── Tab Switching ── */
+  const tabs = document.querySelectorAll('[role="tab"]');
+  const panels = document.querySelectorAll('[role="tabpanel"]');
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) {
+        t.classList.remove('tab--active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      panels.forEach(function(p) {
+        p.classList.remove('tab-panel--active');
+      });
+
+      tab.classList.add('tab--active');
+      tab.setAttribute('aria-selected', 'true');
+
+      var targetId = tab.getAttribute('aria-controls');
+      var panel = document.getElementById(targetId);
+      panel.classList.add('tab-panel--active');
+
+      /* Animate earnings bars when switching to earnings tab */
+      if (targetId === 'panel-earnings') {
+        animateEarningsBars();
+      }
+    });
+
+    /* Keyboard navigation for tabs */
+    tab.addEventListener('keydown', function(e) {
+      var tabArr = Array.from(tabs);
+      var index = tabArr.indexOf(tab);
+      var nextIndex;
+
+      if (e.key === 'ArrowRight') {
+        nextIndex = (index + 1) % tabArr.length;
+        tabArr[nextIndex].focus();
+        tabArr[nextIndex].click();
+        e.preventDefault();
+      } else if (e.key === 'ArrowLeft') {
+        nextIndex = (index - 1 + tabArr.length) % tabArr.length;
+        tabArr[nextIndex].focus();
+        tabArr[nextIndex].click();
+        e.preventDefault();
+      }
+    });
+  });
+
+  /* ── Heatmap Generation ── */
+  var heatmap = document.getElementById('heatmap');
+  if (heatmap) {
+    /* Deterministic pseudo-random based on week/day index */
+    function heatLevel(week, day) {
+      var seed = (week * 7 + day) * 2654435761;
+      var v = ((seed >>> 0) % 100);
+      /* Make recent weeks more active */
+      var recencyBoost = week > 40 ? 15 : (week > 30 ? 8 : 0);
+      v += recencyBoost;
+      /* No contributions on some days */
+      if (v < 45) return 0;
+      if (v < 62) return 1;
+      if (v < 78) return 2;
+      if (v < 90) return 3;
+      return 4;
+    }
+
+    var countLabels = ['0 contributions', '1-2 contributions', '3-5 contributions', '6-9 contributions', '10+ contributions'];
+
+    for (var w = 0; w < 52; w++) {
+      for (var d = 0; d < 7; d++) {
+        var level = heatLevel(w, d);
+        var cell = document.createElement('div');
+        cell.className = 'heatmap-cell';
+        cell.setAttribute('data-level', level);
+        cell.setAttribute('tabindex', '0');
+        cell.setAttribute('role', 'gridcell');
+        cell.setAttribute('aria-label', countLabels[level]);
+
+        var tooltip = document.createElement('span');
+        tooltip.className = 'heatmap-tooltip';
+        tooltip.textContent = countLabels[level];
+        cell.appendChild(tooltip);
+
+        heatmap.appendChild(cell);
+      }
+    }
+  }
+
+  /* ── Animated Counters ── */
+  function animateCounter(el, target, prefix) {
+    var duration = 1200;
+    var start = performance.now();
+    prefix = prefix || '';
+
+    function step(now) {
+      var elapsed = now - start;
+      var progress = Math.min(elapsed / duration, 1);
+      /* Ease-out cubic */
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.floor(eased * target);
+      el.textContent = prefix + current.toLocaleString();
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = prefix + target.toLocaleString();
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ── Tier Progress Animation on Scroll ── */
+  var progressFill = document.querySelector('.tier-progress-fill');
+  var ladderFill = document.querySelector('.tier-ladder-line-fill');
+  var countersAnimated = false;
+
+  function onScrollReveal() {
+    /* Reveal elements */
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.85) {
+        el.classList.add('visible');
+      }
+    });
+
+    /* Animate progress bars when visible */
+    if (progressFill) {
+      var rect = progressFill.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        progressFill.style.width = progressFill.getAttribute('data-width') + '%';
+      }
+    }
+
+    if (ladderFill) {
+      var rect2 = ladderFill.getBoundingClientRect();
+      if (rect2.top < window.innerHeight) {
+        ladderFill.style.width = ladderFill.getAttribute('data-width') + '%';
+      }
+    }
+
+    /* Animate counters once */
+    if (!countersAnimated) {
+      var karmaEl = document.querySelector('[data-counter="4280"]');
+      if (karmaEl) {
+        var rect3 = karmaEl.getBoundingClientRect();
+        if (rect3.top < window.innerHeight) {
+          countersAnimated = true;
+          document.querySelectorAll('[data-counter]').forEach(function(el) {
+            var target = parseInt(el.getAttribute('data-counter'), 10);
+            var prefix = el.getAttribute('data-counter-prefix') || '';
+            animateCounter(el, target, prefix);
+          });
+        }
+      }
+    }
+  }
+
+  /* ── Earnings Bar Animation ── */
+  function animateEarningsBars() {
+    document.querySelectorAll('.earnings-bar').forEach(function(bar) {
+      bar.style.height = '0%';
+      setTimeout(function() {
+        bar.style.height = bar.getAttribute('data-height') + '%';
+      }, 50);
+    });
+  }
+
+  /* Run on load and scroll */
+  window.addEventListener('scroll', onScrollReveal, { passive: true });
+  window.addEventListener('load', function() {
+    onScrollReveal();
+    /* Initial bar height for visible panels */
+    document.querySelectorAll('.earnings-bar').forEach(function(bar) {
+      bar.style.height = bar.getAttribute('data-height') + '%';
+    });
+  });
+
+  /* Trigger initial */
+  onScrollReveal();
+
+})();
+</script>
+</body>
+</html>

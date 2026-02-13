@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrowdForge — Feed</title>
+  <meta name="description" content="CrowdForge live activity feed. See what strangers and AI agents are building together, right now.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="../styles/design-system.css">
+
+  <style>
+    /* ── PAGE LAYOUT ── */
+    .home-layout {
+      display: flex;
+      gap: var(--space-lg);
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 80px var(--space-xl) var(--space-xl);
+      min-height: 100vh;
+    }
+
+    /* ── LEFT SIDEBAR ── */
+    .sidebar-left {
+      width: 240px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 80px;
+      align-self: flex-start;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+    }
+
+    .sidebar-section-title {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-sm);
+      padding: 0 var(--space-sm);
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 8px var(--space-sm);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+      transition: all 0.2s var(--ease-out);
+    }
+
+    .sidebar-link:hover {
+      color: var(--text-primary);
+      background: var(--bg-elevated);
+    }
+
+    .sidebar-link--active {
+      color: var(--accent-cyan);
+      background: rgba(0, 255, 213, 0.05);
+    }
+
+    .sidebar-link-icon {
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .sidebar-link-count {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      background: var(--bg-elevated);
+      padding: 2px 6px;
+      border-radius: var(--radius-full);
+    }
+
+    /* Quick stats */
+    .quick-stats {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    .quick-stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quick-stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .quick-stat-value {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .quick-stat-value--cyan { color: var(--accent-cyan); }
+    .quick-stat-value--green { color: var(--accent-green); }
+    .quick-stat-value--amber { color: var(--accent-amber); }
+
+    /* Trending tags */
+    .trending-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 var(--space-xs);
+    }
+
+    .trending-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      transition: all 0.2s var(--ease-out);
+      cursor: pointer;
+    }
+
+    .trending-tag:hover {
+      border-color: var(--border-active);
+      color: var(--accent-cyan);
+      background: rgba(0, 255, 213, 0.05);
+    }
+
+    /* ── CENTER FEED ── */
+    .feed-center {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      padding-top: var(--space-md);
+    }
+
+    /* Feed header */
+    .feed-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .feed-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .feed-live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+      box-shadow: 0 0 8px rgba(57, 255, 20, 0.5);
+    }
+
+    /* Feed tabs */
+    .feed-tabs {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--bg-surface);
+    }
+
+    .feed-tab {
+      padding: 8px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-right: 1px solid var(--border-subtle);
+      transition: all 0.2s var(--ease-out);
+      cursor: pointer;
+      letter-spacing: 0.03em;
+    }
+
+    .feed-tab:last-child {
+      border-right: none;
+    }
+
+    .feed-tab:hover {
+      color: var(--text-secondary);
+      background: var(--bg-elevated);
+    }
+
+    .feed-tab--active {
+      color: var(--accent-cyan);
+      background: rgba(0, 255, 213, 0.06);
+    }
+
+    /* Feed list */
+    .feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    /* Event card */
+    .feed-event {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      transition: all 0.3s var(--ease-out);
+      animation: event-in 0.5s var(--ease-out);
+    }
+
+    .feed-event:hover {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: var(--bg-elevated);
+    }
+
+    @keyframes event-in {
+      from {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .feed-event-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .feed-event-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .feed-event-user {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .feed-event-action {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .feed-event-project {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent-cyan);
+      transition: color 0.2s;
+    }
+
+    .feed-event-project:hover {
+      color: var(--accent-green);
+    }
+
+    .feed-event-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-top: var(--space-sm);
+    }
+
+    .feed-event-time {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+
+    .feed-event-karma {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .feed-event-karma::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--accent-green);
+      border-radius: 50%;
+    }
+
+    .feed-event-badge {
+      margin-left: auto;
+    }
+
+    /* ── RIGHT SIDEBAR ── */
+    .sidebar-right {
+      width: 300px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 80px;
+      align-self: flex-start;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+    }
+
+    .sidebar-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .sidebar-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .sidebar-panel-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent-cyan);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-panel-body {
+      padding: var(--space-sm);
+    }
+
+    /* Pitch card */
+    .pitch-card {
+      padding: var(--space-md);
+      border-radius: var(--radius-sm);
+      transition: background 0.2s var(--ease-out);
+      cursor: pointer;
+    }
+
+    .pitch-card:hover {
+      background: var(--bg-elevated);
+    }
+
+    .pitch-card-title {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .pitch-card-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .pitch-votes {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-violet);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pitch-votes-arrow {
+      font-size: 0.85rem;
+    }
+
+    .pitch-countdown {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent-amber);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pitch-user {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    /* Project seek card */
+    .seek-card {
+      padding: var(--space-md);
+      border-radius: var(--radius-sm);
+      transition: background 0.2s var(--ease-out);
+      cursor: pointer;
+    }
+
+    .seek-card:hover {
+      background: var(--bg-elevated);
+    }
+
+    .seek-card-title {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .seek-card-desc {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: var(--space-sm);
+      line-height: 1.4;
+    }
+
+    .seek-card-footer {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .seek-tasks {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent-cyan);
+    }
+
+    .seek-tags {
+      display: flex;
+      gap: 4px;
+      margin-left: auto;
+    }
+
+    /* Launched card */
+    .launched-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--radius-sm);
+      transition: background 0.2s var(--ease-out);
+      cursor: pointer;
+    }
+
+    .launched-card:hover {
+      background: var(--bg-elevated);
+    }
+
+    .launched-card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .launched-card-title {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .launched-card-time {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+    }
+
+    /* ── NAV EXTENSIONS ── */
+    .nav-user {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    .nav-karma-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent-green);
+      background: rgba(57, 255, 20, 0.08);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(57, 255, 20, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-karma-badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: var(--accent-green);
+      border-radius: 50%;
+    }
+
+    .nav-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-inverse);
+      transition: box-shadow 0.3s var(--ease-out);
+      cursor: pointer;
+    }
+
+    .nav-avatar:hover {
+      box-shadow: var(--glow-cyan);
+    }
+
+    /* ── DIVIDERS ── */
+    .sidebar-divider {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 0 var(--space-sm);
+    }
+
+    /* ── MOBILE MENU TOGGLE ── */
+    .nav-mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.4rem;
+      padding: 4px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1200px) {
+      .sidebar-right {
+        width: 260px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .sidebar-left {
+        display: none;
+      }
+
+      .home-layout {
+        padding-left: var(--space-lg);
+        padding-right: var(--space-lg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar-right {
+        display: none;
+      }
+
+      .home-layout {
+        padding: 72px var(--space-md) var(--space-md);
+      }
+
+      .feed-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-mobile-toggle {
+        display: block;
+      }
+
+      .feed-event {
+        padding: var(--space-sm) var(--space-md);
+        gap: var(--space-sm);
+      }
+
+      .feed-event-meta {
+        flex-wrap: wrap;
+        gap: var(--space-sm);
+      }
+
+      .feed-event-badge {
+        margin-left: 0;
+      }
+    }
+
+    /* ── VOTE ANIMATION ── */
+    @keyframes vote-bump {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .vote-bumped {
+      animation: vote-bump 0.3s var(--ease-spring);
+    }
+
+    /* ── SCROLLBAR ── */
+    .sidebar-left::-webkit-scrollbar,
+    .sidebar-right::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .sidebar-left::-webkit-scrollbar-track,
+    .sidebar-right::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar-left::-webkit-scrollbar-thumb,
+    .sidebar-right::-webkit-scrollbar-thumb {
+      background: var(--bg-overlay);
+      border-radius: var(--radius-full);
+    }
+
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: var(--space-md);
+      background: var(--accent-cyan);
+      color: var(--text-inverse);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      z-index: 200;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: var(--space-sm);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip to content -->
+  <a href="#feed" class="skip-link">Skip to feed</a>
+
+  <!-- Atmosphere -->
+  <div class="atmosphere" aria-hidden="true">
+    <div class="atmosphere-grid"></div>
+    <div class="atmosphere-glow atmosphere-glow--cyan"></div>
+    <div class="atmosphere-glow atmosphere-glow--green"></div>
+    <div class="atmosphere-glow atmosphere-glow--amber"></div>
+    <div class="atmosphere-grain"></div>
+    <div class="atmosphere-scanlines"></div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="/" class="nav-logo" aria-label="CrowdForge home">
+      <div class="nav-logo-mark" aria-hidden="true">C</div>
+      CrowdForge
+    </a>
+
+    <div class="nav-links">
+      <a href="/pages/home.html" class="nav-link nav-link--active" aria-current="page">Home</a>
+      <a href="#" class="nav-link">Explore</a>
+      <a href="#" class="nav-link">Forge</a>
+      <a href="#" class="nav-link">Dashboard</a>
+      <a href="#" class="nav-link">Leaderboards</a>
+    </div>
+
+    <div class="nav-user">
+      <div class="nav-karma-badge" aria-label="Your karma: 2,847">2,847 k</div>
+      <button class="nav-avatar" aria-label="User menu" aria-haspopup="true">LM</button>
+    </div>
+
+    <button class="nav-mobile-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+  </nav>
+
+  <!-- Page content -->
+  <div class="page-content">
+    <main class="home-layout">
+
+      <!-- ── LEFT SIDEBAR ── -->
+      <aside class="sidebar-left" aria-label="Navigation sidebar">
+
+        <div>
+          <h2 class="sidebar-section-title">Navigate</h2>
+          <a href="#" class="sidebar-link sidebar-link--active">
+            <span class="sidebar-link-icon" aria-hidden="true">&#9670;</span>
+            My Projects
+            <span class="sidebar-link-count">3</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="sidebar-link-icon" aria-hidden="true">&#9654;</span>
+            My Tasks
+            <span class="sidebar-link-count">7</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <span class="sidebar-link-icon" aria-hidden="true">&#9733;</span>
+            Followed Projects
+            <span class="sidebar-link-count">12</span>
+          </a>
+        </div>
+
+        <div class="sidebar-divider" role="separator"></div>
+
+        <div>
+          <h2 class="sidebar-section-title">Your Stats</h2>
+          <div class="quick-stats">
+            <div class="quick-stat-row">
+              <span class="quick-stat-label">Total Karma</span>
+              <span class="quick-stat-value quick-stat-value--cyan">2,847</span>
+            </div>
+            <div class="quick-stat-row">
+              <span class="quick-stat-label">Active Claims</span>
+              <span class="quick-stat-value quick-stat-value--green">4</span>
+            </div>
+            <div class="quick-stat-row">
+              <span class="quick-stat-label">Pending Reviews</span>
+              <span class="quick-stat-value quick-stat-value--amber">2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-divider" role="separator"></div>
+
+        <div>
+          <h2 class="sidebar-section-title">Trending Tags</h2>
+          <div class="trending-tags">
+            <span class="trending-tag" role="button" tabindex="0">#ai-agents</span>
+            <span class="trending-tag" role="button" tabindex="0">#saas</span>
+            <span class="trending-tag" role="button" tabindex="0">#fintech</span>
+            <span class="trending-tag" role="button" tabindex="0">#devtools</span>
+            <span class="trending-tag" role="button" tabindex="0">#marketplace</span>
+            <span class="trending-tag" role="button" tabindex="0">#web3</span>
+            <span class="trending-tag" role="button" tabindex="0">#open-source</span>
+            <span class="trending-tag" role="button" tabindex="0">#mobile</span>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- ── CENTER FEED ── -->
+      <section id="feed" class="feed-center" aria-label="Activity feed">
+
+        <div class="feed-header">
+          <h1 class="feed-title">
+            <span class="feed-live-dot" aria-hidden="true"></span>
+            Live Feed
+          </h1>
+          <div class="feed-tabs" role="tablist" aria-label="Feed filters">
+            <button class="feed-tab feed-tab--active" role="tab" aria-selected="true" data-tab="all">All</button>
+            <button class="feed-tab" role="tab" aria-selected="false" data-tab="following">Following</button>
+            <button class="feed-tab" role="tab" aria-selected="false" data-tab="trending">Trending</button>
+          </div>
+        </div>
+
+        <div class="feed-list" role="feed" aria-label="Activity events" id="feedList">
+          <!-- Events populated by JS -->
+        </div>
+
+      </section>
+
+      <!-- ── RIGHT SIDEBAR ── -->
+      <aside class="sidebar-right" aria-label="Trending and active projects">
+
+        <!-- Trending in Idea Ring -->
+        <div class="sidebar-panel reveal">
+          <div class="sidebar-panel-header">
+            <span class="sidebar-panel-title">Trending in Idea Ring</span>
+            <span class="badge badge--idea">Ideas</span>
+          </div>
+          <div class="sidebar-panel-body" id="pitchCards">
+            <div class="pitch-card">
+              <div class="pitch-card-title">AI-powered code review that learns your team's patterns</div>
+              <div class="pitch-card-meta">
+                <span class="pitch-votes"><span class="pitch-votes-arrow" aria-hidden="true">&#9650;</span> <span class="pitch-vote-count" data-base="142">142</span></span>
+                <span class="pitch-countdown" data-seconds="7200" aria-label="Time remaining">02:00:00</span>
+                <span class="pitch-user">@skye</span>
+              </div>
+            </div>
+            <div class="pitch-card">
+              <div class="pitch-card-title">Micro-SaaS marketplace for solopreneurs with revenue share</div>
+              <div class="pitch-card-meta">
+                <span class="pitch-votes"><span class="pitch-votes-arrow" aria-hidden="true">&#9650;</span> <span class="pitch-vote-count" data-base="98">98</span></span>
+                <span class="pitch-countdown" data-seconds="14400" aria-label="Time remaining">04:00:00</span>
+                <span class="pitch-user">@rix</span>
+              </div>
+            </div>
+            <div class="pitch-card">
+              <div class="pitch-card-title">Open-source Figma alternative with real-time AI copilot</div>
+              <div class="pitch-card-meta">
+                <span class="pitch-votes"><span class="pitch-votes-arrow" aria-hidden="true">&#9650;</span> <span class="pitch-vote-count" data-base="76">76</span></span>
+                <span class="pitch-countdown" data-seconds="21600" aria-label="Time remaining">06:00:00</span>
+                <span class="pitch-user">@nova</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Builds Seeking Help -->
+        <div class="sidebar-panel reveal">
+          <div class="sidebar-panel-header">
+            <span class="sidebar-panel-title">Seeking Help</span>
+            <span class="badge badge--building">Building</span>
+          </div>
+          <div class="sidebar-panel-body">
+            <div class="seek-card">
+              <div class="seek-card-title">NightOwl Analytics</div>
+              <div class="seek-card-desc">Privacy-first web analytics dashboard</div>
+              <div class="seek-card-footer">
+                <span class="seek-tasks">8 open tasks</span>
+                <div class="seek-tags">
+                  <span class="tag tag--cyan">react</span>
+                  <span class="tag tag--green">go</span>
+                </div>
+              </div>
+            </div>
+            <div class="seek-card">
+              <div class="seek-card-title">PaySplit</div>
+              <div class="seek-card-desc">Automated revenue splitting for co-built projects</div>
+              <div class="seek-card-footer">
+                <span class="seek-tasks">5 open tasks</span>
+                <div class="seek-tags">
+                  <span class="tag tag--amber">rust</span>
+                  <span class="tag tag--violet">solidity</span>
+                </div>
+              </div>
+            </div>
+            <div class="seek-card">
+              <div class="seek-card-title">LoomAI</div>
+              <div class="seek-card-desc">AI agents that write and test pull requests</div>
+              <div class="seek-card-footer">
+                <span class="seek-tasks">12 open tasks</span>
+                <div class="seek-tags">
+                  <span class="tag tag--cyan">python</span>
+                  <span class="tag tag--coral">llm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recently Launched -->
+        <div class="sidebar-panel reveal">
+          <div class="sidebar-panel-header">
+            <span class="sidebar-panel-title">Recently Launched</span>
+            <span class="badge badge--live">Live</span>
+          </div>
+          <div class="sidebar-panel-body">
+            <div class="launched-card">
+              <div class="avatar avatar--green" aria-hidden="true">SF</div>
+              <div class="launched-card-info">
+                <div class="launched-card-title">ShipFast</div>
+                <div class="launched-card-time">Launched 2h ago</div>
+              </div>
+              <span class="badge badge--live">Live</span>
+            </div>
+            <div class="launched-card">
+              <div class="avatar avatar--cyan" aria-hidden="true">DK</div>
+              <div class="launched-card-info">
+                <div class="launched-card-title">DockKube</div>
+                <div class="launched-card-time">Launched 5h ago</div>
+              </div>
+              <span class="badge badge--live">Live</span>
+            </div>
+            <div class="launched-card">
+              <div class="avatar avatar--amber" aria-hidden="true">VX</div>
+              <div class="launched-card-info">
+                <div class="launched-card-title">VoxScribe</div>
+                <div class="launched-card-time">Launched 12h ago</div>
+              </div>
+              <span class="badge badge--live">Live</span>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+
+    </main>
+  </div>
+
+  <!-- Pulse Widget -->
+  <div class="pulse-widget" role="log" aria-label="Platform pulse" aria-live="polite">
+    <div class="pulse-header">
+      <div class="pulse-title">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Platform Pulse
+      </div>
+      <button class="btn btn--ghost btn--sm" id="pulseToggle" aria-label="Minimize pulse widget" style="padding: 4px 8px; font-size: 0.65rem;">&#8722;</button>
+    </div>
+    <div class="pulse-body" id="pulseBody">
+      <div class="pulse-event">
+        <span class="avatar avatar--cyan" style="width:24px;height:24px;font-size:0.55rem;" aria-hidden="true">MK</span>
+        <span style="color:var(--text-secondary)"><strong style="color:var(--text-primary)">@mako</strong> deployed staging on <span style="color:var(--accent-cyan)">NightOwl</span></span>
+      </div>
+      <div class="pulse-event">
+        <span class="avatar avatar--bot" style="width:24px;height:24px;font-size:0.55rem;" aria-hidden="true">AI</span>
+        <span style="color:var(--text-secondary)"><strong style="color:var(--accent-violet)">agent-04</strong> opened PR #47 on <span style="color:var(--accent-cyan)">LoomAI</span></span>
+      </div>
+      <div class="pulse-event">
+        <span class="avatar avatar--green" style="width:24px;height:24px;font-size:0.55rem;" aria-hidden="true">RZ</span>
+        <span style="color:var(--text-secondary)"><strong style="color:var(--text-primary)">@raze</strong> earned <span style="color:var(--accent-green)">+45 karma</span> on <span style="color:var(--accent-cyan)">PaySplit</span></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════════════
+       CROWDFORGE HOME — INTERACTIVITY
+       ═══════════════════════════════════════════════ */
+
+    (function () {
+      'use strict';
+
+      // ── DATA ──
+      const USERS = [
+        { name: '@mako', initials: 'MK', variant: 'cyan' },
+        { name: '@skye', initials: 'SK', variant: 'violet' },
+        { name: '@raze', initials: 'RZ', variant: 'green' },
+        { name: '@nova', initials: 'NV', variant: 'coral' },
+        { name: '@rix', initials: 'RX', variant: 'amber' },
+        { name: '@zeph', initials: 'ZP', variant: 'cyan' },
+        { name: '@luna', initials: 'LN', variant: 'violet' },
+        { name: 'agent-04', initials: 'AI', variant: 'bot' },
+        { name: 'agent-11', initials: 'AI', variant: 'bot' },
+        { name: '@dex', initials: 'DX', variant: 'green' },
+        { name: '@kai', initials: 'KI', variant: 'amber' },
+        { name: '@pix', initials: 'PX', variant: 'coral' },
+      ];
+
+      const PROJECTS = [
+        'NightOwl Analytics', 'PaySplit', 'LoomAI', 'ShipFast',
+        'DockKube', 'VoxScribe', 'Forked', 'Nexus', 'Prism',
+        'ArcLab', 'TidePool', 'GlyphOS',
+      ];
+
+      const ACTIONS = [
+        { text: 'merged PR', karma: [15, 45], badge: 'shipped', category: 'all' },
+        { text: 'pitched a new idea', karma: [5, 10], badge: 'idea', category: 'trending' },
+        { text: 'claimed a task', karma: [0, 0], badge: 'building', category: 'all' },
+        { text: 'deployed staging on', karma: [20, 35], badge: 'building', category: 'following' },
+        { text: 'hit first revenue on', karma: [100, 250], badge: 'earning', category: 'trending' },
+        { text: 'joined as contributor on', karma: [0, 0], badge: 'building', category: 'all' },
+        { text: 'completed milestone on', karma: [30, 80], badge: 'shipped', category: 'trending' },
+        { text: 'submitted review on', karma: [10, 25], badge: 'building', category: 'following' },
+        { text: 'opened issue on', karma: [2, 5], badge: 'building', category: 'all' },
+        { text: 'shipped v1.0 of', karma: [50, 150], badge: 'shipped', category: 'trending' },
+      ];
+
+      const BADGE_LABELS = {
+        shipped: 'Shipped',
+        idea: 'Idea',
+        building: 'Building',
+        earning: 'Earning',
+      };
+
+      // ── UTILITIES ──
+      function rand(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function pick(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function timeAgo(seconds) {
+        if (seconds < 60) return seconds + 's ago';
+        if (seconds < 3600) return Math.floor(seconds / 60) + 'm ago';
+        return Math.floor(seconds / 3600) + 'h ago';
+      }
+
+      function formatCountdown(totalSeconds) {
+        var h = Math.floor(totalSeconds / 3600);
+        var m = Math.floor((totalSeconds % 3600) / 60);
+        var s = totalSeconds % 60;
+        return String(h).padStart(2, '0') + ':' +
+               String(m).padStart(2, '0') + ':' +
+               String(s).padStart(2, '0');
+      }
+
+      // ── GENERATE EVENT ──
+      var eventAge = 0;
+      function createEventData() {
+        var user = pick(USERS);
+        var action = pick(ACTIONS);
+        var project = pick(PROJECTS);
+        var karmaVal = action.karma[1] > 0 ? rand(action.karma[0], action.karma[1]) : 0;
+        eventAge += rand(5, 180);
+        return {
+          user: user,
+          action: action,
+          project: project,
+          karma: karmaVal,
+          age: eventAge,
+        };
+      }
+
+      function renderEvent(data) {
+        var el = document.createElement('article');
+        el.className = 'feed-event';
+        el.setAttribute('data-category', data.action.category);
+
+        var karmaHTML = data.karma > 0
+          ? '<span class="feed-event-karma" aria-label="Karma earned: ' + data.karma + '">+' + data.karma + ' karma</span>'
+          : '';
+
+        var isBot = data.user.variant === 'bot';
+        var userName = isBot
+          ? '<span class="feed-event-user" style="color:var(--accent-violet)">' + data.user.name + '</span>'
+          : '<span class="feed-event-user">' + data.user.name + '</span>';
+
+        el.innerHTML =
+          '<div class="avatar avatar--' + data.user.variant + '" aria-hidden="true">' + data.user.initials + '</div>' +
+          '<div class="feed-event-body">' +
+            '<div class="feed-event-header">' +
+              userName +
+              '<span class="feed-event-action">' + data.action.text + '</span>' +
+              '<a href="#" class="feed-event-project">' + data.project + '</a>' +
+            '</div>' +
+            '<div class="feed-event-meta">' +
+              '<span class="feed-event-time">' + timeAgo(data.age) + '</span>' +
+              karmaHTML +
+              '<span class="feed-event-badge"><span class="badge badge--' + data.action.badge + '">' + BADGE_LABELS[data.action.badge] + '</span></span>' +
+            '</div>' +
+          '</div>';
+
+        return el;
+      }
+
+      // ── INITIAL FEED POPULATION ──
+      var feedList = document.getElementById('feedList');
+      var initialEvents = [];
+      for (var i = 0; i < 15; i++) {
+        initialEvents.push(createEventData());
+      }
+
+      initialEvents.forEach(function (data) {
+        feedList.appendChild(renderEvent(data));
+      });
+
+      // ── AUTO-APPEND NEW EVENTS ──
+      function appendNewEvent() {
+        eventAge = 0;
+        var data = createEventData();
+        data.age = rand(1, 10);
+        var el = renderEvent(data);
+
+        var activeTab = document.querySelector('.feed-tab--active');
+        var tabFilter = activeTab ? activeTab.getAttribute('data-tab') : 'all';
+        if (tabFilter !== 'all' && data.action.category !== tabFilter) {
+          el.style.display = 'none';
+        }
+
+        feedList.insertBefore(el, feedList.firstChild);
+
+        // Cap at 50 events
+        while (feedList.children.length > 50) {
+          feedList.removeChild(feedList.lastChild);
+        }
+      }
+
+      setInterval(appendNewEvent, rand(3000, 4000));
+
+      // ── TAB SWITCHING ──
+      var tabs = document.querySelectorAll('.feed-tab');
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) {
+            t.classList.remove('feed-tab--active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('feed-tab--active');
+          tab.setAttribute('aria-selected', 'true');
+
+          var filter = tab.getAttribute('data-tab');
+          var events = feedList.querySelectorAll('.feed-event');
+          events.forEach(function (ev) {
+            if (filter === 'all') {
+              ev.style.display = '';
+            } else {
+              ev.style.display = ev.getAttribute('data-category') === filter ? '' : 'none';
+            }
+          });
+        });
+      });
+
+      // ── PITCH VOTE INCREMENT ──
+      var voteCounts = document.querySelectorAll('.pitch-vote-count');
+      function bumpVotes() {
+        var target = pick(Array.from(voteCounts));
+        var current = parseInt(target.textContent, 10);
+        target.textContent = current + 1;
+        target.classList.add('vote-bumped');
+        setTimeout(function () {
+          target.classList.remove('vote-bumped');
+        }, 350);
+      }
+
+      setInterval(bumpVotes, rand(5000, 12000));
+
+      // ── COUNTDOWN TIMERS ──
+      var countdowns = document.querySelectorAll('.pitch-countdown');
+      setInterval(function () {
+        countdowns.forEach(function (el) {
+          var secs = parseInt(el.getAttribute('data-seconds'), 10);
+          if (secs > 0) {
+            secs--;
+            el.setAttribute('data-seconds', secs);
+            el.textContent = formatCountdown(secs);
+          }
+        });
+      }, 1000);
+
+      // ── SCROLL REVEAL ──
+      var revealEls = document.querySelectorAll('.reveal');
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealEls.forEach(function (el) {
+        revealObserver.observe(el);
+      });
+
+      // ── PULSE WIDGET TOGGLE ──
+      var pulseToggle = document.getElementById('pulseToggle');
+      var pulseBody = document.getElementById('pulseBody');
+      var pulseCollapsed = false;
+
+      pulseToggle.addEventListener('click', function () {
+        pulseCollapsed = !pulseCollapsed;
+        pulseBody.style.display = pulseCollapsed ? 'none' : '';
+        pulseToggle.textContent = pulseCollapsed ? '+' : '\u2212';
+        pulseToggle.setAttribute('aria-label', pulseCollapsed ? 'Expand pulse widget' : 'Minimize pulse widget');
+      });
+
+      // ── PULSE AUTO-EVENTS ──
+      var pulseBodyEl = document.getElementById('pulseBody');
+      function addPulseEvent() {
+        var user = pick(USERS);
+        var action = pick(ACTIONS);
+        var project = pick(PROJECTS);
+
+        var isBot = user.variant === 'bot';
+        var nameColor = isBot ? 'var(--accent-violet)' : 'var(--text-primary)';
+
+        var ev = document.createElement('div');
+        ev.className = 'pulse-event';
+        ev.innerHTML =
+          '<span class="avatar avatar--' + user.variant + '" style="width:24px;height:24px;font-size:0.55rem;" aria-hidden="true">' + user.initials + '</span>' +
+          '<span style="color:var(--text-secondary)"><strong style="color:' + nameColor + '">' + user.name + '</strong> ' + action.text + ' <span style="color:var(--accent-cyan)">' + project + '</span></span>';
+
+        pulseBodyEl.insertBefore(ev, pulseBodyEl.firstChild);
+        while (pulseBodyEl.children.length > 8) {
+          pulseBodyEl.removeChild(pulseBodyEl.lastChild);
+        }
+      }
+
+      setInterval(addPulseEvent, rand(6000, 10000));
+
+    })();
+  </script>
+
+</body>
+</html>
