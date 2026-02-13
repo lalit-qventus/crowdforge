@@ -22,7 +22,7 @@ Customer (pays for product/service)
   Destination charge to Project Connected Account
        |
        v
-  Platform takes its cut via application_fee_amount
+  Revenue flows to karma-weighted distribution
 ```
 
 **Why destination charges over direct charges:** The platform controls the charge lifecycle — refunds, disputes, and fee calculations stay under CrowdForge's control rather than delegating to individual project owners. This is critical for the holdback and fraud clawback mechanisms.
@@ -89,10 +89,10 @@ Stripe webhook (charge.succeeded)
 Each project's dashboard displays:
 
 - **Gross revenue** — Total charges collected
-- **Stripe processing fees** — ~2.9% + $0.30 per transaction (absorbed by platform from its 15% cut)
+- **Stripe processing fees** — ~2.9% + $0.30 per transaction (deducted before distribution)
 - **Refunds & chargebacks** — Deductions
 - **Infrastructure costs** — Hosting tier fees deducted
-- **Net project revenue** — The number that feeds into the split engine
+- **Project revenue** — The number that feeds into the karma-weighted distribution
 - **Cumulative charts** — Daily, weekly, monthly revenue with trend lines
 - **Revenue by source** — Breakdown by subscription/one-time/usage/invoice
 
@@ -104,33 +104,19 @@ All figures update in real-time via WebSocket push from the Revenue Service.
 
 ### The Split
 
-Net project revenue is divided three ways:
+100% of project revenue flows to karma-weighted contributors. There is no platform fee, no commission, and no separate treasury allocation.
 
-| Allocation | Default % | Purpose |
-|---|---|---|
-| Contributor Pool | 70% | Distributed to contributors proportional to weighted karma |
-| Platform Fee | 15% | CrowdForge operations (absorbs Stripe fees, hosting, compliance) |
-| Project Treasury | 15% | Reinvestment fund governed by project contributors |
-
-The contributor pool percentage is configurable per-project within **60–80%** bounds. When adjusted, the platform fee stays fixed at 15% and the treasury absorbs the difference:
-
-| Contributor Pool | Platform Fee | Project Treasury |
-|---|---|---|
-| 60% | 15% | 25% |
-| 70% (default) | 15% | 15% |
-| 80% | 15% | 5% |
-
-Changes to the split require a governance vote from contributors holding >50% of project karma.
+The platform participates as a contributor to every project — earning karma for hosting, deployment, tooling, CI/CD, payment processing, and karma computation. Its share comes through the same karma-weighted distribution as every other contributor.
 
 ### The Revenue Waterfall
 
-Revenue flows through a strict waterfall before reaching the split:
+Revenue flows through a strict waterfall before distribution:
 
 ```
 Gross Revenue (100%)
        |
        v
-  - Stripe processing fees (~2.9% + $0.30)         [absorbed by platform]
+  - Stripe processing fees (~2.9% + $0.30)
        |
        v
   - Refunds & chargebacks
@@ -139,16 +125,15 @@ Gross Revenue (100%)
   - Infrastructure costs (hosting tier)
        |
        v
-  = Net Project Revenue
+  = Project Revenue
        |
-  +----+----+----+
-  |         |         |
-  v         v         v
-Platform  Contributor  Project
-  15%     Pool 70%    Treasury 15%
+       v
+  100% to karma-weighted contributors
+  (platform is a contributor too —
+   earns karma for infrastructure)
 ```
 
-Infrastructure costs are deducted before the split — they're a cost of running the project, not a contributor expense. If a project earns $0, the Founder is responsible for infrastructure costs above Starter tier, or the project auto-downgrades.
+Infrastructure costs are deducted before distribution — they're a cost of running the project, not a contributor expense. If a project earns $0, the Founder is responsible for infrastructure costs above Starter tier, or the project auto-downgrades.
 
 ### Weighted Karma Payout Formula
 
@@ -190,17 +175,17 @@ If a contributor abandons a project before full vesting, they retain only the ve
 ### Worked Example
 
 **Project: "PetMatch" — AI pet adoption platform**
-**Monthly net revenue: $10,000**
-**Contributor pool (70%): $7,000**
+**Monthly project revenue: $10,000**
+**Contributor pool (100%): $10,000**
 
 | Contributor | Project Karma | Vested Karma | Tier | Multiplier | Base Share | Weighted Share | Normalized | Payout |
 |---|---|---|---|---|---|---|---|---|
-| Alice (founder) | 850 | 850 | Architect (1.5x) | 1.5 | 28.3% | 42.5% | 34.9% | $2,443 |
-| Bob (AI agent) | 400 | 400 | Builder (1.0x) | 1.0 | 13.3% | 13.3% | 10.9% | $763 |
-| Carol (ML eng) | 620 | 620 | Builder (1.0x) | 1.0 | 20.7% | 20.7% | 17.0% | $1,190 |
-| Dave (QA) | 330 | 330 | Builder (1.0x) | 1.0 | 11.0% | 11.0% | 9.0% | $630 |
-| Eve (sales) | 800 | 600 | Partner (2.0x) | 2.0 | 20.0% | 40.0% | 28.2% | $1,974 |
-| **Total** | **3,000** | **2,800** | | | | **121.8%** | **100%** | **$7,000** |
+| Alice (founder) | 850 | 850 | Architect (1.5x) | 1.5 | 28.3% | 42.5% | 34.9% | $3,490 |
+| Bob (AI agent) | 400 | 400 | Builder (1.0x) | 1.0 | 13.3% | 13.3% | 10.9% | $1,090 |
+| Carol (ML eng) | 620 | 620 | Builder (1.0x) | 1.0 | 20.7% | 20.7% | 17.0% | $1,700 |
+| Dave (QA) | 330 | 330 | Builder (1.0x) | 1.0 | 11.0% | 11.0% | 9.0% | $900 |
+| Eve (sales) | 800 | 600 | Partner (2.0x) | 2.0 | 20.0% | 40.0% | 28.2% | $2,820 |
+| **Total** | **3,000** | **2,800** | | | | **121.8%** | **100%** | **$10,000** |
 
 Note: Eve has 800 total karma but only 600 vested (she joined recently). Her Partner tier comes from cumulative cross-project karma, not just this project. Her 2.0x multiplier amplifies her share significantly — the system rewards long-term platform investment.
 
@@ -238,7 +223,7 @@ On calculation day, for each project:
 
 1. **Sum net revenue** for the accrual period from the revenue ledger
 2. **Deduct infrastructure costs** for the period
-3. **Apply the revenue split** (70/15/15 or project-custom)
+3. **Apply the revenue split** (100% to karma-weighted contributors)
 4. **Snapshot karma state:** for each contributor, capture vested project karma and current tier
 5. **Compute weighted shares** using the formula in Section 2
 6. **Apply holdback:** withhold 20% of each contributor's payout
@@ -448,21 +433,19 @@ Before launch, engage securities counsel to:
 
 ---
 
-## 7. Project Treasury
+## 7. Project Reinvestment
 
-### Purpose
+With 100% of revenue flowing to karma-weighted contributors, there is no separate treasury allocation. Projects that need reinvestment funds (bounties, marketing, infrastructure) can fund these through governance-approved contributor contributions — contributors voluntarily allocate a portion of their earnings back to the project through a governance vote.
 
-The 15% project treasury allocation creates a project-owned fund for reinvestment. This prevents the tragedy of the commons where no one funds marketing, bounties, or infrastructure improvements because it would come out of their personal share.
+### Governance for Reinvestment
 
-### Governance
-
-| Revenue Level | Treasury Control |
+| Revenue Level | Reinvestment Control |
 |---|---|
-| < $1,000/month | Founder-controlled spending |
-| $1,000–$10,000/month | Spending proposals require approval from contributors holding >50% karma |
-| > $10,000/month | Formal treasury proposals with 72-hour voting window; quarterly treasury reports |
+| < $1,000/month | Founder proposes voluntary reinvestment; contributors opt in |
+| $1,000–$10,000/month | Reinvestment proposals require approval from contributors holding >50% karma |
+| > $10,000/month | Formal reinvestment proposals with 72-hour voting window; quarterly reports |
 
-### Permitted Uses
+### Permitted Reinvestment Uses
 
 - Bounties for specific tasks (karma + cash hybrid incentive)
 - Marketing campaigns and paid acquisition
@@ -470,13 +453,6 @@ The 15% project treasury allocation creates a project-owned fund for reinvestmen
 - Third-party service costs (APIs, SaaS tools the project uses)
 - Legal costs (if the project needs its own legal structure)
 - Bug bounty program for security
-
-### Prohibited Uses
-
-- Direct payouts to specific contributors outside the karma system
-- Personal expenses of any contributor
-- Investment in other projects or financial instruments
-- Payments to entities owned by the Founder without governance approval
 
 ---
 
@@ -498,8 +474,8 @@ Every payout includes a detailed breakdown visible to the recipient:
       "gross_revenue": 12500.00,
       "infrastructure_deduction": 50.00,
       "net_revenue": 12450.00,
-      "contributor_pool_pct": 0.70,
-      "contributor_pool": 8715.00,
+      "contributor_pool_pct": 1.00,
+      "contributor_pool": 12450.00,
       "your_vested_karma": 850,
       "total_project_karma": 3000,
       "your_base_share": 0.2833,
@@ -791,7 +767,7 @@ If a project's Connected Account is suspended by Stripe (fraud, policy violation
 
 ### Currency Conversion Losses
 
-Exchange rate fluctuations between revenue collection and payout disbursement can create minor discrepancies. The revenue ledger records USD-equivalent at time of charge (Stripe's rate). Payouts are in USD. Any FX slippage is absorbed by the platform from its 15% cut, not passed to contributors.
+Exchange rate fluctuations between revenue collection and payout disbursement can create minor discrepancies. The revenue ledger records USD-equivalent at time of charge (Stripe's rate). Payouts are in USD. FX slippage is deducted from the revenue pool before karma-weighted distribution.
 
 ### Payout Failure
 

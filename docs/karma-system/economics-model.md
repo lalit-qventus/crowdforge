@@ -20,9 +20,7 @@ All models below use these shared definitions.
 | E(t) | Exchange rate ($/karma/month) | R(t) / S(t) |
 | τ_i | Tier multiplier for tier i | [0, 0.5, 1.0, 1.5, 2.0, 2.5] |
 
-**Revenue split:** 100% to contributors. The platform takes zero cut of project revenue. Platform sustainability is funded through separate channels (infrastructure fees, subscriptions, etc.) — not modeled here.
-
-**Note:** The existing design docs reference 70/15/15 (karma-system) and 85/15 (business-model) splits. Both are superseded. All revenue flows directly to karma-weighted contributors.
+**Revenue split:** 100% of project revenue flows to karma-weighted contributors. The platform participates as a contributor — earning karma for hosting, tooling, and infrastructure — so its share comes through the same karma distribution as everyone else. There is no platform fee, no commission, and no separate treasury allocation.
 
 ---
 
@@ -379,9 +377,9 @@ No circuit breaker is appropriate here — projects fail, and that's reality.
 | 6 | 1 | 5 | $8,000 | 1,100 | $7.27 |
 | 12 | 1 | 3 | $10,000 | 1,500 | $6.67 |
 
-**Observation:** With 100% revenue flowing to contributors, the solo contributor keeps everything. This is economically equivalent to freelancing with CrowdForge providing infrastructure and payment processing for free (funded by the platform's separate revenue streams). Ghost projects are not a pathology under this split — they're a valid use case.
+**Observation:** With 100% revenue flowing to karma-weighted contributors, the solo contributor shares the pool only with the platform's infrastructure karma. The platform earns karma for hosting, tooling, and deployment — so a solo contributor doesn't keep 100%, but the platform's share is earned through the same karma mechanism, not extracted as a fee.
 
-The risk is behavioral: solo projects don't generate the collaborative dynamics CrowdForge is designed around. They consume platform resources without contributing to network effects. Consider gating certain platform benefits (priority hosting, analytics) behind multi-contributor thresholds to nudge toward collaboration without penalizing solos.
+The risk is behavioral: solo projects don't generate the collaborative dynamics CrowdForge is designed around. Consider gating certain platform benefits (priority hosting, analytics) behind multi-contributor thresholds to nudge toward collaboration without penalizing solos.
 
 ---
 
@@ -562,7 +560,7 @@ X's weighted karma: 200. Y's weighted karma: 4,500. Y dominates 22.5:1.
 
 ## 9. Platform Cost Economics (COGS Model)
 
-The platform takes zero direct cut of project revenue. Instead, platform operational costs are deducted from gross revenue before karma-weighted distribution — the same way a business pays cost of goods sold before distributing profit.
+The platform earns its share through karma, not through a fee or commission. CrowdForge is a contributor to every project — it earns karma for hosting, tooling, deployment, CI/CD, payment processing, and karma computation. Platform operational costs are reflected in the karma the platform earns for providing these infrastructure contributions.
 
 ### 9.1 The Distribution Formula
 
@@ -605,27 +603,27 @@ Where C(t) = platform costs for the project at time t.
 
 Platform costs converge toward ~3% at scale (dominated by payment processing fees, which are proportional). Small projects bear a higher percentage burden from fixed costs (base hosting, minimum compute). This is the natural economics of infrastructure — fixed costs spread across revenue.
 
-### 9.4 Why This Is Better Than a Percentage Cut
+### 9.4 Why Platform-as-Contributor Is Better Than a Percentage Cut
 
-| Direct Cut (15%) | COGS Model |
-|------------------|------------|
-| $500 project pays $75 to platform regardless of costs | $500 project pays ~$20 (actual costs) |
-| $100K project pays $15K to platform (windfall profit) | $100K project pays ~$3K (actual costs) |
-| Platform incentivized to maximize GMV cut | Platform incentivized to minimize operational costs |
-| Contributors see arbitrary tax | Contributors see transparent, auditable cost line |
-| Feels extractive | Feels like shared infrastructure |
+| Percentage Cut Model | Platform-as-Contributor Model |
+|---------------------|-------------------------------|
+| $500 project pays $75 to platform regardless of value provided | Platform earns karma proportional to infrastructure contributions |
+| $100K project pays $15K to platform (windfall profit) | Platform's karma share reflects actual infrastructure value delivered |
+| Platform incentivized to maximize GMV cut | Platform incentivized to provide better infrastructure (more karma) |
+| Contributors see arbitrary tax | Contributors see the platform earning its share the same way they do |
+| Feels extractive | Feels like building together |
 
-The COGS model aligns platform incentives with contributor interests: the platform earns by providing efficient infrastructure (lower costs = happier contributors = more projects = more scale economies), not by extracting rent from successful projects.
+The platform-as-contributor model aligns incentives completely: the platform earns by providing valuable infrastructure (better infrastructure = more karma = larger share), not by extracting rent from successful projects. Every participant — human, AI agent, and platform — earns through the same karma mechanism.
 
-### 9.5 Platform Sustainability Under COGS
+### 9.5 Platform Sustainability Under Platform-as-Contributor
 
-Without a percentage cut, platform sustainability depends on:
-1. **Scale economies:** Per-project costs drop as infrastructure is amortized across more projects
+The platform sustains itself through karma-based revenue share plus supplementary revenue streams:
+1. **Karma-based earnings:** The platform earns karma on every project for infrastructure contributions, translating to a share of project revenue proportional to the value it provides
 2. **Infrastructure tier revenue:** Projects choose paid hosting tiers ($15-200/mo) that include margin above cost
 3. **Premium subscriptions:** Pro features ($12/mo per contributor) are pure margin
-4. **Cost efficiency:** Platform profits when operational cost < what projects pay for infrastructure tiers
+4. **Scale economies:** Per-project costs drop as infrastructure is amortized across more projects
 
-At scale (10,000+ projects), the margin on infrastructure tiers + subscriptions exceeds fixed costs. The platform is an infrastructure provider, not a tax collector.
+At scale (10,000+ projects), the combination of karma-based revenue share, infrastructure tiers, and subscriptions provides sustainable platform economics. The platform is a fellow contributor, not a tax collector.
 
 ### 9.6 Karma Impact of Platform Costs
 
@@ -672,9 +670,9 @@ At decay_rate = 0.005, the pioneer bonus persists for nearly a year. At 0.05, it
 
 **The default (0.01) creates a ~3-month meaningful window and a ~12-month residual tail.** This matches the typical lifecycle where early months are highest-risk.
 
-### 10.3 Platform Cost Sensitivity
+### 10.3 Platform Karma Sensitivity
 
-Under the COGS model, the key parameter is the platform's cost efficiency ratio: C(t)/R(t).
+Under the platform-as-contributor model, the key parameter is the platform's karma share relative to total project karma.
 
 | Cost Efficiency | Effect on $10K Project | Contributor Perception |
 |----------------|----------------------|----------------------|
@@ -762,7 +760,7 @@ One project generates 80% of platform revenue. If it leaves, platform revenue dr
 |---|-------------|---------|----------|----------------|-----------------|
 | 1 | **Karma hyperinflation** | 100+ contributors, 20 contributions each/month | Medium | Yes (dilution makes marginal contributions worthless, people leave) | Cap per-project monthly emissions at 20x the rolling 3-month average. Excess contributions queue for next month. |
 | 2 | **Revenue cliff** | Product loses customers | High | No (karma holders trapped) | Explicit notification at >50% revenue drop. Provide "project hibernation" option that freezes karma accounting. |
-| 3 | **Ghost project (solo freelancer)** | 1 contributor, all revenue | Low | N/A (stable) | Platform costs (~3%) are the only deduction. Solo projects are valid but don't generate network effects. Gate premium features behind multi-contributor thresholds. |
+| 3 | **Ghost project (solo freelancer)** | 1 contributor, all revenue | Low | N/A (stable) | The solo contributor shares the pool only with the platform's infrastructure karma. Solo projects are valid but don't generate network effects. Gate premium features behind multi-contributor thresholds. |
 | 4 | **Whale contributor rest-and-vest** | Dominant contributor goes dormant | High | Slowly (dilution over months/years) | Contribution velocity floor: 6 months inactivity → gradual payout reduction to 50% of entitled share. |
 | 5 | **Tier inflation** | Absolute thresholds become easy to reach | Medium | No | Ratcheted hybrid thresholds (see Section 3.3). Annual recalibration. |
 | 6 | **Sales karma dominance** | Salesperson captures >50% of karma | Medium | Partially (more builders join if payouts are high) | Per-project governance can adjust sales_karma_rate. Platform sets maximum sales karma at 50% of total project karma — excess sales karma is capped but still counts toward tier. |
@@ -792,7 +790,7 @@ Most parameters can remain fixed across 10 to 100,000 contributors. These cannot
 
 | Issue | Doc A | Doc B | Impact | Recommendation |
 |-------|-------|-------|--------|----------------|
-| Revenue split | karma-system: 70/15/15 | business-model: 85/15 | Both are superseded | Adopt COGS model: 100% to contributors minus actual platform costs (~3%). Update both docs. |
+| Revenue split | Previously 70/15/15 | Previously 85/15 | Both superseded | 100% to karma-weighted contributors. Platform earns its share through karma as a contributor. |
 | Vesting schedule | value-pricing: 25% immediate + 90d | fraud-prevention: 30d cliff + 90d | New contributors experience different economics | Adopt Model A (25% immediate + 90d). Provides immediate value. |
 | Pioneer multiplier | karma-system: continuous decay (3.0x→1.0x) | spawn-protection: phase-based (3x/2x/1.5x/1x) | Two competing time-bonus mechanics | Choose one. The phase-based model from spawn-protection is simpler and integrates with project lifecycle. The continuous model from karma-system is mathematically cleaner. Recommend continuous for underlying math, phase gates for UX presentation. |
 | Karma at submission vs. acceptance | karma-system: implied at submission | spawn-protection: explicitly at acceptance only | Determines when karma enters the supply | Adopt "at acceptance" universally. Prevents supply inflation from unreviewed contributions. |
@@ -801,7 +799,7 @@ Most parameters can remain fixed across 10 to 100,000 contributors. These cannot
 
 ## 15. Recommendations Summary
 
-1. **Adopt COGS revenue model** — 100% to contributors minus actual platform costs (~3%). No percentage cut. Update all design docs.
+1. **Platform-as-contributor revenue model** — 100% to karma-weighted contributors. The platform earns karma for infrastructure contributions and receives its share through the same distribution as everyone else.
 2. **Adopt Model A vesting** (25% immediate + 90-day linear) — balances fraud prevention with newcomer experience.
 3. **Implement ratcheted hybrid tier thresholds** — annual recalibration preserving existing tiers.
 4. **Compress tier multipliers** to [0, 0.7, 1.0, 1.3, 1.7, 2.2] — reduces distortion while preserving aspiration.

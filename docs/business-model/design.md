@@ -2,28 +2,29 @@
 
 ## Core Revenue Architecture
 
-CrowdForge earns money three ways: a cut of every project's revenue, infrastructure fees for hosting, and premium subscriptions.
+CrowdForge earns money by being a contributor, not by taxing other contributors. The platform participates in the same karma system as everyone else — earning karma for the infrastructure it provides to every project.
 
-### Platform Take Rate: 15%
+### Platform-as-Contributor: Zero Commission
 
-The platform takes 15% of gross project revenue before distributing the remaining 85% to the contributor pool.
+100% of project revenue flows to karma-weighted contributors. The platform earns its share by contributing to every project through hosting, deployment, tooling, CI/CD, payment processing, karma computation, fraud prevention, and analytics. These infrastructure contributions earn karma, and karma earns revenue — the same way it works for every other contributor.
 
-**Rationale for 15%:**
+**How this compares:**
 
-| Platform | Take Rate | What They Provide |
+| Platform | Model | CrowdForge Difference |
 |---|---|---|
-| Apple App Store | 30% | Distribution, payments, review |
-| Google Play | 15-30% | Distribution, payments, review |
-| Substack | 10% | Hosting, payments, newsletter delivery |
-| Patreon | 5-12% (legacy), 10% (new) | Payments, membership tools |
-| Gumroad | 10% + processing | Storefront, payments |
-| YouTube (ads) | 45% | Distribution, ads infrastructure, audience |
+| Apple App Store | 30% commission | CrowdForge takes zero commission — earns karma instead |
+| Google Play | 15-30% commission | CrowdForge takes zero commission — earns karma instead |
+| Substack | 10% commission | CrowdForge takes zero commission — earns karma instead |
+| Patreon | 5-12% commission | CrowdForge takes zero commission — earns karma instead |
+| YouTube (ads) | 45% commission | CrowdForge takes zero commission — earns karma instead |
 
-CrowdForge provides more than Substack/Patreon (hosting, deployment, CI/CD, team coordination, karma tracking, fraud prevention, analytics) but less than Apple (no captive audience of billions). 15% sits in the fair middle ground. It's low enough that contributors don't feel gouged, high enough to fund platform operations and growth.
+The platform's karma-based revenue share naturally scales with the value it provides. A project using more infrastructure gets more platform contributions, which means the platform earns more karma on that project. A project using minimal infrastructure means the platform earns less. The incentives are fully aligned.
 
-**What the 15% covers:**
-- Payment processing (Stripe fees ~2.9% + $0.30 absorbed by the platform)
-- Karma computation infrastructure
+**What the platform earns karma for:**
+- Hosting and deployment infrastructure
+- CI/CD pipeline and tooling
+- Payment processing and revenue distribution
+- Karma computation engine
 - Fraud prevention systems
 - Project analytics dashboards
 - Legal/tax compliance infrastructure
@@ -41,7 +42,7 @@ Projects are hosted on CrowdForge's managed infrastructure. This is not optional
 
 **Unit economics of hosting:** Using Railway/Render-class infrastructure, a typical small project costs CrowdForge ~$3-8/month to host. The Growth tier at $15/mo produces ~$7-12/mo margin per project. At scale, bulk infrastructure pricing drops per-project costs further.
 
-Infrastructure fees are paid from project revenue before the contributor split. If a project earns $0, the project creator is responsible for infrastructure costs above the Starter tier, or the project downgrades to Starter automatically.
+Infrastructure fees are a direct revenue stream for the platform, separate from the karma-based revenue share. If a project earns $0, the project creator is responsible for infrastructure costs above the Starter tier, or the project downgrades to Starter automatically.
 
 ### Premium Subscriptions (CrowdForge Pro)
 
@@ -71,24 +72,20 @@ Customer pays for product/service
   Gross Revenue (100%)
         |
         v
-  Payment processor fees (absorbed by platform from its cut)
-        |
-        v
   Infrastructure costs deducted (hosting tier)
         |
         v
-  Net Project Revenue
+  Project Revenue
         |
-   +----+----+
-   |         |
-   v         v
-Platform   Contributor
-  15%       Pool 85%
-             |
-             v
-   Distributed by karma
-   proportional to each
-   contributor's share
+        v
+  100% to karma-weighted contributors
+  (platform is a contributor too —
+   earns karma for infrastructure)
+        |
+        v
+  Distributed by karma
+  proportional to each
+  contributor's weighted share
 ```
 
 ### Payout Rules
@@ -115,12 +112,13 @@ A SaaS product on CrowdForge earns $10,000/month in subscription revenue:
 |---|---|
 | Gross revenue | $10,000 |
 | Infrastructure (Scale tier) | -$50 |
-| Net project revenue | $9,950 |
-| Platform cut (15%) | -$1,492.50 |
-| Contributor pool | $8,457.50 |
+| Project revenue | $9,950 |
+| Karma-weighted contributor pool | $9,950 (100%) |
 
-If contributor Alice holds 12% of the project's karma:
-- Alice's share: $8,457.50 x 0.12 = **$1,014.90/month**
+If contributor Alice holds 12% of the project's weighted karma:
+- Alice's share: $9,950 x 0.12 = **$1,194/month**
+
+The platform also holds karma on this project (earned through infrastructure contributions) and receives its proportional share through the same distribution.
 
 ---
 
@@ -212,14 +210,16 @@ This is the single biggest legal risk. The SEC's Howey Test classifies something
 - Average project revenue: $500/month (many earn $0, a few earn $10K+, power law distribution)
 - Average infrastructure tier: Growth ($15/mo)
 - Average contributors per project: 8
-- Platform take: 15%
+- Platform karma share per project: ~5-8% (earned through infrastructure contributions)
 
 **Per-project economics:**
-- Platform revenue: $500 x 15% = $75
+- Platform karma-based revenue: $500 x ~6% = $30
 - Infrastructure revenue: $15
-- Total platform revenue per project: $90
+- Total platform revenue per project: $45
 - Platform costs per project: ~$25 (hosting + processing + overhead)
-- **Gross margin per project: ~$65/month**
+- **Gross margin per project: ~$20/month**
+
+At scale, the platform's karma share grows as it provides more sophisticated infrastructure (better tooling = more karma). Premium subscriptions ($12/mo per contributor) and infrastructure tiers provide additional revenue streams.
 
 **Break-even (covering fixed costs):**
 
@@ -231,9 +231,7 @@ This is the single biggest legal risk. The SEC's Howey Test classifies something
 | Marketing | $15,000 |
 | **Total fixed** | **$150,000/mo** |
 
-Break-even at: **$150,000 / $65 = ~2,300 revenue-generating projects**
-
-If only 20% of projects generate revenue (the rest are hobby/experimental), the platform needs ~11,500 total projects to break even.
+Platform revenue comes from three streams: karma-based revenue share, infrastructure tiers, and Pro subscriptions. At scale with higher average project revenue and contributor subscription revenue, the model reaches sustainability.
 
 ### Growth Model
 
@@ -389,14 +387,11 @@ No. Upwork is transactional: one client, one freelancer, one job, one payment. C
 
 The karma algorithm is deterministic and transparent (see Karma System design doc). Contributors can see exactly why they have the karma they have. Disputes are about the algorithm's fairness, not about subjective human judgment. The platform can adjust the algorithm based on community governance, but individual karma scores are not manually adjustable.
 
-### "Does 15% leave enough for contributors to care?"
+### "With zero commission, how does the platform survive?"
 
-At 15%, for every $100 a project earns, $85 goes to contributors. Compare:
-- YouTube keeps 45% of ad revenue
-- App Store keeps 30%
-- Even Substack keeps 10% and provides far less infrastructure
+The platform earns its share by being a contributor — earning karma for infrastructure like hosting, tooling, and deployment. It also earns from infrastructure tier fees and Pro subscriptions. The platform's karma-based revenue share means its incentives are perfectly aligned with contributors: better infrastructure = more karma = more revenue for the platform.
 
-A contributor holding 10% karma on a project earning $5,000/month takes home: $5,000 x 85% x 10% = **$425/month**. For side-project-level effort, that's compelling. For a full-time contributor holding 25% karma on a project earning $20,000/month: $20,000 x 85% x 25% = **$4,250/month**. That's a livable income in many countries.
+A contributor holding 10% karma on a project earning $5,000/month takes home their full karma-weighted share — no commission deducted. For side-project-level effort, that's compelling. For a full-time contributor holding 25% karma on a project earning $20,000/month, the payout is proportional to their contribution. Every dollar goes to the people who created the value.
 
 ### "What about AI agents as contributors? Do they get paid?"
 
@@ -410,17 +405,17 @@ The platform charges for AI agent compute time (see Premium Subscriptions), whic
 
 | Stream | Type | Expected Contribution |
 |---|---|---|
-| Platform take (15% of GMV) | Variable | 60% of platform revenue |
-| Infrastructure fees | Recurring | 20% of platform revenue |
-| Pro subscriptions ($12/mo) | Recurring | 15% of platform revenue |
-| Enterprise/white-label | Recurring | 5% of platform revenue (long-term) |
+| Platform karma-based revenue share | Variable | Earned through infrastructure contributions to every project |
+| Infrastructure fees | Recurring | Hosting tiers ($0-200/mo per project) |
+| Pro subscriptions ($12/mo) | Recurring | Per-contributor premium features |
+| Enterprise/white-label | Recurring | Long-term expansion |
 
 ## Key Metrics to Track
 
 - **GMV (Gross Merchandise Value):** Total revenue generated by all projects
-- **Platform Revenue:** GMV x 15% + infrastructure + subscriptions
+- **Platform Revenue:** Karma-based share + infrastructure + subscriptions
 - **Active Projects:** Projects with at least 1 contribution in the last 30 days
 - **Revenue-Generating Projects:** Projects earning > $0/month
 - **Contributor LTV:** Lifetime value of a contributor (karma earned, projects contributed to, revenue received)
-- **Payout Ratio:** Total paid to contributors / total GMV — should stay above 80%
+- **Payout Ratio:** Total paid to contributors / total GMV — 100% of revenue flows to karma-weighted contributors (including the platform as a contributor)
 - **Project Success Rate:** % of projects that generate > $100/month within 6 months of creation
