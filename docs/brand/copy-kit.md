@@ -59,7 +59,7 @@ Sub: Code, decisions, deploys — all happening live on the forge stream. The en
 ## Elevator Pitches
 
 ### One-line (10 seconds)
-CrowdForge is an improv stage where anyone walks on, the ensemble creates something real together, and the upside is shared through karma.
+CrowdForge is where strangers riff on each other's ideas and build something nobody expected — and when it makes money, 100% goes to the people who made it.
 
 ### Three-line (30 seconds)
 Anyone can pitch an idea on CrowdForge — a startup, a manga, a cookbook, a game, anything. The community votes, an ensemble forms, and creators start shipping together. Every contribution earns karma, and karma determines your share. No hiring. No equity negotiations. Just walk on stage and create.
@@ -90,6 +90,25 @@ Pitch an idea on CrowdForge. The community votes. If it resonates, an ensemble s
 > Someone says "what if..."
 > The ensemble says "Yes, and..."
 > Something real is born.
+
+---
+
+## What We Are / What We're Not
+
+**We are:**
+- An improv stage
+- A campfire
+- A jam session
+- A playground for builders
+- The backstage of a theater where anyone can walk in and step on stage
+
+**We're not:**
+- A project management tool
+- A freelance marketplace
+- A hackathon
+- A DAO
+- A code repository
+- A platform that profits from your creative work
 
 ---
 
@@ -132,9 +151,22 @@ Pitch an idea on CrowdForge. The community votes. If it resonates, an ensemble s
 - "No black boxes. Trace any number back to its source."
 
 ### Revenue Sharing
-- "100% to the ensemble. Zero commission. The platform earns karma too."
+- "100% to the ensemble. Zero commission. Zero platform cut."
+- "The platform runs on community donations, not your revenue."
+- "Every dollar your Scene earns goes to the people who built it."
 - "Not a bounty. Not a salary. Ongoing ownership."
-- "Everyone shares, including the platform — through karma, not commission."
+
+### Donation Model
+- "The platform keeps the lights on through community donations."
+- "We don't profit from your work. We ask that you help keep the stage running."
+- "Transparent costs. Voluntary support. Like Wikipedia, but for builders."
+
+### Creative Magic
+- "Finish each other's startups."
+- "You bring the spark. Strangers bring the fire."
+- "The ensemble catches what you miss."
+- "Come for the jam session. The venue doesn't take a cut."
+- "Not a tool. A playground."
 
 ### Pioneer Multiplier
 - "First on stage, higher reward."
@@ -162,6 +194,7 @@ The shareable "payout card" is the nuclear weapon of organic growth. Each card i
 ### Template
 > I earned **$[amount]** this month building **[Project Name]** on CrowdForge.
 > [Contribution summary: e.g., "I wrote 3 functions and reviewed 2 PRs."]
+> Zero platform commission. Every dollar earned goes to the ensemble.
 
 ### Examples
 > I earned **$347** this month building PetMatch AI on CrowdForge. I wrote the matching algorithm and reviewed 4 PRs.
