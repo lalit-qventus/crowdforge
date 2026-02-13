@@ -43,7 +43,7 @@ EF's distinctive approach is **team-first, idea-second.** Their program runs in 
 2. **Ideate:** Participants develop "hunches" from their beliefs and domain expertise, then convert hunches into business ideas.
 3. **Validate:** Investment committee evaluation, demo day preparation.
 
-**Key insight for CrowdForge:** EF proves that strangers can form effective startup teams when given structure. Their process works because they emphasize complementary skills over friendship, and they use structured exercises (not just free-form hanging out) to match people.
+**Key insight for CrowdForge:** EF proves that people can form effective startup teams when given structure. Their process works because they emphasize complementary skills over friendship, and they use structured exercises (not just free-form hanging out) to match people.
 
 ## Antler's Approach
 

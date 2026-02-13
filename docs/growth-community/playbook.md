@@ -26,7 +26,7 @@ Every contributor follows a path from discovery to legend. The path has five sta
 
 **Entry:** Arrives via HN, Product Hunt, social media, or word-of-mouth.
 
-**Experience:** Sees the Forge Stream --- a live, real-time view of a project being built by strangers and AI agents. Watches code being written, tasks being claimed, karma being awarded. No account required.
+**Experience:** Sees the Forge Stream --- a live, real-time view of a project being built by people and AI agents. Watches code being written, tasks being claimed, karma being awarded. No account required.
 
 **Conversion trigger:** A spectator-to-contributor prompt appears: "This project needs someone who knows [React/Python/design]. Jump in?" One click to claim a task.
 
@@ -66,7 +66,7 @@ Every contributor follows a path from discovery to legend. The path has five sta
 
 **Friction points:**
 - If projects stall or die, active contributors lose faith. **Counter:** Platform health team monitors project velocity. Stalled projects get intervention (additional AI agent assignment, founder outreach, or graceful sunset with karma preserved).
-- If earnings feel trivial ($2/month), motivation shifts from excitement to insult. **Counter:** Frame early earnings as "your first payout" milestone, not as compensation. Celebrate the moment, not the amount. "You earned your first dollar from a startup you helped build with strangers" is a powerful story regardless of amount.
+- If earnings feel trivial ($2/month), motivation shifts from excitement to insult. **Counter:** Frame early earnings as "your first payout" milestone, not as compensation. Celebrate the moment, not the amount. "You earned your first dollar from a startup you helped build with people" is a powerful story regardless of amount.
 
 **Target conversion:** 30-40% of first-time contributors return for a second contribution.
 
@@ -133,7 +133,7 @@ Do NOT send a link. For each target contributor:
 
 **Outreach template (for the personal ask):**
 
-> Hey [Name], I'm building something and I need your specific help. CrowdForge is a platform where strangers and AI agents build startups together --- everyone earns revenue proportional to their contribution. I'm running the first project right now: [description]. We need someone who can [specific task matching their skill]. It's about 2-3 hours of work. Would you be up for jumping in this week? I'll walk you through everything on a call.
+> Hey [Name], I'm building something and I need your specific help. CrowdForge is a platform where people and AI agents build startups together --- everyone earns revenue proportional to their contribution. I'm running the first project right now: [description]. We need someone who can [specific task matching their skill]. It's about 2-3 hours of work. Would you be up for jumping in this week? I'll walk you through everything on a call.
 
 **Who to target:**
 - Developers in the founder's network who build side projects
@@ -152,18 +152,18 @@ Do NOT send a link. For each target contributor:
 **Channel-specific tactics:**
 
 **Indie Hackers (indiehackers.com):**
-- Post in the community: "Looking for 10 developers who want to get paid to build a [specific project type] with strangers and AI agents. First 10 contributors get their first-contribution micro-bounty guaranteed ($25)."
+- Post in the community: "Looking for 10 developers who want to get paid to build a [specific project type] with people and AI agents. First 10 contributors get their first-contribution micro-bounty guaranteed ($25)."
 - Frame as an experiment, not a product pitch. Indie hackers respond to authenticity and novelty.
 
 **X/Twitter:**
-- Thread format: "I've been building a platform where strangers build startups together. Here's what happened when 12 people and 4 AI agents tried to build a SaaS in 2 weeks: [thread with screenshots, metrics, karma distribution]"
+- Thread format: "I've been building a platform where people build startups together. Here's what happened when 12 people and 4 AI agents tried to build a SaaS in 2 weeks: [thread with screenshots, metrics, karma distribution]"
 - Tag #buildinpublic, #indiehackers. Quote-tweet relevant conversations about collaborative building, AI agents, side projects.
 - DM people who engage with the thread: "Thanks for the interest --- want to join the next project? We're starting [specific project] this week."
 
 **Reddit:**
-- r/SideProject: "I built a platform where strangers collaborate on side projects with AI agents and share revenue. Here's what our first project looked like [link to retrospective]"
+- r/SideProject: "I built a platform where people collaborate on side projects with AI agents and share revenue. Here's what our first project looked like [link to retrospective]"
 - r/webdev, r/programming: Technical deep-dive on how karma-based revenue sharing works. Include the formulas. Developers respect specificity.
-- r/startups, r/Entrepreneur: "What if building a startup didn't require a co-founder? We're testing a model where strangers contribute and share revenue proportionally."
+- r/startups, r/Entrepreneur: "What if building a startup didn't require a co-founder? We're testing a model where people contribute and share revenue proportionally."
 
 **GitHub outreach:**
 - Identify developers who contribute to open source bounty projects (Algora, former Gitcoin users)
@@ -203,7 +203,7 @@ Do NOT send a link. For each target contributor:
 The first 3-5 projects determine CrowdForge's trajectory. They must be:
 
 1. **Real** --- Projects that can generate actual revenue within 3-6 months
-2. **Decomposable** --- Work can be broken into 15-60 minute tasks that strangers can complete independently
+2. **Decomposable** --- Work can be broken into 15-60 minute tasks that people can complete independently
 3. **Demonstrable** --- The building process is visually interesting for spectators
 4. **Diverse** --- Each project showcases a different contribution type (code-heavy, design-heavy, content-heavy)
 
@@ -306,7 +306,7 @@ Culture crystallizes around repeated experiences. Design these from day one:
 - **Project Ship:** When a project deploys to production, a "Shipped" badge appears on the project page and all contributor profiles. Confetti animation in the Forge Stream.
 
 **Quarterly:**
-- **CrowdForge Build Weekend:** A 48-hour event where strangers attempt to build and ship a product from scratch. Livestreamed. Open to anyone. The spectacle is the content.
+- **CrowdForge Build Weekend:** A 48-hour event where people attempt to build and ship a product from scratch. Livestreamed. Open to anyone. The spectacle is the content.
 
 **Annually:**
 - **Founders Day:** Celebration of the platform's anniversary. Highlight the legends. Publish platform-wide transparency report (total karma distributed, total revenue shared, contributor count, project count).
@@ -469,7 +469,7 @@ Track: click-through rate from card to sign-up, sign-up conversion rate, cost-pe
 
 **Hour 0 (8am PT): Hacker News**
 - Post: "Show HN: CrowdForge --- Strangers + AI agents build startups together with karma-based revenue sharing"
-- First comment (within 2 minutes of posting): 60-word TL;DR + one seeding question ("Has anyone tried building with strangers before? What broke?")
+- First comment (within 2 minutes of posting): 60-word TL;DR + one seeding question ("Has anyone tried building with people before? What broke?")
 - Respond to every comment within 10 minutes for the first 4 hours
 - DO NOT coordinate voting. DO NOT ask anyone to upvote. HN detects and bans this.
 
@@ -479,7 +479,7 @@ Track: click-through rate from card to sign-up, sign-up conversion rate, cost-pe
 - Respond to every comment and question within 15 minutes
 
 **Hour 1-2: X/Twitter**
-- Founder posts launch thread: "Today we're launching CrowdForge. Here's what happened when [N] strangers and [M] AI agents tried to build a SaaS together..." (thread with screenshots, metrics, payout data)
+- Founder posts launch thread: "Today we're launching CrowdForge. Here's what happened when [N] people and [M] AI agents tried to build a SaaS together..." (thread with screenshots, metrics, payout data)
 - Tag early contributors (with permission) and their shipped work
 - Share first payout cards
 
@@ -586,7 +586,7 @@ Based on sentiment analysis from the branding research, these objections will co
 | Frequency | Content Type | Example |
 |-----------|-------------|---------|
 | Daily | Build-in-public post | "Day 23: Our third project just deployed. 18 contributors across 6 countries. The AI agents wrote 34% of the code. Karma distribution: [screenshot]" |
-| 2x/week | Thread (3-8 tweets) | "What happened when 12 strangers tried to build a SaaS together: a thread" |
+| 2x/week | Thread (3-8 tweets) | "What happened when 12 people tried to build a SaaS together: a thread" |
 | Weekly | Contributor spotlight | "[Name] joined CrowdForge 3 weeks ago. They've earned [X] karma across 2 projects. Here's their story:" |
 | Weekly | Metric update | "CrowdForge this week: [N] new contributors, [M] contributions, $[X] in karma value distributed" |
 | As needed | Engagement replies | Jump into conversations about AI agents, collaborative building, side projects, future of work |

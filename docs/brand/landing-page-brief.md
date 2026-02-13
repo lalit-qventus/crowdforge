@@ -10,14 +10,14 @@ Instead of tagline + screenshot, the hero should convey real-time creative energ
 
 **Options:**
 
-1. A live or simulated view of a Scene being built — strangers riffing, ideas forking, things shipping.
+1. A live or simulated view of a Scene being built — people riffing, ideas forking, things shipping.
 
 2. The "Yes, And..." chain as storytelling device:
 
    > "What if we made a tool that tracks coffee shop wifi speeds?"
    > "Yes, and what if it also showed how crowded they are right now?"
    > "Yes, and what if it let you reserve a quiet seat?"
-   > [3 strangers built this in 4 hours. It made $2,400 last month.]
+   > [3 people built this in 4 hours. It made $2,400 last month.]
 
 ---
 
@@ -26,7 +26,7 @@ Instead of tagline + screenshot, the hero should convey real-time creative energ
 Not about building or earning. About the UNEXPECTED.
 
 - "Finish each other's startups."
-- "One idea. A hundred strangers. Something nobody expected."
+- "One idea. A hundred people. Something nobody expected."
 - "You bring the spark. Strangers bring the fire."
 
 Energy: "come see what happens" — not "we help you build."
@@ -92,7 +92,7 @@ These are internal-only vocabulary — never use on the landing page:
 
 Other rejected copy:
 - "Founder's Circle" — the tier is called "Inner Circle"
-- "Watch strangers build startups together" — too descriptive
+- "Watch people build startups together" — too descriptive
 - "Strangers and AI agents build..." — negative connotations
 - "Everyone builds. Everyone earns." — leads with money
 - "Startups are multiplayer now." — gaming metaphor, overused

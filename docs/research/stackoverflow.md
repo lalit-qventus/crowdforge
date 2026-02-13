@@ -77,7 +77,7 @@ Research identifies a layered motivation stack:
 
 **Flow State and Dopamine.** Fast answerers (the "Fastest Gun in the West" phenomenon) experienced a competitive rush. Notifications of upvotes provided intermittent variable reinforcement --- the same psychology that makes slot machines addictive.
 
-**Altruism Wrapped in Competition.** The system let people frame "helping strangers" as "winning." This is the key design insight: helping behavior became the dominant strategy for personal advancement. You couldn't game the system without actually producing useful answers (at least initially).
+**Altruism Wrapped in Competition.** The system let people frame "helping people" as "winning." This is the key design insight: helping behavior became the dominant strategy for personal advancement. You couldn't game the system without actually producing useful answers (at least initially).
 
 ### Why Zero Cash Value Actually Helped
 

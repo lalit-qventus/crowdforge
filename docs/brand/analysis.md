@@ -8,7 +8,7 @@
 
 ### 1. Direct Competitors
 
-No platform currently occupies the exact intersection CrowdForge targets: strangers + AI agents collaborating to build, deploy, and monetize startups with karma-based revenue sharing. This is a genuinely novel combination. However, several platforms overlap significantly:
+No platform currently occupies the exact intersection CrowdForge targets: people + AI agents collaborating to build, deploy, and monetize startups with karma-based revenue sharing. This is a genuinely novel combination. However, several platforms overlap significantly:
 
 **CrowdForge.io (existing)**
 - An existing platform at crowdforge.io for finding open source projects to collaborate on. Registered since 2016, has a GitHub org and X account (@crowdforgeio). Low activity. This is a direct namespace conflict even if the product scope differs.
@@ -51,7 +51,7 @@ No platform currently occupies the exact intersection CrowdForge targets: strang
 
 | Platform | ARR | Model | Relevance |
 |----------|-----|-------|-----------|
-| **Lovable** | $100M ARR in 8 months (fastest in history) | AI full-stack engineer, single-user | Solitary building. No collaboration between strangers. No revenue sharing. |
+| **Lovable** | $100M ARR in 8 months (fastest in history) | AI full-stack engineer, single-user | Solitary building. No collaboration between people. No revenue sharing. |
 | **Bolt.new** | 1M+ websites in 5 months | AI app builder, single-user | Same. Individual tool. Framework-flexible. |
 | **v0 (Vercel)** | N/A | AI UI generation | Component-level. No full-stack. No collab. |
 | **Replit Agent** | N/A | AI coding assistant in IDE | Individual developer tool. |
@@ -99,13 +99,13 @@ Based on extensive thread analysis, here is what the HN community thinks about t
 - **Vibe coding limitations:** HN is deeply aware that AI-generated code fails in production. "Pure vibe coding hasn't produced an explosion of useful apps" is representative sentiment. The community respects it for prototyping but is skeptical about production use.
 - **Karma/reputation gaming:** HN users are cynical about gameable reputation systems. They know HN's own karma system incentivizes low-quality submission spam. Any karma system needs anti-gaming measures front and center.
 - **Revenue sharing models without specifics:** "How do you measure contribution fairly?" is the immediate objection. Handwaving gets destroyed.
-- **"Collaboration sucks" sentiment:** A highly upvoted HN post titled "Collaboration sucks" reflects the developer instinct that working with strangers introduces friction, not value. CrowdForge needs to directly address the "I'd rather build alone" objection.
+- **"Collaboration sucks" sentiment:** A highly upvoted HN post titled "Collaboration sucks" reflects the developer instinct that working with people introduces friction, not value. CrowdForge needs to directly address the "I'd rather build alone" objection.
 
 #### Strategic Implications for CrowdForge
 
 1. **Lead with the mechanism, not the vision.** HN wants to know exactly how karma is calculated, how revenue splits work, how disputes are resolved. Ship the spec, not the pitch deck.
 2. **Avoid DAO/Web3 framing.** Even if the architecture shares concepts with DAOs, never use the word. Say "contribution-weighted revenue sharing" not "decentralized autonomous organization."
-3. **Show a working product building a real startup.** The "watch strangers build a startup live" content angle is perfect for HN. A real-time Show HN where the community can observe the process would be gold.
+3. **Show a working product building a real startup.** The "watch people build a startup live" content angle is perfect for HN. A real-time Show HN where the community can observe the process would be gold.
 4. **Address the "why not just use X + Y + Z?" objection directly.** HN will immediately ask why not use Claude Code + Discord + Stripe Connect. Have a clear answer.
 
 ---
@@ -152,7 +152,7 @@ If the namespace conflicts are disqualifying, consider:
 | **Kindling** | What starts a fire. Small contributions igniting something larger. | Warm, approachable, metaphorical |
 | **Anvil** | Where things get forged. Simple, one-word, memorable. (anvil.works exists but different space.) | Strong, direct |
 | **Assemblage** | Art term for works made from found objects combined together. | Sophisticated, creative |
-| **StrangerForge** | Leans into the "strangers building together" narrative directly. | Bold, provocative, memorable |
+| **StrangerForge** | Leans into the "people building together" narrative directly. | Bold, provocative, memorable |
 | **YesAnd** | From improv. Captures the "yes, and..." collaborative philosophy. | Playful, cultural, unique |
 
 **Recommendation:** "CrowdForge" is a good name on pure linguistic merit but has real namespace problems. If you proceed with it, acquire crowdforge.com immediately and plan to differentiate clearly from crowdforge.io. If the .com price is prohibitive or the trademark landscape is hostile, "HiveShip" or "YesAnd" are the strongest alternatives -- HiveShip for a technical audience, YesAnd for a broader/creative audience.
@@ -213,9 +213,9 @@ Lovable (formerly GPT-Engineer) is the gold standard case study:
 #### Channels That Work for Developer/Creator Platforms in 2026
 
 **Tier 1 (highest signal-to-noise):**
-- **Hacker News Show HN:** Still the single best channel for developer credibility. Must be a real product doing something real. The "live startup being built by strangers" format is tailor-made for Show HN.
+- **Hacker News Show HN:** Still the single best channel for developer credibility. Must be a real product doing something real. The "live startup being built by people" format is tailor-made for Show HN.
 - **Product Hunt:** Remains the consensus launch platform for tools. Requires 4-6 weeks of preparation. Tuesday-Thursday launches perform best. Expect 200-350 upvotes for top-5.
-- **YouTube walkthroughs/demos:** Lovable grew heavily through short demo videos showing the "magic moment." CrowdForge's equivalent: a time-lapse of strangers + AI agents building a functional product from scratch.
+- **YouTube walkthroughs/demos:** Lovable grew heavily through short demo videos showing the "magic moment." CrowdForge's equivalent: a time-lapse of people + AI agents building a functional product from scratch.
 
 **Tier 2 (community cultivation):**
 - **Discord server:** For the core contributor community. Not a support channel; a building-in-public space where people can watch and join swarms.
@@ -224,7 +224,7 @@ Lovable (formerly GPT-Engineer) is the gold standard case study:
 
 **Tier 3 (amplification):**
 - **Substack/newsletter:** Weekly digest of "what the swarm built this week."
-- **TikTok/Shorts:** Short clips of the building process. "Watch 5 strangers build a SaaS in 48 hours."
+- **TikTok/Shorts:** Short clips of the building process. "Watch 5 people build a SaaS in 48 hours."
 - **Podcasts:** Indie Hackers, My First Million, Lex Fridman (if the AI angle is strong enough).
 
 **What does NOT work for developers in 2026:**
@@ -242,10 +242,10 @@ The "Yes, and..." improv metaphor is powerful because it:
 4. Is culturally accessible (improv comedy is mainstream)
 
 **Content angles:**
-- "What happens when strangers say 'yes, and' to each other's startup ideas?"
+- "What happens when people say 'yes, and' to each other's startup ideas?"
 - Document real "yes, and" moments where one contributor's addition transformed a project
 - Video series: "The Yes-And Startup" -- follow a real project from idea to revenue
-- Meme format: Side-by-side of "Solo founder: I had an idea" vs. "CrowdForge: 12 strangers + 3 AI agents had an idea, and then they kept having ideas"
+- Meme format: Side-by-side of "Solo founder: I had an idea" vs. "CrowdForge: 12 people + 3 AI agents had an idea, and then they kept having ideas"
 
 #### Content Marketing: "Watch a Startup Being Built Live by Strangers"
 
@@ -267,7 +267,7 @@ Phase 1 (Pre-launch, weeks -8 to -4):
 Phase 2 (Pre-launch, weeks -4 to 0):
 - Founding contributors share their experience on X, HN, Reddit
 - Collect testimonials and case studies
-- Build the waitlist via "See what strangers built together" landing page
+- Build the waitlist via "See what people built together" landing page
 
 Phase 3 (Launch week):
 - Product Hunt launch with 3-5 completed projects as proof
@@ -327,7 +327,7 @@ Claude Code (build) + Discord (coordinate) + Stripe Connect (split revenue) + Gi
 |-------------------|---------------------|
 | No contribution tracking. Who wrote what? Who reviewed? Who designed? | Automatic karma attribution for every contribution type (code, review, design, ideas, testing) |
 | No fair revenue split mechanism. Stripe Connect requires manual configuration per contributor. | Karma-weighted revenue sharing, calculated and distributed automatically |
-| No trust between strangers. Who joins your Discord? How do you vet them? | Reputation system with track record. Contribution history is portable across projects. |
+| No trust between people. Who joins your Discord? How do you vet them? | Reputation system with track record. Contribution history is portable across projects. |
 | Coordination overhead. Someone has to be the project manager. | AI-assisted coordination. The platform handles task decomposition, assignment, and progress tracking. |
 | No AI agents as first-class contributors. Claude Code is a tool you use, not a teammate. | AI agents contribute autonomously, earn karma, and their "work" is tracked like any contributor's. |
 | No deployment pipeline tied to the team. | Integrated build/deploy with shared ownership of infrastructure. |
@@ -346,14 +346,14 @@ Claude Code (build) + Discord (coordinate) + Stripe Connect (split revenue) + Gi
 | "Where ideas find their builders." | Aspirational | Matchmaking, destiny |
 | "Build. Ship. Share the upside." | Action-oriented | Three-beat rhythm, clear value |
 | "Your next startup has 50 co-founders." | Provocative | Scale, surprise |
-| "The forge where strangers build the future." | Epic, ambitious | Grand narrative |
+| "The forge where people build the future." | Epic, ambitious | Grand narrative |
 
 **Recommendation:** "Build. Ship. Share the upside." is the strongest for broad use -- it communicates the full value loop in six words. "Startups built by swarms." is the strongest for developer/HN audiences who respond to technical precision.
 
 #### Core Messaging Hierarchy
 
 **First (hook -- what is this?):**
-> CrowdForge is where strangers and AI agents build, deploy, and monetize startups together.
+> CrowdForge is where people and AI agents build, deploy, and monetize startups together.
 
 **Second (mechanism -- how does it work?):**
 > Anyone can join a project swarm. Contribute code, design, ideas, reviews, or testing. Every contribution earns karma. When the startup makes money, revenue is split proportional to karma.
@@ -377,7 +377,7 @@ Claude Code (build) + Discord (coordinate) + Stripe Connect (split revenue) + Gi
 
 3. **The "CrowdForge" name has real conflicts.** crowdforge.io exists with a similar concept. CMU published research under that name. Acquire crowdforge.com if financially viable, or consider rebranding before launch.
 
-4. **Lead with the spectacle.** "Watch strangers build a startup live" is the content marketing nuclear weapon. It is novel, compelling, and demonstrates the product without requiring explanation.
+4. **Lead with the spectacle.** "Watch people build a startup live" is the content marketing nuclear weapon. It is novel, compelling, and demonstrates the product without requiring explanation.
 
 5. **Position against vibe coding's weakness.** Lovable and Bolt.new are single-player and prototype-only. CrowdForge's swarm model is the answer to the "technical cliff" -- production quality through collective intelligence, not individual AI generation.
 

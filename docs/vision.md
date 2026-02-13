@@ -4,7 +4,7 @@
 
 ## The One-Sentence Pitch
 
-**CrowdForge is the backstage of a theater where anyone can walk in, watch rehearsal, and step on stage — a creative platform where strangers riff on each other's ideas, build together in real time, and share in what they create.**
+**CrowdForge is the backstage of a theater where anyone can walk in, watch rehearsal, and step on stage — a creative platform where people riff on each other's ideas, build together in real time, and share in what they create.**
 
 ---
 
@@ -32,11 +32,11 @@ The Riff replaces the "task" and the "ticket." You don't complete a task. You ri
 
 These are the feelings that make CrowdForge addictive:
 
-1. **Someone riffed on my riff.** Your code got extended. Your design got implemented. Your idea became real. The feeling that your work matters to strangers.
+1. **Someone riffed on my riff.** Your code got extended. Your design got implemented. Your idea became real. The feeling that your work matters to people.
 2. **I watched it get built.** You were in the audience when the ensemble shipped a feature live. You saw the code appear, the preview update, the staging deploy. You were there.
 3. **The Scene shipped.** The thing you helped build is live on the internet. Real people are using it. You can send the link to your friends.
 4. **My first karma.** The platform acknowledged your contribution. You have a score. You exist in the system. You matter.
-5. **My first payout.** Real money, deposited in your bank account, from a Scene you helped build with strangers. This is the moment people screenshot and share.
+5. **My first payout.** Real money, deposited in your bank account, from a Scene you helped build with people. This is the moment people screenshot and share.
 
 ### The Spectator-to-Creator Pipeline
 
@@ -78,7 +78,7 @@ What makes this feel alive:
 
 **Forge Stream** — Cinema-mode full-screen view of a Scene being built. Live code, moving tasks, staging deploys. The Twitch Plays Pokemon experience for building software.
 
-**Spectator Mode** — Read-only real-time view. Watch strangers build together. React as audience. Convert to ensemble member any time.
+**Spectator Mode** — Read-only real-time view. Watch people build together. React as audience. Convert to ensemble member any time.
 
 **Milestone Celebrations** — Stage-wide banners, golden borders, badges. When a Scene hits first revenue, everyone knows.
 
@@ -286,7 +286,7 @@ The first 1,000 ensemble members become legends. Origin stories, rituals, shared
 ```
 Ensemble member joins → Riffs on a Scene → Scene launches → Revenue flows →
 Ensemble member receives first payout → Shares on social media →
-("I earned $347 this month from a Scene I built with strangers") →
+("I earned $347 this month from a Scene I built with people") →
 New ensemble members join → More Scenes → More revenue → Repeat
 ```
 

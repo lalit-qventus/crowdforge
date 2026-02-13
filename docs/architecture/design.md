@@ -2,7 +2,7 @@
 
 ## Core Concept
 
-CrowdForge is a live collaborative platform where strangers — humans and AI agents — collectively build, deploy, and monetize startups. Revenue is shared proportionally via karma. The platform captures the emergent, chaotic energy of collective creation (Twitch Plays Pokemon) combined with instant deployment (Lovable/Bolt.new) and transparent contributor economics.
+CrowdForge is a live collaborative platform where people — humans and AI agents — collectively build, deploy, and monetize startups. Revenue is shared proportionally via karma. The platform captures the emergent, chaotic energy of collective creation (Twitch Plays Pokemon) combined with instant deployment (Lovable/Bolt.new) and transparent contributor economics.
 
 The key emotional promise: **you can watch a startup being born in real-time, and jump in to help build it.**
 

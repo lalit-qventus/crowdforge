@@ -114,15 +114,15 @@ $0 ad spend to $100M ARR. Multi-channel orchestration: Product Hunt drove GitHub
 
 ### What Lovable Lacks
 
-- Zero network effects between strangers. Collaboration is invite-only within known teams.
-- Zero spectator experience. No way to watch strangers build.
+- Zero network effects between people. Collaboration is invite-only within known teams.
+- Zero spectator experience. No way to watch people build.
 - No reputation or contribution tracking across projects.
 - Churn problem: users build MVP, deploy, leave. No structural reason to stay.
 - Credit unpredictability ("feels like a slot machine"). Bug loops burn credits fixing AI's own mistakes.
 
 ### CrowdForge's Open Lane
 
-Lovable occupies the single-player AI builder space. The multiplayer space -- crowd collaboration, spectator engagement, social identity, shared ownership -- is empty. CrowdForge doesn't compete with Lovable on AI capability. It competes on everything Lovable cannot provide: strangers building together, reputation that compounds across projects, revenue sharing, spectator-to-builder pipeline.
+Lovable occupies the single-player AI builder space. The multiplayer space -- crowd collaboration, spectator engagement, social identity, shared ownership -- is empty. CrowdForge doesn't compete with Lovable on AI capability. It competes on everything Lovable cannot provide: people building together, reputation that compounds across projects, revenue sharing, spectator-to-builder pipeline.
 
 ### Lessons for CrowdForge
 
@@ -437,7 +437,7 @@ SageOx (the internal Anthropic tool) embodies radical transparency: full work st
 
 ### Lessons for CrowdForge
 
-- CrowdForge externalizes Anthropic's internal culture as a platform for strangers. The hive mind isn't a metaphor; it's the core interaction model.
+- CrowdForge externalizes Anthropic's internal culture as a platform for people. The hive mind isn't a metaphor; it's the core interaction model.
 - More work than people is an engineering constraint, not a hope. The platform actively generates and surfaces work.
 - Death of the ego is enforced by ensemble dynamics: people who make it about themselves get naturally excluded, not by moderation but by the ensemble moving on without them.
 - Living prototypes over documents. Canvases over backlogs. The artifact is always alive.

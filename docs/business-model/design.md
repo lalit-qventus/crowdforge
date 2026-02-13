@@ -303,7 +303,7 @@ Target communities that already think about building products collaboratively:
 - Open source contributors on GitHub who want to monetize their work
 
 **Strategy 3: Content-Driven Launch**
-Document the building of CrowdForge publicly. "Building a startup where strangers build startups together" is inherently interesting content. Post build logs, revenue transparency reports, and ensemble member spotlights.
+Document the building of CrowdForge publicly. "Building a startup where people build startups together" is inherently interesting content. Post build logs, revenue transparency reports, and ensemble member spotlights.
 
 **Strategy 4: Micro-bounties for First Riffs**
 Offer small guaranteed payouts ($10-50) for first-time ensemble members on seeded Scenes, funded by the platform. This reduces the risk of contributing to an unproven platform. These are marketing costs, not ongoing subsidies.
@@ -324,7 +324,7 @@ Ensemble member joins Scene
         |
         v
   Ensemble member shares on social media
-  ("I earned $X from a Scene I helped build with strangers")
+  ("I earned $X from a Scene I helped build with people")
         |
         v
   New ensemble members join

@@ -61,7 +61,7 @@ First-time visitors have zero context. "Riff," "Scene," "Ensemble," "Stage" mean
 **Landing page rules:**
 - Never use "Riff" — say "contribution," "idea," or just show it happening
 - Never use "Scene" — say "project" or "idea" or describe what's being built
-- Never use "Ensemble" — say "strangers," "builders," "people"
+- Never use "Ensemble" — say "people," "builders," "people"
 - Never use "Stage" — just show the platform
 - "Karma" is OK — it's widely understood from Reddit/gaming culture
 - "Yes, and..." is OK — it's the core concept and is self-explanatory in context

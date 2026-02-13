@@ -94,7 +94,7 @@ Workaround: Teams treat Lovable as a code-generation engine within a larger DevO
 Lovable's collaboration model is strictly invite-only within known teams:
 - You must be invited by an owner/admin to join a project or workspace
 - No discovery mechanism for finding collaborators
-- No public project listings where strangers can volunteer to contribute
+- No public project listings where people can volunteer to contribute
 - No open contribution model
 
 ### No Reputation or Contribution Tracking
@@ -172,7 +172,7 @@ Lovable's collaboration model is strictly invite-only within known teams:
 ### The Fundamental Gap: Teams vs. Strangers
 
 Lovable answers: **"How can my team build an app together with AI?"**
-CrowdForge answers: **"How can strangers find each other, build something together, and share the revenue?"**
+CrowdForge answers: **"How can people find each other, build something together, and share the revenue?"**
 
 These are categorically different problems. Lovable assumes you already have a team, trust each other, and have a shared Slack channel. CrowdForge solves the problem that comes before that: finding the right people, establishing trust, dividing work, and aligning incentives.
 
@@ -197,7 +197,7 @@ These are categorically different problems. Lovable assumes you already have a t
 
 Lovable has "Launched" (launched.lovable.dev) -- a showcase gallery where users post apps and earn upvotes/credits. They envision a future "marketplace for templates, plugins, and AI extensions" where "top community builders monetize their expertise."
 
-This marketplace vision is about **selling finished artifacts** (templates, plugins), not about **collaboratively building new things with strangers**. It's a storefront model, not a collaboration model.
+This marketplace vision is about **selling finished artifacts** (templates, plugins), not about **collaboratively building new things with people**. It's a storefront model, not a collaboration model.
 
 Lovable's trajectory:
 1. Solo builder -> Team builder (done, via multiplayer)

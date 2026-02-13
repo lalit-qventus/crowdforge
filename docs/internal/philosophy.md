@@ -6,7 +6,7 @@ Internal document. Explains the WHY behind every major platform decision.
 
 ## 1. Creativity-first, mechanics-second
 
-The platform exists to create the conditions where creative magic happens between strangers. Karma, fraud prevention, revenue models — all serve the creative experience. If a mechanic doesn't make the creative experience better, it doesn't belong.
+The platform exists to create the conditions where creative magic happens between people. Karma, fraud prevention, revenue models — all serve the creative experience. If a mechanic doesn't make the creative experience better, it doesn't belong.
 
 Every product decision passes through one filter: does this make it more likely that a stranger has a creative breakthrough with another stranger today?
 
@@ -62,8 +62,8 @@ The platform's social mechanics reinforce this. Karma rewards collaboration over
 
 ## 8. Build for builders who build for fun
 
-Target audience: people who create because creating with strangers is electric. Weekend hackers. Designers who prototype for fun. Writers who jam. Musicians who session.
+Target audience: people who create because creating with people is electric. Weekend hackers. Designers who prototype for fun. Writers who jam. Musicians who session.
 
 The money is a consequence, not the motivation. De-emphasize revenue in public-facing messaging. Lead with building, creating, and status. Financial outcomes follow from doing great creative work together — they're never the pitch.
 
-If someone's primary motivation is money, they'll find better ROI elsewhere. If someone's primary motivation is the thrill of making something with strangers, this is the only place that exists.
+If someone's primary motivation is money, they'll find better ROI elsewhere. If someone's primary motivation is the thrill of making something with people, this is the only place that exists.

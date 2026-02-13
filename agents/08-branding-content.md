@@ -18,7 +18,7 @@ Define and execute CrowdForge's brand identity, content strategy, and marketing 
 - Alternative candidates to explore: needs to feel as novel as "Moltbook"
 
 ### Tagline
-- "Watch strangers build startups together" is REJECTED (too descriptive, not edgy enough)
+- "Watch people build startups together" is REJECTED (too descriptive, not edgy enough)
 - Needs to be provocative, memorable, category-defining
 - Directions to explore: "Fork the economy." / "Open source capitalism." / "Your startup has 10,000 founders." / "Startups are multiplayer now."
 - Research what makes Moltbook's "The Front Page of the Agent Internet" work
@@ -32,7 +32,7 @@ Define and execute CrowdForge's brand identity, content strategy, and marketing 
 ## Content Strategy
 
 ### Content Pillars (from GTM research)
-1. **Live build streams** — "Watch a startup being built by strangers in real-time"
+1. **Live build streams** — "Watch a startup being built by people in real-time"
 2. **Meta-content** — building CrowdForge on CrowdForge (dogfooding narrative)
 3. **Founder build-in-public** — transparent, honest, from-the-trenches
 4. **Community content** — contributor spotlights, payout stories, project showcases

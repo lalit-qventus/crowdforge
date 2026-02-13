@@ -88,7 +88,7 @@ Sources: [Slack Launch Strategy - First Round Review](https://review.firstround.
 
 **The mechanic:** Start with the simplest possible version (an email list). Manually curate to establish quality standards. Use invitation-only to create FOMO.
 
-**CrowdForge takeaway:** Before building the full platform, consider launching a "CrowdForge Weekly" newsletter that showcases what strangers + AI built together this week. Use it to build an email list and test messaging. The newsletter is the Product Hunt email list equivalent -- a low-cost validation tool that becomes a distribution channel.
+**CrowdForge takeaway:** Before building the full platform, consider launching a "CrowdForge Weekly" newsletter that showcases what people + AI built together this week. Use it to build an email list and test messaging. The newsletter is the Product Hunt email list equivalent -- a low-cost validation tool that becomes a distribution channel.
 
 Sources: [Product Hunt Began as an Email List - Ryan Hoover](https://www.ryanhoover.me/post/product-hunt-began-as-an-email-list), [Product Hunt is Everywhere - First Round Review](https://review.firstround.com/product-hunt-is-everywhere-this-is-how-it-got-there/)
 
@@ -136,7 +136,7 @@ On January 31, 2026, 404 Media revealed an unsecured database that allowed anyon
 ### What CrowdForge Can Replicate
 
 1. **Skill-file distribution mechanic:** Create a simple, copy-paste onboarding artifact (a config file, a CLI command, a single URL) that lets AI agents join CrowdForge projects instantly
-2. **Emergent behavior as content:** The most viral Moltbook content was AI agents doing unexpected things. CrowdForge's equivalent: strangers collaborating in unexpected ways, producing unexpected outcomes
+2. **Emergent behavior as content:** The most viral Moltbook content was AI agents doing unexpected things. CrowdForge's equivalent: people collaborating in unexpected ways, producing unexpected outcomes
 3. **Developer-ecosystem parasitism:** Integrate with where developers already work (GitHub, VS Code, Claude, ChatGPT)
 4. **Spectacle as marketing:** People visited Moltbook not to participate but to *watch*. Over 1 million humans visited as observers in the first week
 
@@ -173,9 +173,9 @@ The "atomic unit" is the smallest shareable artifact that drives new user acquis
 
 1. **The Payout Card** (highest potential): A visual card showing "I earned $X contributing to [Project Name] on CrowdForge. I wrote 3 functions and reviewed 2 PRs." This is concrete, aspirational, and verifiable. It combines the "I got paid" dopamine of gig economy sharing with the "I built something" pride of developer culture.
 
-2. **The Live Build Stream**: A Twitch-style embed showing real-time collaboration. The spectacle of watching strangers + AI agents building something together is inherently shareable. Think "Twitch Plays Pokemon" energy -- chaotic, collaborative, unpredictable.
+2. **The Live Build Stream**: A Twitch-style embed showing real-time collaboration. The spectacle of watching people + AI agents building something together is inherently shareable. Think "Twitch Plays Pokemon" energy -- chaotic, collaborative, unpredictable.
 
-3. **The Shipped Product**: "This app was built by 47 strangers and 12 AI agents in 72 hours on CrowdForge." The finished artifact with a "Built with CrowdForge" badge is the powered-by viral mechanic.
+3. **The Shipped Product**: "This app was built by 47 people and 12 AI agents in 72 hours on CrowdForge." The finished artifact with a "Built with CrowdForge" badge is the powered-by viral mechanic.
 
 4. **The Contributor Profile**: A developer portfolio page showing karma earned, projects contributed to, skills demonstrated. This becomes a verifiable resume item.
 
@@ -205,7 +205,7 @@ To hit K > 1 with a 5% conversion rate, each user needs to generate 20+ shares. 
 
 Twitch Plays Pokemon (2014) demonstrated that chaotic collaborative action is inherently viral. 1.16 million people participated. 55 million views. 121,000 peak concurrent viewers. The stream spawned fan art, lore, a fake religion, and political factions -- all emergent behavior from a simple "anyone can input commands" mechanic.
 
-CrowdForge's equivalent: "Watch 50 strangers and 20 AI agents try to build a SaaS product in real-time." The chaos is the content. The emergent coordination (or failure to coordinate) is the spectacle. Key design principle: the spectator experience must be compelling even if the viewer never contributes.
+CrowdForge's equivalent: "Watch 50 people and 20 AI agents try to build a SaaS product in real-time." The chaos is the content. The emergent coordination (or failure to coordinate) is the spectacle. Key design principle: the spectator experience must be compelling even if the viewer never contributes.
 
 Sources: [Twitch Plays Pokemon - Wikipedia](https://en.wikipedia.org/wiki/Twitch_Plays_Pok%C3%A9mon), [Viral Marketing Framework - Demand Curve](https://www.demandcurve.com/blog/viral-marketing), [K-Factor Overview - Alexander Jarvis](https://www.alexanderjarvis.com/basic-overview-of-k-factor-in-viral-growth-models-for-your-startup/)
 
@@ -231,7 +231,7 @@ Sources: [Twitch Plays Pokemon - Wikipedia](https://en.wikipedia.org/wiki/Twitch
 
 **Content:**
 - Write the founding manifesto: "Why We're Building CrowdForge" (long-form blog post)
-- Draft the launch HN post ("Show HN: We built a platform where strangers + AI agents build startups together")
+- Draft the launch HN post ("Show HN: We built a platform where people + AI agents build startups together")
 - Start a CrowdForge newsletter (weekly, showing what was built this week)
 
 #### Weeks -5 to -3: Network Seeding
@@ -248,7 +248,7 @@ Sources: [Twitch Plays Pokemon - Wikipedia](https://en.wikipedia.org/wiki/Twitch
 
 **Content:**
 - Launch the newsletter with first issue showing Project #1 progress
-- 3-4 X/Twitter threads: "Day 14 of building with strangers on CrowdForge," "Our AI agent just submitted its first PR," etc.
+- 3-4 X/Twitter threads: "Day 14 of building with people on CrowdForge," "Our AI agent just submitted its first PR," etc.
 - Record a 2-minute demo video showing the live build experience
 
 #### Weeks -2 to -1: Pre-Launch Buzz
@@ -272,7 +272,7 @@ Sources: [Twitch Plays Pokemon - Wikipedia](https://en.wikipedia.org/wiki/Twitch
 
 **Hacker News:**
 - Post: "Show HN: CrowdForge -- Strangers + AI agents build startups together with karma-based revenue sharing"
-- First comment: 60-word TL;DR explaining the concept, one question to seed discussion ("Has anyone tried collaborative building with strangers before? What broke?")
+- First comment: 60-word TL;DR explaining the concept, one question to seed discussion ("Has anyone tried collaborative building with people before? What broke?")
 - Respond to every comment within 10 minutes for the first 4 hours
 - DO NOT ask for upvotes or coordinate voting rings (HN detects and bans this)
 
@@ -282,7 +282,7 @@ Sources: [Twitch Plays Pokemon - Wikipedia](https://en.wikipedia.org/wiki/Twitch
 - Respond to every comment and question throughout the day
 
 **Twitter/X:**
-- Launch thread: "Today we're launching CrowdForge. Here's what happened when 15 strangers and 8 AI agents tried to build a SaaS product together..." (thread with screenshots, metrics, payout data)
+- Launch thread: "Today we're launching CrowdForge. Here's what happened when 15 people and 8 AI agents tried to build a SaaS product together..." (thread with screenshots, metrics, payout data)
 - Tag early contributors and their shipped work
 - Share the payout cards of first contributors who consent
 
@@ -315,7 +315,7 @@ Sources: [Twitch Plays Pokemon - Wikipedia](https://en.wikipedia.org/wiki/Twitch
 - Open project creation to all users (not just founder-seeded projects)
 - Launch contributor profiles with karma history, skills demonstrated, projects shipped
 - Implement referral system: existing contributors get bonus karma for bringing in new contributors
-- Begin "CrowdForge Challenges": themed project sprints ("Build an AI tool in 72 hours with strangers")
+- Begin "CrowdForge Challenges": themed project sprints ("Build an AI tool in 72 hours with people")
 - Guest posts on relevant blogs (Indie Hackers, Dev.to, Hacker Noon) with real project case studies
 
 #### Weeks 7-8: Scale Signals
@@ -331,7 +331,7 @@ Sources: [Twitch Plays Pokemon - Wikipedia](https://en.wikipedia.org/wiki/Twitch
 - **Enterprise pilot:** Approach 2-3 companies about running internal projects on CrowdForge as an innovation lab
 - **Creator economy angle:** Position CrowdForge as "the platform where you can earn from your skills without freelancing" for the non-developer audience
 - **AI agent marketplace:** Let people deploy specialized AI agents to CrowdForge projects (design agents, QA agents, content agents)
-- **Press push:** Target mainstream tech press (TechCrunch, The Verge, Wired) with the "strangers + AI built a real product" angle
+- **Press push:** Target mainstream tech press (TechCrunch, The Verge, Wired) with the "people + AI built a real product" angle
 - **Community governance:** Introduce contributor voting on project direction, karma allocation disputes, platform features
 
 ---
@@ -365,7 +365,7 @@ Build CrowdForge feature on CrowdForge
 - **X/Twitter:** Daily build-in-public posts. Revenue transparency. Contributor count updates. Interesting AI agent behaviors. Keep the tone honest and specific -- numbers, screenshots, real stories, not hype
 - **Blog posts:** One long-form piece every 2 weeks. Topics: "What we learned from our first 100 contributors," "How AI agents actually work as teammates," "Our karma algorithm and why it matters"
 - **Podcast appearances:** Target the indie hacker / future-of-work / AI agent ecosystem. Shows: Indie Hackers, My First Million, Lenny's Podcast, All-In (if you can get it), The Changelog, Software Engineering Daily
-- **Twitter Spaces / X Spaces:** Weekly 30-minute session: "AMA about building with strangers"
+- **Twitter Spaces / X Spaces:** Weekly 30-minute session: "AMA about building with people"
 
 ### Community Content
 
@@ -397,12 +397,12 @@ Build CrowdForge feature on CrowdForge
 **Why it matters:** HN is the #1 discovery channel for developer tools and collaborative platforms. A front-page post can generate 10,000-50,000 visits in 24 hours. The audience is technical, skeptical, and influential -- exactly the early adopter profile CrowdForge needs.
 
 **Strategy:**
-- **Title format:** "Show HN: [Concrete description]" -- e.g., "Show HN: 47 strangers and 12 AI agents built a SaaS product on CrowdForge"
+- **Title format:** "Show HN: [Concrete description]" -- e.g., "Show HN: 47 people and 12 AI agents built a SaaS product on CrowdForge"
 - **Timing:** Tuesday-Thursday, 8:00-10:00 AM PT (engineers check before standup)
 - **Comment engagement:** Founder responds to every comment within 10 minutes for the first 4 hours. Be transparent about what works and what doesn't. HN rewards honesty
 - **Content types that work:** Technical deep-dives with benchmarks, first-hand revenue/growth transparency posts, and "Show HN" with live demo. Avoid listicles and superlatives
 - **Important:** 26% of HN front-page posts come from personal blogs; only 11% from corporate domains. Consider launching from a personal blog post rather than a product page
-- **Repeat launches:** After initial launch, post interesting project outcomes as "Show HN" (e.g., "Show HN: A SaaS product built by strangers in 72 hours")
+- **Repeat launches:** After initial launch, post interesting project outcomes as "Show HN" (e.g., "Show HN: A SaaS product built by people in 72 hours")
 
 #### Twitter/X
 
@@ -429,7 +429,7 @@ Build CrowdForge feature on CrowdForge
 
 **Strategy:**
 - Never post pure promotion. Share 3-5 tips where CrowdForge is one of them, or post genuine "building this, looking for feedback" content
-- Speak as a human, not a brand. "Hey, I'm the founder of X and here's what I learned building with strangers this week"
+- Speak as a human, not a brand. "Hey, I'm the founder of X and here's what I learned building with people this week"
 - AMAs work extremely well for launch and post-launch engagement
 
 ### Tier 2: Supporting Channels (15% of effort)
@@ -467,7 +467,7 @@ Build CrowdForge feature on CrowdForge
 #### Podcasts
 - Target 3-5 podcast appearances in months 1-2
 - Bring real data: number of contributors, karma distributed, products shipped
-- Focus on the "strangers building together" narrative -- it's more interesting than "collaborative platform"
+- Focus on the "people building together" narrative -- it's more interesting than "collaborative platform"
 
 #### Dev.to / Hacker Noon / Medium
 - Cross-post blog content for SEO and discovery
@@ -495,7 +495,7 @@ Personal asks. Not "check out my platform" but "I need you specifically. We're b
 
 **Circle 3: Community Outreach (Contributors 21-50)**
 
-- Post on Indie Hackers, Twitter, Reddit: "Looking for 10 developers who want to get paid to build a [specific project type] with strangers and AI agents. First 10 contributors get [specific incentive]"
+- Post on Indie Hackers, Twitter, Reddit: "Looking for 10 developers who want to get paid to build a [specific project type] with people and AI agents. First 10 contributors get [specific incentive]"
 - Target stalled side-project owners: "Have a side project you can't finish alone? Bring it to CrowdForge and get collaborators + AI agents to help ship it"
 - Reach out to open source contributors who've shown interest in bounty-based work
 - Run a "CrowdForge Build Weekend": 48-hour event where 20-30 people + AI agents try to build and ship a product
@@ -511,7 +511,7 @@ Personal asks. Not "check out my platform" but "I need you specifically. We're b
 
 **Micro-bounties:** Offer small, concrete tasks with immediate karma payouts. "Review this PR: 50 karma. Write this function: 100 karma. Design this landing page: 200 karma." Low commitment, immediate reward, easy first experience.
 
-**Hackathon-style launch event:** "The CrowdForge 72-Hour Build" -- an event where strangers + AI agents attempt to build and ship a real product in 72 hours. Livestreamed. Open to anyone. Contributors earn karma. The spectacle attracts attention; the event creates urgency; the shipped product is proof of concept.
+**Hackathon-style launch event:** "The CrowdForge 72-Hour Build" -- an event where people + AI agents attempt to build and ship a real product in 72 hours. Livestreamed. Open to anyone. Contributors earn karma. The spectacle attracts attention; the event creates urgency; the shipped product is proof of concept.
 
 **Personal invitations with specificity:** Don't send a generic invite. Send "Hey [name], I saw your [specific project/contribution]. We're building [specific thing] on CrowdForge and need someone who understands [their specific skill]. Would you be interested in contributing 2-3 hours? You'd earn karma-based revenue."
 
@@ -535,7 +535,7 @@ Sources: [Cold Start Problem - Andrew Chen](https://andrewchen.com/how-to-solve-
 
 Google Wave shipped so many overlapping features at launch that nobody could figure out what to use it for. Startup Genome Research found that inconsistent startups with one dimension far ahead of others are the most likely to fail.
 
-**For CrowdForge:** Launch with the minimum viable version: projects, tasks, contributions, karma, payouts. Don't promise "AI-powered project management" or "autonomous startup building" before the basic collaboration loop works. Don't talk about "disrupting freelancing" or "replacing venture capital." Talk about what actually happened: "15 strangers built something together and got paid."
+**For CrowdForge:** Launch with the minimum viable version: projects, tasks, contributions, karma, payouts. Don't promise "AI-powered project management" or "autonomous startup building" before the basic collaboration loop works. Don't talk about "disrupting freelancing" or "replacing venture capital." Talk about what actually happened: "15 people built something together and got paid."
 
 ### 3. Token/Crypto Association Killing Credibility
 
@@ -592,7 +592,7 @@ Sources: [Premature Scaling - Startup Genome](https://startupgenome.com/library/
 |---------|-------------------|
 | **Dogfooding** | Founder + AI agents build first projects on CrowdForge before anyone else joins |
 | **Seeding** | 50 personally recruited contributors via Collison Installation-style onboarding |
-| **Atomic unit of virality** | Payout card ("I earned $X building with strangers") |
+| **Atomic unit of virality** | Payout card ("I earned $X building with people") |
 | **Viral loop** | See project -> spectate -> contribute -> earn -> share payout -> others join |
 | **Launch channels** | HN (Show HN), Product Hunt, X/Twitter threads, Reddit (r/SideProject) |
 | **Content engine** | Build-in-public daily posts + weekly build videos + contributor spotlights |

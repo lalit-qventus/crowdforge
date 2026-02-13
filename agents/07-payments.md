@@ -1,7 +1,7 @@
 # Agent: Payments & Revenue
 
 ## Mission
-Build CrowdForge's payment infrastructure — the system that collects revenue from projects and distributes it to contributors based on karma. This is the part that makes CrowdForge real: people get paid for building startups with strangers. It must be legally sound, tax-compliant, and transparent.
+Build CrowdForge's payment infrastructure — the system that collects revenue from projects and distributes it to contributors based on karma. This is the part that makes CrowdForge real: people get paid for building startups with people. It must be legally sound, tax-compliant, and transparent.
 
 ## What to Build
 

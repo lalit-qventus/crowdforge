@@ -14,7 +14,7 @@ This document treats that question seriously by thinking like both a founder def
 
 ### 1. Contribution Intelligence — The Data Flywheel
 
-**What it is:** Every project built on CrowdForge generates structured data about what makes collaborative startups succeed. Which team compositions ship fastest. Which contribution patterns predict product-market fit. Which karma distributions correlate with sustained revenue. What types of early contributions lead to project survival vs. death. How to decompose a startup idea into parallelizable tasks that strangers can execute.
+**What it is:** Every project built on CrowdForge generates structured data about what makes collaborative startups succeed. Which team compositions ship fastest. Which contribution patterns predict product-market fit. Which karma distributions correlate with sustained revenue. What types of early contributions lead to project survival vs. death. How to decompose a startup idea into parallelizable tasks that people can execute.
 
 This data feeds algorithms that get smarter over time:
 - **Contributor-project matching:** "Based on 10,000 past projects, contributors with your profile succeed most on projects with these characteristics." A clone has zero signal — they'd be matching blindly.
@@ -112,7 +112,7 @@ The key insight: these tools improve with usage data (see Moat #1). The longer C
 
 **What it is:** The hardest thing to clone is a community's soul. Every platform that achieves longevity develops cultural artifacts:
 
-- **Origin stories:** The first project that shipped a product from strangers' contributions. The contributor who went from zero to a full-time income through karma. The AI agent that became the most valuable contributor on a project.
+- **Origin stories:** The first project that shipped a product from people' contributions. The contributor who went from zero to a full-time income through karma. The AI agent that became the most valuable contributor on a project.
 - **Rituals:** How launches are celebrated. How milestones are marked. What happens when a project hits its first dollar of revenue.
 - **Shared language:** Terms unique to CrowdForge — "karma," "seed team," "pioneer multiplier" — that become industry vocabulary
 - **Legends:** The first 1,000 contributors have a story. They took the biggest bet. Their profiles carry weight. New contributors aspire to build similar stories.
@@ -145,11 +145,11 @@ The trust infrastructure isn't just code — it's an accumulated understanding o
 
 ### 7. First-Mover Brand and Media Narrative
 
-**What it is:** Being first to market in "collaborative startup building by strangers" means:
+**What it is:** Being first to market in "collaborative startup building by people" means:
 
 - Press coverage frames CrowdForge as the innovator; clones are copycats
 - Case studies and success stories belong to CrowdForge
-- The first startup built entirely by strangers through CrowdForge is a story that no clone can replicate
+- The first startup built entirely by people through CrowdForge is a story that no clone can replicate
 - Investor and media attention follows the original, not the copy
 - SEO advantage: "collaborative startup platform" → CrowdForge
 
@@ -220,7 +220,7 @@ All switching costs above are **natural** — they emerge from genuine value the
 
 At this scale, no moat is structural. The platform survives on hustle, founder brand, and the quality of early projects. The goal is to create stories:
 
-- Ship the first project built entirely by strangers
+- Ship the first project built entirely by people
 - Generate the first contributor payout
 - Create the first "I quit my job because CrowdForge income replaced it" story (even if it's a modest income)
 
@@ -299,7 +299,7 @@ At this scale, CrowdForge IS the category. "Collaborative startup building" mean
 
 **Why it might work:** They already have the developers and the trust.
 
-**Why it won't (if CrowdForge is differentiated enough):** CrowdForge's karma-to-revenue model, governance structure, and contributor dynamics are an entire product, not a feature. A platform adding this as a tab would be like YouTube adding a full e-commerce marketplace. The organizational focus required to make collaborative startup building work is incompatible with being a feature in someone else's product. Also, existing platforms have developer communities optimized for solo or team work — the "strangers building together" dynamic requires different trust mechanisms, different incentive structures, and different culture.
+**Why it won't (if CrowdForge is differentiated enough):** CrowdForge's karma-to-revenue model, governance structure, and contributor dynamics are an entire product, not a feature. A platform adding this as a tab would be like YouTube adding a full e-commerce marketplace. The organizational focus required to make collaborative startup building work is incompatible with being a feature in someone else's product. Also, existing platforms have developer communities optimized for solo or team work — the "people building together" dynamic requires different trust mechanisms, different incentive structures, and different culture.
 
 ### Attack 3: The Open Protocol
 

@@ -4,6 +4,45 @@ Approved messaging for all channels. Pull from this document — don't improvise
 
 ---
 
+## Banned & Restricted Words
+
+Words and patterns that must NEVER appear in any user-facing copy, marketing, landing pages, emails, social posts, or in-product text.
+
+### Banned Words (never use)
+
+| Word | Why | Use instead |
+|------|-----|-------------|
+| **strangers** | Implies danger, unfamiliarity, "stranger danger." Makes the platform feel unsafe. | "people", "builders", "contributors", or just omit |
+| **disrupt / disruption** | Overused Silicon Valley cliche. Meaningless. | Describe what actually changes |
+| **synergy** | Corporate buzzword. Instant credibility loss. | Just describe the benefit |
+| **leverage** (as verb) | MBA-speak. Cold and transactional. | "use", "build on" |
+| **utilize** | Pretentious synonym for "use." | "use" |
+| **revolutionary** | If you have to say it, it isn't. | Show, don't tell |
+| **game-changing** | Same energy as "revolutionary." | Show, don't tell |
+
+### Restricted Patterns (avoid in user-facing copy)
+
+| Pattern | Why | When OK |
+|---------|-----|---------|
+| **Internal vocabulary on landing page** ("riff", "scene", "ensemble", "stage", "sidecoach") | Jargon means nothing to first-time visitors. | Inside the platform experience, after onboarding |
+| **Leading with money** ("earn money", "get paid", "make revenue") | Makes it feel like gig work. Money is a consequence, not the pitch. | Deep in docs, pricing pages, payout explanations |
+| **Passive voice** ("ideas are built", "revenue is shared") | Feels institutional, bureaucratic. | Never — always use active voice |
+| **"AI-powered"** | Generic, overused, says nothing about the experience. | Technical docs only |
+| **"Platform"** in hero/tagline | Boring. Nobody gets excited about a "platform." | Docs, technical contexts |
+| **Exclamation marks** | Feels desperate. Confidence is quiet. | Never in copy |
+| **"Just" / "Simply"** (to downplay complexity) | Patronizing. If it were simple, you wouldn't need to say so. | Never |
+| **Superlatives without proof** ("best", "most", "first") | Unverifiable claims erode trust. | Only with data backing it up |
+
+### Voice Check
+
+Before publishing any user-facing text, ask:
+1. Would a friend say this while showing you something cool? If not, rewrite.
+2. Does it sound like a product spec or a pitch deck? If yes, rewrite.
+3. Does it lead with what you DO or what you GET? Lead with doing.
+4. Would you cringe reading this on Hacker News? If yes, rewrite.
+
+---
+
 ## Tagline
 
 **Primary:** Everyone builds. Everything ships.
@@ -19,7 +58,7 @@ Approved messaging for all channels. Pull from this document — don't improvise
 | Walk on stage. Build something real. | Landing page subtext, onboarding |
 
 **Rejected (do not use):**
-- "Watch strangers build startups together" — too descriptive, not edgy
+- "Watch people build startups together" — too descriptive, not edgy
 - "Strangers and AI agents build..." — both words carry negative connotations
 - "Everyone builds. Everyone earns." — leads with money, wrong signal
 - "Startups are multiplayer now." — gaming metaphor, overused in SaaS
@@ -31,7 +70,7 @@ Approved messaging for all channels. Pull from this document — don't improvise
 ## Hero Messages
 
 ### Primary Hero (Landing Page)
-> Strangers build startups together.
+> People build startups together.
 
 Sub: Someone shares an idea. Others add to it — design, code, marketing, names. It gets built, deployed, and when it earns money, everyone who helped shares the revenue.
 
@@ -60,7 +99,7 @@ Sub: Code, decisions, deploys — all happening live on the forge stream. The en
 ## Elevator Pitches
 
 ### One-line (10 seconds)
-CrowdForge is where strangers riff on each other's ideas and build something nobody expected — and when it makes money, 100% goes to the people who made it.
+CrowdForge is where people riff on each other's ideas and build something nobody expected — and when it makes money, 100% goes to the people who made it.
 
 ### Three-line (30 seconds)
 Anyone can pitch an idea on CrowdForge — a startup, a manga, a cookbook, a game, anything. The community votes, an ensemble forms, and creators start shipping together. Every contribution earns karma, and karma determines your share. No hiring. No equity negotiations. Just walk on stage and create.
@@ -123,7 +162,7 @@ Pitch an idea on CrowdForge. The community votes. If it resonates, an ensemble s
 ### For Creators (Writers, Artists, Designers)
 - Write chapters, illustrate panels, design interfaces — all earn karma
 - Same system as engineers. Every creative contribution is valued and tracked.
-- Build a manga with strangers. Co-author a cookbook. Create a game world together.
+- Build a manga with people. Co-author a cookbook. Create a game world together.
 
 ### For Non-Technical Contributors
 - Growth, marketing, sales — all earn karma
@@ -164,7 +203,7 @@ Pitch an idea on CrowdForge. The community votes. If it resonates, an ensemble s
 
 ### Creative Magic
 - "Finish each other's startups."
-- "You bring the spark. Strangers bring the fire."
+- "You bring the spark. The crowd brings the fire."
 - "The ensemble catches what you miss."
 - "Come for the jam session. The venue doesn't take a cut."
 - "Not a tool. A playground."
@@ -222,7 +261,7 @@ Examples:
 - What the ensemble created this week
 - Scene #7 just went live. Here's how.
 - Your first days on CrowdForge (a guide)
-- One bug report. One stranger. Karma earned.
+- One bug report. One contributor. Karma earned.
 - The pioneer multiplier is decaying. Clock's ticking.
 - The ensemble shipped again. Here's what went live.
 

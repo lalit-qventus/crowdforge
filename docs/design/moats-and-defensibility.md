@@ -43,7 +43,7 @@ Every Scene built on CrowdForge generates structured data about collaborative cr
 - Which contribution patterns predict product-market fit
 - Which karma distributions correlate with sustained revenue
 - What types of early contributions lead to Scene survival vs. death
-- How to decompose a startup idea into parallelizable tasks that strangers can execute
+- How to decompose a startup idea into parallelizable tasks that people can execute
 
 This data feeds systems that get smarter with every Scene:
 
@@ -190,7 +190,7 @@ This creates a verified human graph -- a network of people who have been authent
 
 The hardest thing to clone is a community's soul. Every platform that achieves longevity develops cultural artifacts that emerged organically and cannot be designed in advance:
 
-**Origin stories.** The first Scene that shipped a product from strangers' riffs. The contributor who went from zero to a full-time income through karma. The AI agent that became the most valuable ensemble member on a Scene. These stories belong to CrowdForge and no clone can replicate them.
+**Origin stories.** The first Scene that shipped a product from people' riffs. The contributor who went from zero to a full-time income through karma. The AI agent that became the most valuable ensemble member on a Scene. These stories belong to CrowdForge and no clone can replicate them.
 
 **Shared language.** "Scene," "riff," "karma," "ensemble," "pioneer multiplier," "seed team" -- terms unique to CrowdForge that become industry vocabulary. When the vocabulary belongs to you, competitors are speaking your language.
 
@@ -230,10 +230,10 @@ A clone that launches without equivalent protections attracts bad actors who poi
 
 #### 8. First-Mover Brand and Media Narrative
 
-Being first to market in "collaborative startup building by strangers" means:
+Being first to market in "collaborative startup building by people" means:
 - Press frames CrowdForge as the innovator; clones are copycats
 - Case studies and success stories belong to CrowdForge
-- The first startup built entirely by strangers is a story no clone can replicate
+- The first startup built entirely by people is a story no clone can replicate
 - SEO advantage: "collaborative startup platform" resolves to CrowdForge
 - Investor attention follows the original, not the copy
 
@@ -362,7 +362,7 @@ Every contribution, review, vouch, and governance participation adds to a contri
 
 **Strategy:** GitHub, Vercel, or Replit adds "collaborative building with revenue sharing" as a feature within their existing platform.
 
-**Why it fails:** CrowdForge's karma-to-revenue model, governance structure, fraud prevention, and contributor dynamics are an entire product, not a feature. Adding this as a tab to GitHub is like YouTube adding a full e-commerce marketplace. The organizational focus required to make collaborative startup building work is incompatible with being a bolt-on to a platform optimized for something else. Also, existing developer platforms have communities optimized for solo or small-team work -- the "strangers building together" dynamic requires different trust mechanisms, different incentive structures, and different culture.
+**Why it fails:** CrowdForge's karma-to-revenue model, governance structure, fraud prevention, and contributor dynamics are an entire product, not a feature. Adding this as a tab to GitHub is like YouTube adding a full e-commerce marketplace. The organizational focus required to make collaborative startup building work is incompatible with being a bolt-on to a platform optimized for something else. Also, existing developer platforms have communities optimized for solo or small-team work -- the "people building together" dynamic requires different trust mechanisms, different incentive structures, and different culture.
 
 **When it works:** If the existing platform makes a major strategic commitment (dedicated team, separate brand, full product investment) rather than treating it as a feature. GitHub could build this if they decided it was a core product line. The defense is CrowdForge's head start in community, data, and deployed Scenes -- the platform extension would start from zero in all three.
 
@@ -403,7 +403,7 @@ Every contribution, review, vouch, and governance participation adds to a contri
 
 At this scale, no moat is structural. The platform survives on hustle, founder credibility, and the quality of early Scenes. The goal is to create stories:
 
-- Ship the first Scene built entirely by strangers
+- Ship the first Scene built entirely by people
 - Generate the first contributor payout
 - Create the first "I earn income from CrowdForge Scenes" story
 

@@ -12,12 +12,12 @@ Build CrowdForge's entire frontend — from landing page to Forge editor to dash
 
 ## Copy Voice Rules
 - **Internal-only vocabulary** (NEVER in user-facing copy): "cinema-mode", "spectator view", "alive by default", "signature experience", "bioluminescent". These are design direction terms for builders, not marketing copy.
-- **User-facing copy** should feel like a friend showing you something cool, not a product spec. Say "watch strangers build a startup" not "cinema-mode spectator view."
+- **User-facing copy** should feel like a friend showing you something cool, not a product spec. Say "watch people build a startup" not "cinema-mode spectator view."
 - **De-emphasize money.** Lead with building, creating, and status. Revenue/earnings are a consequence, not the pitch. Home feed events should mostly be about building activity (merged PR, deployed, joined project), not financial events.
 - **Tier 5 is "Inner Circle"** (NOT "Founder's Circle" — that name is permanently retired). The six karma tiers: Observer, Contributor, Builder, Architect, Partner, Inner Circle. CSS class: `.tier--inner-circle`.
 
 ## Key Pages to Build
-1. **Landing page** — exists at `index.html`, needs improv-themed redesign (current tagline "Watch strangers build startups together" is rejected — needs edgier positioning)
+1. **Landing page** — exists at `index.html`, needs improv-themed redesign (current tagline "Watch people build startups together" is rejected — needs edgier positioning)
 2. **Home/Feed** — Reddit-like live activity feed with global pulse
 3. **Idea Ring** — pitch cards with 72hr voting, real-time vote animations
 4. **Project Workspace** — GitHub-like task board, PR review, discussions

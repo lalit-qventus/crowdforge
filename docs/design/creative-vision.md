@@ -31,9 +31,9 @@ A Riff is any creative addition to a Scene:
 
 In order of emotional importance:
 
-1. **"Someone riffed on my riff."** A stranger built on your contribution. Your name suggestion became a logo. Your wireframe became code. This is the core magic -- creative compounding between strangers. This is the moment that creates addiction.
+1. **"Someone riffed on my riff."** A stranger built on your contribution. Your name suggestion became a logo. Your wireframe became code. This is the core magic -- creative compounding between people. This is the moment that creates addiction.
 2. **"I watched it get built."** Spectator-to-builder conversion. You watched a Scene on the Forge Stream, had an idea, stepped on stage, dropped your first Riff. The barrier was low enough that you did it.
-3. **"The Scene shipped."** Collective achievement. 47 strangers built this. It's live. It's earning revenue. Everyone's name is in the credits. The Great British Bake Off finale feeling.
+3. **"The Scene shipped."** Collective achievement. 47 people built this. It's live. It's earning revenue. Everyone's name is in the credits. The Great British Bake Off finale feeling.
 4. **"My first karma."** Proof of belonging. Your Riff earned karma. You're in the ensemble. Your avatar is on the Scene.
 5. **"My first payout."** Proof the model works. The shareable moment. The viral card.
 

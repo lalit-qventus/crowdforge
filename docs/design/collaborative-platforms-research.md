@@ -228,7 +228,7 @@ Wikipedia's biggest retention problem is that productive contributors get promot
 
 StackOverflow's collapse is a warning: any platform whose core value can be approximated by AI is vulnerable. Q&A is approximable. Collaborative building is not.
 
-**For CrowdForge:** The value proposition must be rooted in things AI cannot do: coordinating human effort, building trust between strangers, making collective decisions about product direction, resolving conflicts of vision. AI agents can handle implementation tasks, but the social layer -- team formation, accountability, shared ownership -- is human territory. This is the moat.
+**For CrowdForge:** The value proposition must be rooted in things AI cannot do: coordinating human effort, building trust between people, making collective decisions about product direction, resolving conflicts of vision. AI agents can handle implementation tasks, but the social layer -- team formation, accountability, shared ownership -- is human territory. This is the moat.
 
 ### Lesson 6: The 1% Rule Is Your Friend
 

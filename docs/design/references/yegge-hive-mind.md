@@ -42,4 +42,4 @@ The hive mind naturally ejects non-contributors. "If you interfere with the hive
 **CrowdForge implication:** Scene velocity (time from first Riff to shipped product) is the PMF signal.
 
 ## What Yegge Doesn't Address (CrowdForge's Novel Challenge)
-Yegge describes hive minds within companies (Anthropic) and tiny teams (SageOx). Everyone is on payroll. CrowdForge is trying to create a hive mind of strangers with an economic incentive layer. Making "Yes, And..." work with anonymous strangers and real money is the actual innovation — and the hard part.
+Yegge describes hive minds within companies (Anthropic) and tiny teams (SageOx). Everyone is on payroll. CrowdForge is trying to create a hive mind of people with an economic incentive layer. Making "Yes, And..." work with anonymous people and real money is the actual innovation — and the hard part.

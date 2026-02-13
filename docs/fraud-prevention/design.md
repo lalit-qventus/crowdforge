@@ -97,7 +97,7 @@ The composite approach makes the cheapest viable Sybil path cost ~$50-150 for 50
 - Signal: Multiple accounts submit contributions with suspiciously similar style, structure, or content
 - Metric: Cosine similarity on contribution text embeddings; shared code patterns; identical commit timing
 - Threshold: >0.85 similarity between contributions from different accounts in the same project
-- Normal behavior: Collaborators may have similar coding styles, but identical boilerplate or phrasing across "strangers" is suspicious
+- Normal behavior: Collaborators may have similar coding styles, but identical boilerplate or phrasing across "people" is suspicious
 
 **Graph Clustering**
 - Signal: A cluster of accounts that only interact with each other and one target project
