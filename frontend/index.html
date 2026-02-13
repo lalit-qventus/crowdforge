@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CrowdForge — Finish each other's ideas</title>
-<meta name="description" content="Someone shares an idea. Strangers add to it — design, code, marketing. It gets built, and when it earns money, everyone shares the revenue.">
+<meta name="description" content="Build things with people you haven't met yet. Ship them. Split the money.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -736,7 +736,9 @@
   }
 
   @media (max-width: 640px) {
+    .cinema-wrap { padding: 0 16px 40px; }
     .cinema-health { flex-wrap: wrap; gap: 10px; }
+    .cinema-code { font-size: 0.62rem; padding: 16px; }
     .hero { padding: 120px 16px 40px; min-height: 60vh; }
     .chain-section { padding: 20px 16px 80px; }
     .scenes-section { padding: 40px 16px 80px; }
@@ -779,11 +781,11 @@
     <span class="glow-text">startups.</span>
   </h1>
   <p class="hero-sub">
-    Someone shares an idea. Others add to it — design, code, marketing. It gets built, deployed, and when it earns money, everyone shares the revenue.
+    Build things with people you haven't met yet. Ship them. Split the money.
   </p>
   <div class="hero-cta">
-    <button class="btn btn--primary btn--lg" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join the waitlist</button>
-    <button class="btn btn--secondary" onclick="document.getElementById('the-chain').scrollIntoView({behavior:'smooth'})">Watch it happen &#8594;</button>
+    <button class="btn btn--primary btn--lg" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Get in early</button>
+    <button class="btn btn--secondary" onclick="document.getElementById('the-chain').scrollIntoView({behavior:'smooth'})">Watch what happened &#8594;</button>
   </div>
   <div class="hero-presence">
     <span class="forge-dot" aria-hidden="true"></span>
@@ -794,6 +796,67 @@
     <div class="scroll-hint-arrow"></div>
   </div>
 </div>
+
+<!-- CINEMA — no label, no heading, just the product in action -->
+<section class="cinema-wrap" style="position:relative;z-index:2;padding:0 40px 60px;max-width:1100px;margin:0 auto;">
+  <div class="cinema-container">
+    <div class="cinema-header">
+      <div class="cinema-project">
+        <span class="forge-dot" aria-hidden="true"></span>
+        <span class="cinema-project-name">NomadDesk</span>
+      </div>
+      <div class="cinema-stats">
+        <span><span class="cinema-stat-value">5</span> contributors</span>
+        <span><span class="cinema-stat-value">2h 14m</span> build time</span>
+        <span><span class="cinema-stat-value">live</span></span>
+      </div>
+    </div>
+    <div class="cinema-body">
+      <div class="cinema-code" id="cinema-code">
+        <div class="code-line"><span class="code-line-num">1</span><span style="color:var(--accent-violet)">import</span> { createApp } <span style="color:var(--accent-violet)">from</span> <span style="color:var(--accent-green)">'./core'</span></div>
+        <div class="code-line"><span class="code-line-num">2</span></div>
+        <div class="code-line code-highlight"><span class="code-line-num">3</span><span style="color:var(--text-muted)">// @jin added live crowd levels</span></div>
+        <div class="code-line code-highlight"><span class="code-line-num">4</span><span style="color:var(--accent-violet)">const</span> crowdLevel = <span style="color:var(--accent-cyan)">await</span> getCrowdData(cafeId)</div>
+        <div class="code-line code-highlight"><span class="code-line-num">5</span>dashboard.render({ wifi, crowd: crowdLevel })</div>
+        <div class="code-line"><span class="code-line-num">6</span></div>
+        <div class="code-line"><span class="code-line-num">7</span><span style="color:var(--text-muted)">// @mira added seat reservations</span></div>
+        <div class="code-line"><span class="code-line-num">8</span><span style="color:var(--accent-violet)">const</span> booking = <span style="color:var(--accent-cyan)">await</span> reserveSeat({</div>
+        <div class="code-line"><span class="code-line-num">9</span>  cafe: cafeId, type: <span style="color:var(--accent-green)">'quiet'</span></div>
+        <div class="code-line"><span class="code-line-num">10</span>})</div>
+        <div class="code-line"><span class="code-line-num">11</span></div>
+        <div class="code-line"><span class="code-line-num">12</span><span style="color:var(--accent-violet)">export default</span> createApp({ crowdLevel, booking })</div>
+      </div>
+      <div class="cinema-sidebar">
+        <div class="sidebar-label">Activity</div>
+        <div class="sidebar-event">
+          <div class="sidebar-event-dot" style="background:var(--accent-coral)"></div>
+          <span><span style="color:var(--accent-coral);font-weight:500">@mira</span> designed the booking flow</span>
+        </div>
+        <div class="sidebar-event">
+          <div class="sidebar-event-dot" style="background:var(--accent-cyan)"></div>
+          <span><span style="color:var(--accent-cyan);font-weight:500">@jin</span> added live crowd data</span>
+        </div>
+        <div class="sidebar-event">
+          <div class="sidebar-event-dot" style="background:var(--accent-green)"></div>
+          <span><span style="color:var(--accent-green);font-weight:500">@alex</span> shipped to production</span>
+        </div>
+        <div class="sidebar-event">
+          <div class="sidebar-event-dot" style="background:var(--accent-amber)"></div>
+          <span><span style="color:var(--accent-amber);font-weight:500">@eve</span> posted to 3 communities</span>
+        </div>
+        <div class="sidebar-event">
+          <div class="sidebar-event-dot" style="background:var(--accent-violet)"></div>
+          <span><span style="color:var(--accent-violet);font-weight:500">@sara</span> started this 2h ago</span>
+        </div>
+      </div>
+    </div>
+    <div class="cinema-health">
+      <span class="health-label">Progress</span>
+      <div class="health-bar"><div class="health-fill" style="width:92%"></div></div>
+      <span class="health-pct">92%</span>
+    </div>
+  </div>
+</section>
 
 <!-- THE CHAIN -->
 <section id="the-chain" class="chain-section">
@@ -860,7 +923,7 @@
 
     <div class="chain-outcome" data-chain-outcome>
       <div class="chain-outcome-label">None of them knew each other this morning</div>
-      <div class="chain-outcome-text">5 strangers. One "what if." Something real.</div>
+      <div class="chain-outcome-text">NomadDesk is live. All five get paid.</div>
     </div>
   </div>
 </section>
@@ -883,7 +946,7 @@
         <div class="scene-builder-dot" style="background: rgba(255, 107, 107, 0.2); color: var(--accent-coral);">M</div>
         <div class="scene-builder-dot" style="background: rgba(57, 255, 20, 0.2); color: var(--accent-green);">A</div>
         <div class="scene-builder-dot" style="background: rgba(245, 166, 35, 0.2); color: var(--accent-amber);">E</div>
-        <span class="scene-builder-count">5 strangers</span>
+        <span class="scene-builder-count">5 builders</span>
       </div>
     </div>
 
@@ -978,7 +1041,7 @@
 <!-- WAITLIST -->
 <div id="waitlist" class="waitlist reveal">
   <h2>This is just<br>getting started.</h2>
-  <p class="waitlist-desc">Projects are already forming. People are building together. Drop your email and we'll let you know when you can join.</p>
+  <p class="waitlist-desc">Projects are forming right now. Drop your email and we'll let you know when you can join.</p>
   <form class="waitlist-form" id="waitlist-form">
     <label for="waitlist-email" class="sr-only">Email address</label>
     <input type="email" id="waitlist-email" class="waitlist-input" placeholder="your@email.com" required autocomplete="email">
@@ -1071,7 +1134,7 @@ var pulseEvents = [
   { html: '<span class="pulse-user">@jin</span> built on <span class="pulse-user">@sara</span>\'s idea — <span class="pulse-riff">"yes, and live crowd levels"</span>', ago: '12s ago' },
   { html: '<span class="pulse-bot">Claude</span> built the booking flow for <span class="pulse-project">NomadDesk</span>', ago: '28s ago' },
   { html: '<span class="pulse-user">@mira</span> added a design to <span class="pulse-project">PetMatch</span>', ago: '45s ago' },
-  { html: '<span class="pulse-project">FinTrack</span> shipped — <span class="pulse-riff">12 strangers, 3 days, live product</span>', ago: '1m ago' },
+  { html: '<span class="pulse-project">FinTrack</span> shipped — <span class="pulse-riff">12 people, 3 days, live product</span>', ago: '1m ago' },
   { html: '<span class="pulse-user">@leo</span> pitched a new idea: <span class="pulse-project">"AI Recipe Generator"</span>', ago: '2m ago' },
   { html: '<span class="pulse-user">@eve</span> grew <span class="pulse-project">NomadDesk</span> to 147 signups', ago: '3m ago' },
   { html: '<span class="pulse-user">@alex</span> said "yes, and..." to <span class="pulse-project">ClimatePulse</span>', ago: '4m ago' },
