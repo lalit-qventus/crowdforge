@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Idea Ring — CrowdForge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/design-system.css">
+<style>
+  /* ═══════════════ HERO ═══════════════ */
+  .ring-hero {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 160px 40px 64px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .ring-hero-visual {
+    position: relative;
+    display: inline-block;
+    margin-bottom: var(--space-lg);
+  }
+
+  .ring-glyph {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 255, 213, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    animation: ring-breathe 4s ease-in-out infinite;
+  }
+
+  .ring-glyph::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 255, 213, 0.08);
+    animation: ring-orbit 8s linear infinite;
+  }
+
+  .ring-glyph::after {
+    content: '';
+    position: absolute;
+    inset: -18px;
+    border-radius: 50%;
+    border: 1px dashed rgba(57, 255, 20, 0.06);
+    animation: ring-orbit 12s linear infinite reverse;
+  }
+
+  .ring-glyph-inner {
+    font-size: 2.4rem;
+    filter: drop-shadow(0 0 12px rgba(0, 255, 213, 0.3));
+  }
+
+  @keyframes ring-breathe {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(0, 255, 213, 0.1), inset 0 0 20px rgba(0, 255, 213, 0.03);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(0, 255, 213, 0.2), inset 0 0 30px rgba(0, 255, 213, 0.06);
+    }
+  }
+
+  @keyframes ring-orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .ring-hero h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: var(--space-md);
+  }
+
+  .ring-hero-sub {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    max-width: 480px;
+    margin: 0 auto var(--space-lg);
+    line-height: 1.7;
+  }
+
+  .ring-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border-subtle);
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ring-stat-value {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .ring-stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ═══════════════ FILTER BAR ═══════════════ */
+  .filter-bar {
+    position: relative;
+    z-index: 10;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .filter-bar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    flex-wrap: wrap;
+  }
+
+  .filter-sort {
+    display: flex;
+    gap: 4px;
+  }
+
+  .sort-btn {
+    padding: 8px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.25s var(--ease-out);
+    white-space: nowrap;
+  }
+
+  .sort-btn:hover {
+    color: var(--text-secondary);
+    background: var(--bg-elevated);
+  }
+
+  .sort-btn--active {
+    color: var(--accent-cyan);
+    background: rgba(0, 255, 213, 0.06);
+    border-color: rgba(0, 255, 213, 0.15);
+  }
+
+  .filter-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .filter-tag {
+    padding: 5px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.25s var(--ease-out);
+  }
+
+  .filter-tag:hover {
+    color: var(--text-secondary);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .filter-tag--active {
+    color: var(--accent-cyan);
+    background: rgba(0, 255, 213, 0.06);
+    border-color: rgba(0, 255, 213, 0.15);
+  }
+
+  /* ═══════════════ PITCH CARD GRID ═══════════════ */
+  .pitch-grid {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    padding-bottom: var(--space-3xl);
+  }
+
+  /* ═══════════════ PITCH CARD ═══════════════ */
+  .pitch-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    transition: all 0.4s var(--ease-out);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pitch-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-out);
+  }
+
+  .pitch-card:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+  }
+
+  .pitch-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Vote pulse animation */
+  .pitch-card.vote-pulse {
+    animation: card-vote-pulse 0.6s var(--ease-out);
+  }
+
+  @keyframes card-vote-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 255, 213, 0.15); }
+    50% { box-shadow: 0 0 0 8px rgba(0, 255, 213, 0.08); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 255, 213, 0); }
+  }
+
+  /* Threshold celebration state */
+  .pitch-card--threshold {
+    border-color: rgba(255, 215, 0, 0.3) !important;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.08);
+  }
+
+  .pitch-card--threshold::before {
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber)) !important;
+    opacity: 1 !important;
+  }
+
+  .pitch-card--threshold .pitch-vote-pct {
+    color: var(--accent-gold);
+  }
+
+  /* Confetti particles for threshold cards */
+  .pitch-card--threshold::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(2px 2px at 15% 20%, var(--accent-gold) 50%, transparent 50%),
+      radial-gradient(2px 2px at 80% 15%, var(--accent-amber) 50%, transparent 50%),
+      radial-gradient(1.5px 1.5px at 45% 8%, var(--accent-cyan) 50%, transparent 50%),
+      radial-gradient(2px 2px at 70% 25%, var(--accent-green) 50%, transparent 50%),
+      radial-gradient(1.5px 1.5px at 25% 10%, var(--accent-gold) 50%, transparent 50%),
+      radial-gradient(2px 2px at 90% 30%, var(--accent-amber) 50%, transparent 50%),
+      radial-gradient(1.5px 1.5px at 55% 5%, var(--accent-gold) 50%, transparent 50%),
+      radial-gradient(2px 2px at 35% 28%, var(--accent-cyan) 50%, transparent 50%);
+    animation: confetti-drift 3s ease-in-out infinite;
+    opacity: 0.6;
+  }
+
+  @keyframes confetti-drift {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(4px); opacity: 0.3; }
+  }
+
+  /* Expired / failed card state */
+  .pitch-card--expired {
+    opacity: 0.5;
+    filter: saturate(0.3);
+  }
+
+  .pitch-card--expired:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .pitch-card--expired::before {
+    display: none;
+  }
+
+  /* Card header */
+  .pitch-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-sm);
+  }
+
+  .pitch-card-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .pitch-countdown {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-elevated);
+    flex-shrink: 0;
+  }
+
+  .pitch-countdown-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-muted);
+  }
+
+  /* Urgency state for < 12 hours */
+  .pitch-countdown--urgent {
+    color: var(--accent-coral);
+    background: rgba(255, 107, 107, 0.08);
+    border: 1px solid rgba(255, 107, 107, 0.15);
+  }
+
+  .pitch-countdown--urgent .pitch-countdown-dot {
+    background: var(--accent-coral);
+    animation: blink 1s ease-in-out infinite;
+  }
+
+  .pitch-countdown--ended {
+    color: var(--text-muted);
+  }
+
+  .pitch-oneliner {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Problem statement (truncated, expandable) */
+  .pitch-problem {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: all 0.3s var(--ease-out);
+  }
+
+  .pitch-problem--expanded {
+    -webkit-line-clamp: unset;
+  }
+
+  .pitch-expand-btn {
+    background: none;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--accent-cyan);
+    cursor: pointer;
+    padding: 0;
+    letter-spacing: 0.03em;
+    transition: opacity 0.2s;
+  }
+
+  .pitch-expand-btn:hover {
+    opacity: 0.7;
+  }
+
+  /* Tech stack tags */
+  .pitch-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  /* Vote bar */
+  .pitch-vote-section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .pitch-vote-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .pitch-vote-count {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+  }
+
+  .pitch-vote-count strong {
+    color: var(--accent-cyan);
+    font-weight: 600;
+  }
+
+  .pitch-vote-pct {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+  }
+
+  .pitch-vote-track {
+    height: 4px;
+    background: var(--bg-elevated);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .pitch-vote-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+    transition: width 0.6s var(--ease-spring);
+    position: relative;
+  }
+
+  .pitch-vote-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -1px;
+    bottom: -1px;
+    width: 6px;
+    border-radius: var(--radius-full);
+    background: var(--accent-green);
+    box-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .pitch-vote-fill[style*="width: 0"]::after {
+    opacity: 0;
+  }
+
+  .pitch-card:hover .pitch-vote-fill::after {
+    opacity: 1;
+  }
+
+  .pitch-card--threshold .pitch-vote-fill {
+    background: linear-gradient(90deg, var(--accent-gold), var(--accent-amber));
+  }
+
+  .pitch-card--threshold .pitch-vote-fill::after {
+    background: var(--accent-gold);
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+  }
+
+  /* Card footer */
+  .pitch-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .pitch-pitcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .pitch-pitcher-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .pitch-pitcher-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .pitch-pitcher-name {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .pitch-pitcher-tier {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .pitch-tier-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+  }
+
+  .pitch-tier-label {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .pitch-card-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .pitch-spectators {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .pitch-spectators-icon {
+    font-size: 0.7rem;
+    opacity: 0.6;
+  }
+
+  /* Upvote button */
+  .upvote-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    background: rgba(0, 255, 213, 0.06);
+    border: 1px solid rgba(0, 255, 213, 0.15);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    cursor: pointer;
+    transition: all 0.25s var(--ease-out);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .upvote-btn:hover {
+    background: rgba(0, 255, 213, 0.1);
+    box-shadow: 0 0 16px rgba(0, 255, 213, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .upvote-btn:active {
+    transform: scale(0.95);
+  }
+
+  .upvote-btn--voted {
+    background: rgba(0, 255, 213, 0.12);
+    border-color: rgba(0, 255, 213, 0.3);
+    color: var(--accent-green);
+  }
+
+  .upvote-btn--disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .upvote-arrow {
+    transition: transform 0.3s var(--ease-spring);
+  }
+
+  .upvote-btn:active .upvote-arrow {
+    transform: translateY(-3px);
+  }
+
+  /* +1 float animation */
+  .vote-float {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent-green);
+    pointer-events: none;
+    animation: vote-float-up 0.8s var(--ease-out) forwards;
+  }
+
+  @keyframes vote-float-up {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -150%) scale(1.3); }
+  }
+
+  /* Threshold badge on card */
+  .pitch-threshold-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    background: rgba(255, 215, 0, 0.1);
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+    animation: badge-pulse-gold 2s ease-in-out infinite;
+  }
+
+  @keyframes badge-pulse-gold {
+    0%, 100% { box-shadow: 0 0 4px rgba(255, 215, 0, 0.2); }
+    50% { box-shadow: 0 0 12px rgba(255, 215, 0, 0.4); }
+  }
+
+  .pitch-expired-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--bg-elevated);
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+  }
+
+  /* ═══════════════ MODAL ═══════════════ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(10, 10, 12, 0.85);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s var(--ease-out), visibility 0.35s;
+  }
+
+  .modal-overlay--open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal {
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-active);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6), var(--glow-cyan);
+    overflow-y: auto;
+    transform: translateY(20px) scale(0.98);
+    transition: transform 0.35s var(--ease-out);
+    margin: var(--space-md);
+  }
+
+  .modal-overlay--open .modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-lg);
+    border-bottom: 1px solid var(--border-subtle);
+    position: sticky;
+    top: 0;
+    background: var(--bg-surface);
+    z-index: 1;
+  }
+
+  .modal-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+  }
+
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover {
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .modal-body {
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .form-counter {
+    font-size: 0.62rem;
+    letter-spacing: 0.05em;
+    text-transform: none;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+
+  .form-counter--warn {
+    color: var(--accent-amber);
+  }
+
+  .form-counter--limit {
+    color: var(--accent-coral);
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    line-height: 1.6;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: rgba(0, 255, 213, 0.3);
+    box-shadow: 0 0 0 3px rgba(0, 255, 213, 0.06);
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: var(--text-muted);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  /* Tag selector in modal */
+  .tag-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag-option {
+    padding: 5px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all 0.2s var(--ease-out);
+  }
+
+  .tag-option:hover {
+    color: var(--text-secondary);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .tag-option--selected {
+    color: var(--accent-cyan);
+    background: rgba(0, 255, 213, 0.06);
+    border-color: rgba(0, 255, 213, 0.2);
+  }
+
+  .modal-submit {
+    margin-top: var(--space-sm);
+  }
+
+  /* ═══════════════ RESPONSIVE ═══════════════ */
+  @media (max-width: 1024px) {
+    .pitch-grid {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 24px;
+      padding-bottom: var(--space-3xl);
+    }
+    .ring-hero { padding-left: 24px; padding-right: 24px; }
+    .filter-bar { padding: 0 24px; }
+  }
+
+  @media (max-width: 640px) {
+    .pitch-grid {
+      grid-template-columns: 1fr;
+      padding: 0 16px;
+      padding-bottom: var(--space-2xl);
+    }
+    .ring-hero { padding: 120px 16px 48px; }
+    .filter-bar { padding: 0 16px; }
+    .filter-bar-inner {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .filter-sort {
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .ring-stats { gap: var(--space-lg); }
+    .ring-glyph { width: 90px; height: 90px; }
+    .ring-glyph-inner { font-size: 1.8rem; }
+    .modal { margin: var(--space-sm); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Atmosphere -->
+<div class="atmosphere" aria-hidden="true">
+  <div class="atmosphere-grid"></div>
+  <div class="atmosphere-glow atmosphere-glow--cyan"></div>
+  <div class="atmosphere-glow atmosphere-glow--green"></div>
+  <div class="atmosphere-grain"></div>
+  <div class="atmosphere-scanlines"></div>
+</div>
+
+<!-- Nav -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="../index.html" class="nav-logo">
+    <div class="nav-logo-mark" aria-hidden="true">&#x2692;</div>
+    CrowdForge
+  </a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">Home</a>
+    <a href="idea-ring.html" class="nav-link nav-link--active" aria-current="page">Idea Ring</a>
+    <a href="#" class="nav-link">Live Stage</a>
+    <a href="#" class="nav-link">Karma</a>
+    <button class="btn btn--primary btn--sm" id="nav-pitch-btn">Pitch an Idea</button>
+  </div>
+</nav>
+
+<div class="page-content">
+
+  <!-- Hero -->
+  <header class="ring-hero">
+    <div class="ring-hero-visual" aria-hidden="true">
+      <div class="ring-glyph">
+        <span class="ring-glyph-inner">&#x2694;</span>
+      </div>
+    </div>
+    <h1>
+      <span class="t-glow">The Idea Ring</span>
+    </h1>
+    <p class="ring-hero-sub">
+      72 hours. 25 votes. Your idea earns its stage.
+    </p>
+    <button class="btn btn--primary btn--lg" id="hero-pitch-btn">
+      Pitch an Idea
+    </button>
+    <div class="ring-stats">
+      <div>
+        <div class="ring-stat-value" id="stat-active">14</div>
+        <div class="ring-stat-label">Active Pitches</div>
+      </div>
+      <div>
+        <div class="ring-stat-value" id="stat-votes">1,247</div>
+        <div class="ring-stat-label">Votes Cast</div>
+      </div>
+      <div>
+        <div class="ring-stat-value" id="stat-graduated">6</div>
+        <div class="ring-stat-label">Graduated</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Filter/Sort bar -->
+  <div class="filter-bar">
+    <div class="filter-bar-inner">
+      <div class="filter-sort" role="tablist" aria-label="Sort pitches">
+        <button class="sort-btn sort-btn--active" role="tab" aria-selected="true" data-sort="momentum">Vote Momentum</button>
+        <button class="sort-btn" role="tab" aria-selected="false" data-sort="newest">Newest</button>
+        <button class="sort-btn" role="tab" aria-selected="false" data-sort="most-voted">Most Voted</button>
+        <button class="sort-btn" role="tab" aria-selected="false" data-sort="ending-soon">Ending Soon</button>
+      </div>
+      <div class="filter-tags" role="group" aria-label="Filter by tech stack">
+        <button class="filter-tag" data-tag="react">React</button>
+        <button class="filter-tag" data-tag="python">Python</button>
+        <button class="filter-tag" data-tag="node">Node.js</button>
+        <button class="filter-tag" data-tag="ai-ml">AI/ML</button>
+        <button class="filter-tag" data-tag="rust">Rust</button>
+        <button class="filter-tag" data-tag="swift">Swift</button>
+        <button class="filter-tag" data-tag="solidity">Solidity</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pitch card grid -->
+  <main class="pitch-grid" id="pitch-grid" aria-label="Startup pitches">
+  </main>
+
+</div><!-- /page-content -->
+
+<!-- Pitch Modal -->
+<div class="modal-overlay" id="pitch-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 class="modal-title" id="modal-title">Pitch an Idea</h2>
+      <button class="modal-close" id="modal-close-btn" aria-label="Close modal">&times;</button>
+    </div>
+    <form class="modal-body" id="pitch-form" novalidate>
+      <div class="form-field">
+        <label class="form-label" for="pitch-title">
+          Title
+          <span class="form-counter" id="title-counter">0 / 60</span>
+        </label>
+        <input class="form-input" id="pitch-title" type="text" maxlength="60" placeholder="A sharp name for your startup idea" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="pitch-oneliner">
+          One-Liner
+          <span class="form-counter" id="oneliner-counter">0 / 140</span>
+        </label>
+        <input class="form-input" id="pitch-oneliner" type="text" maxlength="140" placeholder="Explain it in one sentence" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="pitch-problem">
+          Problem
+          <span class="form-counter" id="problem-counter">0 / 300</span>
+        </label>
+        <textarea class="form-textarea" id="pitch-problem" maxlength="300" rows="3" placeholder="What pain does this solve?"></textarea>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="pitch-solution">
+          Solution
+          <span class="form-counter" id="solution-counter">0 / 500</span>
+        </label>
+        <textarea class="form-textarea" id="pitch-solution" maxlength="500" rows="4" placeholder="How does your idea fix it?"></textarea>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="pitch-target">
+          Target User
+          <span class="form-counter" id="target-counter">0 / 200</span>
+        </label>
+        <input class="form-input" id="pitch-target" type="text" maxlength="200" placeholder="Who uses this?">
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="pitch-revenue">
+          Revenue Model
+          <span class="form-counter" id="revenue-counter">0 / 200</span>
+        </label>
+        <input class="form-input" id="pitch-revenue" type="text" maxlength="200" placeholder="How does it make money?">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Tech Stack</label>
+        <div class="tag-selector" id="tag-selector" role="group" aria-label="Select tech stack tags">
+          <button type="button" class="tag-option" data-tag="React">React</button>
+          <button type="button" class="tag-option" data-tag="Next.js">Next.js</button>
+          <button type="button" class="tag-option" data-tag="Python">Python</button>
+          <button type="button" class="tag-option" data-tag="Node.js">Node.js</button>
+          <button type="button" class="tag-option" data-tag="TypeScript">TypeScript</button>
+          <button type="button" class="tag-option" data-tag="Rust">Rust</button>
+          <button type="button" class="tag-option" data-tag="Go">Go</button>
+          <button type="button" class="tag-option" data-tag="Swift">Swift</button>
+          <button type="button" class="tag-option" data-tag="PostgreSQL">PostgreSQL</button>
+          <button type="button" class="tag-option" data-tag="Redis">Redis</button>
+          <button type="button" class="tag-option" data-tag="GPT-4">GPT-4</button>
+          <button type="button" class="tag-option" data-tag="LLM">LLM</button>
+          <button type="button" class="tag-option" data-tag="Solidity">Solidity</button>
+          <button type="button" class="tag-option" data-tag="TailwindCSS">TailwindCSS</button>
+          <button type="button" class="tag-option" data-tag="Docker">Docker</button>
+          <button type="button" class="tag-option" data-tag="AWS">AWS</button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn--primary btn--lg modal-submit">
+        Submit to the Ring
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Pulse Widget -->
+<aside class="pulse-widget" aria-label="Live activity feed">
+  <div class="pulse-header">
+    <div class="pulse-title">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      Idea Ring Pulse
+    </div>
+    <span class="badge badge--live">LIVE</span>
+  </div>
+  <div class="pulse-body" id="pulse-feed">
+    <div class="pulse-event">
+      <span style="color: var(--accent-cyan); font-weight: 500;">@rina</span>
+      <span style="color: var(--text-secondary);">upvoted</span>
+      <span style="color: var(--accent-green); font-weight: 500;">DevContext</span>
+    </div>
+    <div class="pulse-event">
+      <span style="color: var(--accent-amber); font-weight: 500;">@kai</span>
+      <span style="color: var(--text-secondary);">pitched</span>
+      <span style="color: var(--accent-green); font-weight: 500;">FreightPilot</span>
+    </div>
+    <div class="pulse-event">
+      <span style="color: var(--accent-violet); font-weight: 500;">@nyx_agent</span>
+      <span style="color: var(--text-secondary);">analyzed viability of</span>
+      <span style="color: var(--accent-green); font-weight: 500;">ClinicQueue</span>
+    </div>
+    <div class="pulse-event">
+      <span style="color: var(--accent-coral); font-weight: 500;">@jules</span>
+      <span style="color: var(--text-secondary);">upvoted</span>
+      <span style="color: var(--accent-green); font-weight: 500;">SplitSheet</span>
+    </div>
+  </div>
+</aside>
+
+<!-- Footer -->
+<footer class="footer page-content">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-copy">&copy; 2026 CrowdForge. Yes, and... startups.</div>
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">Twitter</a>
+        <a href="#">Discord</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   SAMPLE DATA
+   ═══════════════════════════════════════════════════════════ */
+const PITCHES = [
+  {
+    id: 1,
+    title: 'DevContext',
+    oneliner: 'AI copilot that reads your entire codebase and answers questions about architecture decisions.',
+    problem: 'Developers spend hours reading through legacy code to understand why things were built a certain way. Documentation is always outdated. Onboarding takes weeks when it should take hours.',
+    tags: ['Python', 'LLM', 'React', 'PostgreSQL'],
+    tagColors: ['tag--cyan', 'tag--violet', 'tag--cyan', 'tag--amber'],
+    upvotes: 31,
+    totalVotes: 44,
+    hoursLeft: 18,
+    votesPerHour: 1.7,
+    spectators: 89,
+    pitcher: { initials: 'RK', name: '@rina_k', color: 'avatar--cyan', tier: 'builder', tierColor: 'var(--accent-cyan)', tierGlow: '0 0 6px rgba(0, 255, 213, 0.3)' },
+    state: 'threshold',
+    createdHoursAgo: 54,
+  },
+  {
+    id: 2,
+    title: 'SplitSheet',
+    oneliner: 'Revenue-sharing ledger for indie collabs. Transparent splits, automated payouts.',
+    problem: 'Freelancers and indie teams build projects together but figuring out fair revenue splits is a nightmare. Spreadsheets break, trust erodes, and partnerships dissolve over money disputes.',
+    tags: ['Node.js', 'React', 'Solidity', 'PostgreSQL'],
+    tagColors: ['tag--green', 'tag--cyan', 'tag--violet', 'tag--amber'],
+    upvotes: 22,
+    totalVotes: 35,
+    hoursLeft: 41,
+    votesPerHour: 0.7,
+    spectators: 63,
+    pitcher: { initials: 'MZ', name: '@maya_z', color: 'avatar--amber', tier: 'contributor', tierColor: 'var(--accent-blue)', tierGlow: '0 0 6px rgba(96, 165, 250, 0.3)' },
+    state: 'trending',
+    createdHoursAgo: 31,
+  },
+  {
+    id: 3,
+    title: 'ClinicQueue',
+    oneliner: 'Walk-in clinic wait time predictor using real-time patient flow data.',
+    problem: 'Patients sit in walk-in clinic lobbies for hours with no idea how long the wait really is. Clinics lose patients who leave without being seen, wasting everyone\'s time.',
+    tags: ['Python', 'React', 'Redis', 'AWS'],
+    tagColors: ['tag--cyan', 'tag--cyan', 'tag--coral', 'tag--amber'],
+    upvotes: 8,
+    totalVotes: 14,
+    hoursLeft: 65,
+    votesPerHour: 1.1,
+    spectators: 28,
+    pitcher: { initials: 'DP', name: '@dev_patel', color: 'avatar--green', tier: 'observer', tierColor: 'var(--text-muted)', tierGlow: 'none' },
+    state: 'new',
+    createdHoursAgo: 7,
+  },
+  {
+    id: 4,
+    title: 'FreightPilot',
+    oneliner: 'AI route optimizer for independent truckers. Cut fuel costs 15%.',
+    problem: 'Independent truckers plan routes manually or use basic GPS. They miss cheaper fuel stops, deadhead miles add up, and they have no analytics on their own efficiency.',
+    tags: ['Python', 'GPT-4', 'React', 'Docker'],
+    tagColors: ['tag--cyan', 'tag--violet', 'tag--cyan', 'tag--amber'],
+    upvotes: 4,
+    totalVotes: 9,
+    hoursLeft: 70,
+    votesPerHour: 2.0,
+    spectators: 15,
+    pitcher: { initials: 'KJ', name: '@kai_j', color: 'avatar--coral', tier: 'observer', tierColor: 'var(--text-muted)', tierGlow: 'none' },
+    state: 'new',
+    createdHoursAgo: 2,
+  },
+  {
+    id: 5,
+    title: 'MoodBoard AI',
+    oneliner: 'Generate design moodboards from a text brief in seconds, not hours.',
+    problem: 'Designers waste entire afternoons collecting reference images for moodboards. Clients can\'t articulate what they want visually, leading to endless revision cycles.',
+    tags: ['Next.js', 'GPT-4', 'TailwindCSS', 'AWS'],
+    tagColors: ['tag--green', 'tag--violet', 'tag--cyan', 'tag--amber'],
+    upvotes: 17,
+    totalVotes: 30,
+    hoursLeft: 6,
+    votesPerHour: 0.3,
+    spectators: 47,
+    pitcher: { initials: 'SA', name: '@soph_art', color: 'avatar--violet', tier: 'builder', tierColor: 'var(--accent-cyan)', tierGlow: '0 0 6px rgba(0, 255, 213, 0.3)' },
+    state: 'urgent',
+    createdHoursAgo: 66,
+  },
+  {
+    id: 6,
+    title: 'TenantShield',
+    oneliner: 'Automated lease analysis that flags predatory clauses for renters.',
+    problem: 'Renters sign leases they don\'t fully understand. Buried in legal jargon are clauses that can cost thousands. Legal review is too expensive for most tenants.',
+    tags: ['TypeScript', 'LLM', 'Node.js', 'PostgreSQL'],
+    tagColors: ['tag--cyan', 'tag--violet', 'tag--green', 'tag--amber'],
+    upvotes: 12,
+    totalVotes: 22,
+    hoursLeft: 34,
+    votesPerHour: 0.4,
+    spectators: 34,
+    pitcher: { initials: 'AW', name: '@alex_w', color: 'avatar--amber', tier: 'architect', tierColor: 'var(--accent-violet)', tierGlow: '0 0 6px rgba(167, 139, 250, 0.3)' },
+    state: 'active',
+    createdHoursAgo: 38,
+  },
+  {
+    id: 7,
+    title: 'GigScope',
+    oneliner: 'Earnings dashboard for gig workers across all platforms in one view.',
+    problem: 'Gig workers drive for Uber, deliver for DoorDash, and freelance on Upwork. Tax time is chaos. No single view of total earnings, expenses, or estimated taxes owed.',
+    tags: ['React', 'Node.js', 'PostgreSQL'],
+    tagColors: ['tag--cyan', 'tag--green', 'tag--amber'],
+    upvotes: 5,
+    totalVotes: 28,
+    hoursLeft: 0,
+    votesPerHour: 0,
+    spectators: 19,
+    pitcher: { initials: 'TN', name: '@tara_n', color: 'avatar--coral', tier: 'contributor', tierColor: 'var(--accent-blue)', tierGlow: '0 0 6px rgba(96, 165, 250, 0.3)' },
+    state: 'expired',
+    createdHoursAgo: 73,
+  },
+  {
+    id: 8,
+    title: 'PantryPal',
+    oneliner: 'Scan your fridge, get recipes you can actually make tonight.',
+    problem: 'People buy groceries, forget what they have, and end up ordering takeout while food goes bad. Meal planning apps require too much manual input to be useful.',
+    tags: ['Swift', 'Python', 'GPT-4'],
+    tagColors: ['tag--amber', 'tag--cyan', 'tag--violet'],
+    upvotes: 19,
+    totalVotes: 26,
+    hoursLeft: 27,
+    votesPerHour: 0.4,
+    spectators: 52,
+    pitcher: { initials: 'LM', name: '@luna_m', color: 'avatar--green', tier: 'partner', tierColor: 'var(--accent-amber)', tierGlow: '0 0 8px rgba(245, 166, 35, 0.4)' },
+    state: 'active',
+    createdHoursAgo: 45,
+  },
+];
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER
+   ═══════════════════════════════════════════════════════════ */
+const grid = document.getElementById('pitch-grid');
+
+function formatCountdown(hoursLeft) {
+  if (hoursLeft <= 0) return 'Ended';
+  const h = Math.floor(hoursLeft);
+  const m = Math.floor((hoursLeft - h) * 60);
+  if (h >= 24) {
+    const d = Math.floor(h / 24);
+    const rh = h % 24;
+    return d + 'd ' + rh + 'h';
+  }
+  return h + 'h ' + m + 'm';
+}
+
+function getCountdownClass(hoursLeft) {
+  if (hoursLeft <= 0) return 'pitch-countdown--ended';
+  if (hoursLeft < 12) return 'pitch-countdown--urgent';
+  return '';
+}
+
+function getCardClass(pitch) {
+  if (pitch.state === 'threshold') return 'pitch-card--threshold';
+  if (pitch.state === 'expired') return 'pitch-card--expired';
+  return '';
+}
+
+function renderCard(pitch) {
+  const pct = pitch.totalVotes > 0 ? Math.round((pitch.upvotes / pitch.totalVotes) * 100) : 0;
+  const isThreshold = pitch.state === 'threshold';
+  const isExpired = pitch.state === 'expired';
+
+  return `
+    <article class="pitch-card ${getCardClass(pitch)}" data-id="${pitch.id}" data-tags='${JSON.stringify(pitch.tags.map(t => t.toLowerCase()))}' data-momentum="${pitch.votesPerHour}" data-created="${pitch.createdHoursAgo}" data-votes="${pitch.upvotes}" data-hours-left="${pitch.hoursLeft}" aria-label="Pitch: ${pitch.title}">
+      <div class="pitch-card-head">
+        <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
+          <h3 class="pitch-card-title">${pitch.title}</h3>
+          ${isThreshold ? '<span class="pitch-threshold-badge" aria-label="Passed threshold">&#x2728; GRADUATED</span>' : ''}
+          ${isExpired ? '<span class="pitch-expired-badge" aria-label="Expired">EXPIRED</span>' : ''}
+        </div>
+        <div class="pitch-countdown ${getCountdownClass(pitch.hoursLeft)}" data-hours="${pitch.hoursLeft}" aria-label="Time remaining: ${formatCountdown(pitch.hoursLeft)}">
+          <span class="pitch-countdown-dot" aria-hidden="true"></span>
+          <span class="countdown-text">${formatCountdown(pitch.hoursLeft)}</span>
+        </div>
+      </div>
+      <p class="pitch-oneliner">${pitch.oneliner}</p>
+      <div>
+        <p class="pitch-problem" id="problem-${pitch.id}">${pitch.problem}</p>
+        <button class="pitch-expand-btn" data-target="problem-${pitch.id}" aria-expanded="false">show more</button>
+      </div>
+      <div class="pitch-tags" aria-label="Tech stack">
+        ${pitch.tags.map((t, i) => `<span class="tag ${pitch.tagColors[i]}">${t}</span>`).join('')}
+      </div>
+      <div class="pitch-vote-section">
+        <div class="pitch-vote-header">
+          <span class="pitch-vote-count"><strong>${pitch.upvotes}</strong> / ${pitch.totalVotes} votes</span>
+          <span class="pitch-vote-pct">${pct}%</span>
+        </div>
+        <div class="pitch-vote-track" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Approval percentage">
+          <div class="pitch-vote-fill" style="width: ${pct}%"></div>
+        </div>
+      </div>
+      <div class="pitch-card-foot">
+        <div class="pitch-pitcher">
+          <div class="pitch-pitcher-avatar ${pitch.pitcher.color}">${pitch.pitcher.initials}</div>
+          <div class="pitch-pitcher-info">
+            <span class="pitch-pitcher-name">${pitch.pitcher.name}</span>
+            <span class="pitch-pitcher-tier">
+              <span class="pitch-tier-dot" style="background:${pitch.pitcher.tierColor};box-shadow:${pitch.pitcher.tierGlow}" aria-hidden="true"></span>
+              <span class="pitch-tier-label">${pitch.pitcher.tier}</span>
+            </span>
+          </div>
+        </div>
+        <div class="pitch-card-actions">
+          <span class="pitch-spectators" aria-label="${pitch.spectators} watching">
+            <span class="pitch-spectators-icon" aria-hidden="true">&#x1F441;</span>
+            ${pitch.spectators}
+          </span>
+          <button class="upvote-btn ${isExpired ? 'upvote-btn--disabled' : ''}" data-id="${pitch.id}" aria-label="Upvote ${pitch.title}">
+            <span class="upvote-arrow" aria-hidden="true">&#x25B2;</span>
+            <span class="upvote-count">${pitch.upvotes}</span>
+          </button>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function renderGrid(pitches) {
+  grid.innerHTML = pitches.map(renderCard).join('');
+  initExpandButtons();
+  initUpvoteButtons();
+}
+
+/* Initial render sorted by momentum */
+let currentSort = 'momentum';
+let activeTags = new Set();
+
+function sortAndFilter() {
+  let filtered = [...PITCHES];
+
+  if (activeTags.size > 0) {
+    filtered = filtered.filter(p => p.tags.some(t => activeTags.has(t.toLowerCase())));
+  }
+
+  switch (currentSort) {
+    case 'momentum':
+      filtered.sort((a, b) => b.votesPerHour - a.votesPerHour);
+      break;
+    case 'newest':
+      filtered.sort((a, b) => a.createdHoursAgo - b.createdHoursAgo);
+      break;
+    case 'most-voted':
+      filtered.sort((a, b) => b.upvotes - a.upvotes);
+      break;
+    case 'ending-soon':
+      filtered.sort((a, b) => {
+        if (a.hoursLeft <= 0 && b.hoursLeft <= 0) return 0;
+        if (a.hoursLeft <= 0) return 1;
+        if (b.hoursLeft <= 0) return -1;
+        return a.hoursLeft - b.hoursLeft;
+      });
+      break;
+  }
+
+  renderGrid(filtered);
+}
+
+sortAndFilter();
+
+/* ═══════════════════════════════════════════════════════════
+   SORT BUTTONS
+   ═══════════════════════════════════════════════════════════ */
+document.querySelectorAll('.sort-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.sort-btn').forEach(b => {
+      b.classList.remove('sort-btn--active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    btn.classList.add('sort-btn--active');
+    btn.setAttribute('aria-selected', 'true');
+    currentSort = btn.dataset.sort;
+    sortAndFilter();
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════
+   FILTER TAGS
+   ═══════════════════════════════════════════════════════════ */
+document.querySelectorAll('.filter-tag').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tag = btn.dataset.tag;
+    if (activeTags.has(tag)) {
+      activeTags.delete(tag);
+      btn.classList.remove('filter-tag--active');
+    } else {
+      activeTags.add(tag);
+      btn.classList.add('filter-tag--active');
+    }
+    sortAndFilter();
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════
+   EXPAND/COLLAPSE PROBLEM STATEMENTS
+   ═══════════════════════════════════════════════════════════ */
+function initExpandButtons() {
+  document.querySelectorAll('.pitch-expand-btn').forEach(btn => {
+    const target = document.getElementById(btn.dataset.target);
+    if (target.scrollHeight <= target.clientHeight + 2) {
+      btn.style.display = 'none';
+      return;
+    }
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      if (expanded) {
+        target.classList.remove('pitch-problem--expanded');
+        btn.textContent = 'show more';
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        target.classList.add('pitch-problem--expanded');
+        btn.textContent = 'show less';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UPVOTE WITH ANIMATION
+   ═══════════════════════════════════════════════════════════ */
+function initUpvoteButtons() {
+  document.querySelectorAll('.upvote-btn:not(.upvote-btn--disabled)').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (this.classList.contains('upvote-btn--voted')) return;
+
+      const id = parseInt(this.dataset.id);
+      const pitch = PITCHES.find(p => p.id === id);
+      pitch.upvotes++;
+      pitch.totalVotes++;
+
+      /* Animate the count */
+      const countEl = this.querySelector('.upvote-count');
+      countEl.textContent = pitch.upvotes;
+
+      /* Spring animation on arrow */
+      const arrow = this.querySelector('.upvote-arrow');
+      arrow.style.transform = 'translateY(-4px) scale(1.2)';
+      setTimeout(() => { arrow.style.transform = ''; }, 300);
+
+      /* Float +1 */
+      const float = document.createElement('span');
+      float.className = 'vote-float';
+      float.textContent = '+1';
+      this.appendChild(float);
+      setTimeout(() => float.remove(), 800);
+
+      /* Mark as voted */
+      this.classList.add('upvote-btn--voted');
+
+      /* Pulse the card */
+      const card = this.closest('.pitch-card');
+      card.classList.add('vote-pulse');
+      setTimeout(() => card.classList.remove('vote-pulse'), 600);
+
+      /* Update vote bar */
+      const pct = Math.round((pitch.upvotes / pitch.totalVotes) * 100);
+      const voteCount = card.querySelector('.pitch-vote-count');
+      const votePct = card.querySelector('.pitch-vote-pct');
+      const voteFill = card.querySelector('.pitch-vote-fill');
+      voteCount.innerHTML = '<strong>' + pitch.upvotes + '</strong> / ' + pitch.totalVotes + ' votes';
+      votePct.textContent = pct + '%';
+      voteFill.style.width = pct + '%';
+
+      /* Check threshold: 60% approval + 25 votes */
+      if (pct >= 60 && pitch.upvotes >= 25 && pitch.state !== 'threshold' && pitch.state !== 'expired') {
+        pitch.state = 'threshold';
+        card.classList.add('pitch-card--threshold');
+        const titleWrap = card.querySelector('.pitch-card-head > div');
+        if (!titleWrap.querySelector('.pitch-threshold-badge')) {
+          const badge = document.createElement('span');
+          badge.className = 'pitch-threshold-badge';
+          badge.innerHTML = '&#x2728; GRADUATED';
+          badge.setAttribute('aria-label', 'Passed threshold');
+          titleWrap.appendChild(badge);
+        }
+      }
+
+      addPulseEvent(pitch.title);
+    });
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COUNTDOWN TIMERS
+   ═══════════════════════════════════════════════════════════ */
+function tickCountdowns() {
+  document.querySelectorAll('.pitch-countdown[data-hours]').forEach(el => {
+    let hours = parseFloat(el.dataset.hours);
+    if (hours <= 0) return;
+
+    hours -= 1 / 3600;
+    el.dataset.hours = hours;
+
+    const text = el.querySelector('.countdown-text');
+    text.textContent = formatCountdown(hours);
+
+    const dot = el.querySelector('.pitch-countdown-dot');
+    if (hours < 12 && hours > 0) {
+      el.classList.add('pitch-countdown--urgent');
+    }
+    if (hours <= 0) {
+      el.classList.remove('pitch-countdown--urgent');
+      el.classList.add('pitch-countdown--ended');
+      text.textContent = 'Ended';
+    }
+  });
+}
+
+setInterval(tickCountdowns, 1000);
+
+/* ═══════════════════════════════════════════════════════════
+   MODAL
+   ═══════════════════════════════════════════════════════════ */
+const modalOverlay = document.getElementById('pitch-modal');
+const modalCloseBtn = document.getElementById('modal-close-btn');
+const pitchForm = document.getElementById('pitch-form');
+
+function openModal() {
+  modalOverlay.classList.add('modal-overlay--open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('pitch-title').focus();
+}
+
+function closeModal() {
+  modalOverlay.classList.remove('modal-overlay--open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('hero-pitch-btn').addEventListener('click', openModal);
+document.getElementById('nav-pitch-btn').addEventListener('click', openModal);
+modalCloseBtn.addEventListener('click', closeModal);
+
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modalOverlay.classList.contains('modal-overlay--open')) {
+    closeModal();
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════
+   CHARACTER COUNTERS
+   ═══════════════════════════════════════════════════════════ */
+const counterFields = [
+  { input: 'pitch-title', counter: 'title-counter', max: 60 },
+  { input: 'pitch-oneliner', counter: 'oneliner-counter', max: 140 },
+  { input: 'pitch-problem', counter: 'problem-counter', max: 300 },
+  { input: 'pitch-solution', counter: 'solution-counter', max: 500 },
+  { input: 'pitch-target', counter: 'target-counter', max: 200 },
+  { input: 'pitch-revenue', counter: 'revenue-counter', max: 200 },
+];
+
+counterFields.forEach(({ input, counter, max }) => {
+  const inputEl = document.getElementById(input);
+  const counterEl = document.getElementById(counter);
+
+  inputEl.addEventListener('input', () => {
+    const len = inputEl.value.length;
+    counterEl.textContent = len + ' / ' + max;
+    counterEl.classList.remove('form-counter--warn', 'form-counter--limit');
+    if (len >= max) {
+      counterEl.classList.add('form-counter--limit');
+    } else if (len >= max * 0.85) {
+      counterEl.classList.add('form-counter--warn');
+    }
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════
+   TAG SELECTOR IN MODAL
+   ═══════════════════════════════════════════════════════════ */
+const selectedTags = new Set();
+
+document.querySelectorAll('#tag-selector .tag-option').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tag = btn.dataset.tag;
+    if (selectedTags.has(tag)) {
+      selectedTags.delete(tag);
+      btn.classList.remove('tag-option--selected');
+    } else {
+      selectedTags.add(tag);
+      btn.classList.add('tag-option--selected');
+    }
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════
+   FORM SUBMIT
+   ═══════════════════════════════════════════════════════════ */
+pitchForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const title = document.getElementById('pitch-title').value.trim();
+  const oneliner = document.getElementById('pitch-oneliner').value.trim();
+
+  if (!title || !oneliner) return;
+
+  const submitBtn = pitchForm.querySelector('.modal-submit');
+  submitBtn.textContent = 'Pitched. See you in the Ring.';
+  submitBtn.style.background = 'linear-gradient(135deg, var(--accent-green), var(--accent-cyan))';
+  submitBtn.disabled = true;
+
+  setTimeout(() => {
+    closeModal();
+    pitchForm.reset();
+    submitBtn.textContent = 'Submit to the Ring';
+    submitBtn.style.background = '';
+    submitBtn.disabled = false;
+    counterFields.forEach(({ counter, max }) => {
+      document.getElementById(counter).textContent = '0 / ' + max;
+      document.getElementById(counter).classList.remove('form-counter--warn', 'form-counter--limit');
+    });
+    selectedTags.clear();
+    document.querySelectorAll('#tag-selector .tag-option').forEach(b => b.classList.remove('tag-option--selected'));
+  }, 1800);
+});
+
+/* ═══════════════════════════════════════════════════════════
+   PULSE FEED
+   ═══════════════════════════════════════════════════════════ */
+const pulseEvents = [
+  { user: '@rina', color: 'var(--accent-cyan)', action: 'upvoted', project: 'DevContext' },
+  { user: '@kai', color: 'var(--accent-amber)', action: 'pitched', project: 'FreightPilot' },
+  { user: '@nyx_agent', color: 'var(--accent-violet)', action: 'analyzed viability of', project: 'ClinicQueue' },
+  { user: '@jules', color: 'var(--accent-coral)', action: 'upvoted', project: 'SplitSheet' },
+  { user: '@soph', color: 'var(--accent-violet)', action: 'upvoted', project: 'MoodBoard AI' },
+  { user: '@tara', color: 'var(--accent-coral)', action: 'commented on', project: 'TenantShield' },
+  { user: '@ghost_bot', color: 'var(--accent-violet)', action: 'scored feasibility for', project: 'PantryPal' },
+  { user: '@alex', color: 'var(--accent-amber)', action: 'upvoted', project: 'DevContext' },
+  { user: '@maya', color: 'var(--accent-green)', action: 'upvoted', project: 'ClinicQueue' },
+  { user: '@dev_p', color: 'var(--accent-cyan)', action: 'pitched', project: 'ToolRack' },
+];
+
+let pulseIndex = 4;
+const pulseFeed = document.getElementById('pulse-feed');
+
+function addPulseEvent(projectName) {
+  const colors = ['var(--accent-cyan)', 'var(--accent-amber)', 'var(--accent-violet)', 'var(--accent-coral)', 'var(--accent-green)'];
+  const users = ['@rina', '@kai', '@jules', '@soph', '@alex', '@maya', '@dev_p'];
+  const user = users[Math.floor(Math.random() * users.length)];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+
+  const event = document.createElement('div');
+  event.className = 'pulse-event';
+  event.innerHTML = `<span style="color:${color};font-weight:500">${user}</span> <span style="color:var(--text-secondary)">upvoted</span> <span style="color:var(--accent-green);font-weight:500">${projectName}</span>`;
+  pulseFeed.insertBefore(event, pulseFeed.firstChild);
+  if (pulseFeed.children.length > 8) pulseFeed.lastChild.remove();
+}
+
+function autoAddPulseEvent() {
+  const ev = pulseEvents[pulseIndex % pulseEvents.length];
+  pulseIndex++;
+
+  const event = document.createElement('div');
+  event.className = 'pulse-event';
+  event.innerHTML = `<span style="color:${ev.color};font-weight:500">${ev.user}</span> <span style="color:var(--text-secondary)">${ev.action}</span> <span style="color:var(--accent-green);font-weight:500">${ev.project}</span>`;
+  pulseFeed.insertBefore(event, pulseFeed.firstChild);
+  if (pulseFeed.children.length > 8) pulseFeed.lastChild.remove();
+}
+
+setInterval(autoAddPulseEvent, 4500);
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════════════════════════ */
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+revealElements.forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>

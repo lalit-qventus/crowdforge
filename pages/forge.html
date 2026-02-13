@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forge Editor — CrowdForge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/design-system.css">
+  <style>
+    /* ── FORGE LAYOUT ── */
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      line-height: 1.4;
+    }
+
+    .forge {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: var(--bg-deep);
+    }
+
+    /* ── TOP BAR ── */
+    .forge-topbar {
+      display: flex;
+      align-items: center;
+      height: 48px;
+      min-height: 48px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0 var(--space-md);
+      gap: var(--space-md);
+      z-index: 50;
+    }
+
+    .forge-topbar-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-shrink: 0;
+    }
+
+    .forge-logo {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-inverse);
+      flex-shrink: 0;
+    }
+
+    .forge-project-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .forge-branch {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .forge-branch:hover {
+      border-color: var(--border-active);
+      color: var(--accent-cyan);
+    }
+
+    .forge-branch svg {
+      width: 10px;
+      height: 10px;
+      opacity: 0.6;
+    }
+
+    .forge-branch-icon {
+      color: var(--accent-green);
+    }
+
+    /* ── FILE TABS ── */
+    .forge-tabs {
+      display: flex;
+      align-items: stretch;
+      flex: 1;
+      min-width: 0;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .forge-tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 var(--space-md);
+      height: 100%;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .forge-tab:hover {
+      color: var(--text-secondary);
+    }
+
+    .forge-tab--active {
+      color: var(--text-primary);
+      border-bottom-color: var(--accent-cyan);
+    }
+
+    .forge-tab-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .forge-tab-dot--tsx { background: var(--accent-cyan); }
+    .forge-tab-dot--ts { background: var(--accent-green); }
+    .forge-tab-dot--css { background: var(--accent-amber); }
+
+    .forge-tab-close {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--text-muted);
+      opacity: 0;
+      transition: opacity 0.15s, background 0.15s;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .forge-tab:hover .forge-tab-close {
+      opacity: 1;
+    }
+
+    .forge-tab-close:hover {
+      background: var(--bg-overlay);
+      color: var(--text-primary);
+    }
+
+    /* ── TOP BAR RIGHT ── */
+    .forge-topbar-right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-shrink: 0;
+    }
+
+    .forge-topbar .avatar-stack {
+      margin-right: var(--space-xs);
+    }
+
+    .forge-topbar .avatar {
+      width: 26px;
+      height: 26px;
+      font-size: 0.6rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .forge-topbar .avatar-stack .avatar {
+      margin-left: -6px;
+      border: 2px solid var(--bg-surface);
+    }
+
+    .forge-topbar .avatar-stack .avatar:first-child {
+      margin-left: 0;
+    }
+
+    .btn--forge-primary {
+      padding: 6px 14px;
+      font-size: 0.7rem;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+      color: var(--text-inverse);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      border: none;
+      transition: all 0.25s var(--ease-out);
+      white-space: nowrap;
+    }
+
+    .btn--forge-primary:hover {
+      box-shadow: var(--glow-cyan);
+      transform: translateY(-1px);
+    }
+
+    .btn--forge-primary:active {
+      transform: translateY(0);
+    }
+
+    .forge-icon-btn {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      transition: color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+
+    .forge-icon-btn:hover {
+      color: var(--text-secondary);
+      background: var(--bg-elevated);
+    }
+
+    .forge-icon-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ── MAIN AREA ── */
+    .forge-main {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      position: relative;
+    }
+
+    /* ── RESIZE HANDLES ── */
+    .forge-resize-h {
+      width: 1px;
+      background: var(--border-subtle);
+      cursor: col-resize;
+      position: relative;
+      flex-shrink: 0;
+      z-index: 10;
+      transition: background 0.2s;
+    }
+
+    .forge-resize-h::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -3px;
+      right: -3px;
+    }
+
+    .forge-resize-h:hover,
+    .forge-resize-h.active {
+      background: var(--accent-cyan);
+      box-shadow: 0 0 8px rgba(0, 255, 213, 0.3);
+    }
+
+    .forge-resize-v {
+      height: 1px;
+      background: var(--border-subtle);
+      cursor: row-resize;
+      position: relative;
+      flex-shrink: 0;
+      z-index: 10;
+      transition: background 0.2s;
+    }
+
+    .forge-resize-v::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -3px;
+      bottom: -3px;
+    }
+
+    .forge-resize-v:hover,
+    .forge-resize-v.active {
+      background: var(--accent-cyan);
+      box-shadow: 0 0 8px rgba(0, 255, 213, 0.3);
+    }
+
+    /* ── FILE TREE (LEFT PANEL) ── */
+    .forge-sidebar {
+      width: 220px;
+      min-width: 160px;
+      max-width: 400px;
+      background: var(--bg-surface);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .forge-sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .forge-sidebar-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .forge-sidebar-actions {
+      display: flex;
+      gap: 2px;
+    }
+
+    .forge-sidebar-actions button {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .forge-sidebar-actions button:hover {
+      color: var(--text-secondary);
+      background: var(--bg-elevated);
+    }
+
+    .forge-file-tree {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: var(--space-xs) 0;
+    }
+
+    .forge-file-tree::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .forge-file-tree::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .forge-file-tree::-webkit-scrollbar-thumb {
+      background: var(--bg-overlay);
+      border-radius: 2px;
+    }
+
+    .tree-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px var(--space-md);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background 0.1s, color 0.1s;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .tree-item:hover {
+      background: var(--bg-elevated);
+    }
+
+    .tree-item--active {
+      background: rgba(0, 255, 213, 0.06);
+      color: var(--text-primary);
+    }
+
+    .tree-item--active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--accent-cyan);
+    }
+
+    .tree-item {
+      position: relative;
+    }
+
+    .tree-chevron {
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: transform 0.15s;
+    }
+
+    .tree-chevron--open {
+      transform: rotate(90deg);
+    }
+
+    .tree-chevron--hidden {
+      visibility: hidden;
+    }
+
+    .tree-icon {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .tree-folder-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      color: var(--accent-amber);
+      font-size: 12px;
+    }
+
+    .tree-icon--tsx { background: var(--accent-cyan); }
+    .tree-icon--ts { background: var(--accent-green); }
+    .tree-icon--css { background: var(--accent-amber); }
+    .tree-icon--json { background: var(--text-muted); }
+    .tree-icon--md { background: var(--accent-blue); }
+    .tree-icon--svg { background: var(--accent-violet); }
+    .tree-icon--ico { background: var(--accent-coral); }
+
+    .tree-children {
+      display: none;
+    }
+
+    .tree-children--open {
+      display: block;
+    }
+
+    .tree-indent {
+      width: 16px;
+      flex-shrink: 0;
+    }
+
+    /* ── CODE EDITOR (CENTER PANEL) ── */
+    .forge-editor {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-deep);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .forge-editor-scroll {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .forge-editor-scroll::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .forge-editor-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .forge-editor-scroll::-webkit-scrollbar-thumb {
+      background: var(--bg-overlay);
+      border-radius: 4px;
+    }
+
+    .code-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.65;
+    }
+
+    .code-line {
+      transition: background 0.1s;
+    }
+
+    .code-line:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .code-line--active {
+      background: rgba(0, 255, 213, 0.04);
+    }
+
+    .code-line--active .code-linenum {
+      color: var(--accent-cyan);
+      border-right-color: var(--accent-cyan);
+    }
+
+    .code-linenum {
+      width: 52px;
+      min-width: 52px;
+      padding: 0 12px 0 16px;
+      text-align: right;
+      color: var(--text-muted);
+      user-select: none;
+      vertical-align: top;
+      border-right: 1px solid transparent;
+      font-variant-numeric: tabular-nums;
+      position: relative;
+    }
+
+    .code-content {
+      padding: 0 16px;
+      white-space: pre;
+    }
+
+    /* ── COLLABORATIVE CURSORS ── */
+    .collab-cursor {
+      position: absolute;
+      pointer-events: none;
+      z-index: 20;
+      transition: top 2s ease-in-out, left 0.3s ease;
+    }
+
+    .collab-cursor-line {
+      width: 2px;
+      height: 20px;
+      border-radius: 1px;
+    }
+
+    .collab-cursor-label {
+      position: absolute;
+      top: -18px;
+      left: 0;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      padding: 1px 6px;
+      border-radius: 3px 3px 3px 0;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .collab-cursor--sarah .collab-cursor-line {
+      background: var(--accent-coral);
+    }
+
+    .collab-cursor--sarah .collab-cursor-label {
+      background: var(--accent-coral);
+      color: var(--text-inverse);
+    }
+
+    .collab-cursor--alex .collab-cursor-line {
+      background: var(--accent-violet);
+    }
+
+    .collab-cursor--alex .collab-cursor-label {
+      background: var(--accent-violet);
+      color: var(--text-inverse);
+    }
+
+    /* ── MINIMAP ── */
+    .forge-minimap {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60px;
+      height: 100%;
+      background: rgba(17, 17, 20, 0.6);
+      border-left: 1px solid var(--border-subtle);
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .minimap-bar {
+      position: absolute;
+      right: 8px;
+      height: 3px;
+      border-radius: 1px;
+      opacity: 0.5;
+    }
+
+    .minimap-bar--keyword { background: var(--accent-violet); width: 20px; }
+    .minimap-bar--string { background: var(--accent-coral); width: 28px; }
+    .minimap-bar--function { background: var(--accent-cyan); width: 24px; }
+    .minimap-bar--comment { background: var(--text-muted); width: 32px; }
+    .minimap-bar--type { background: var(--accent-green); width: 18px; }
+    .minimap-bar--plain { background: var(--text-secondary); width: 22px; opacity: 0.3; }
+
+    .minimap-viewport {
+      position: absolute;
+      top: 0;
+      left: 4px;
+      right: 4px;
+      height: 120px;
+      border: 1px solid rgba(0, 255, 213, 0.15);
+      background: rgba(0, 255, 213, 0.03);
+      border-radius: 2px;
+    }
+
+    /* ── PREVIEW PANEL (RIGHT) ── */
+    .forge-preview {
+      width: 400px;
+      min-width: 200px;
+      max-width: 600px;
+      background: var(--bg-surface);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .forge-preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+    }
+
+    .forge-preview-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .forge-preview-actions {
+      display: flex;
+      gap: 4px;
+    }
+
+    .forge-preview-actions button {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .forge-preview-actions button:hover {
+      color: var(--text-secondary);
+      background: var(--bg-overlay);
+    }
+
+    .forge-preview-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-lg);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .forge-preview-body::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .forge-preview-body::-webkit-scrollbar-thumb {
+      background: var(--bg-overlay);
+      border-radius: 2px;
+    }
+
+    /* Pet card preview */
+    .pet-card-preview {
+      width: 100%;
+      max-width: 320px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .pet-card-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: linear-gradient(135deg, rgba(0, 255, 213, 0.08), rgba(57, 255, 20, 0.05));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .pet-card-image-icon {
+      font-size: 48px;
+      opacity: 0.9;
+    }
+
+    .pet-card-match-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--accent-green);
+      border: 1px solid rgba(57, 255, 20, 0.2);
+    }
+
+    .pet-card-body {
+      padding: var(--space-md);
+    }
+
+    .pet-card-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .pet-card-breed {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .pet-card-traits {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-md);
+    }
+
+    .pet-card-trait {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 255, 213, 0.06);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 255, 213, 0.1);
+    }
+
+    .pet-card-footer {
+      display: flex;
+      gap: var(--space-sm);
+    }
+
+    .pet-card-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pet-card-btn--primary {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+      color: var(--text-inverse);
+    }
+
+    .pet-card-btn--secondary {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+
+    .forge-preview-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px var(--space-md);
+      border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    .forge-preview-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 6px rgba(57, 255, 20, 0.4);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    /* ── BOTTOM PANELS ── */
+    .forge-bottom-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .forge-bottom {
+      height: 200px;
+      min-height: 80px;
+      max-height: 400px;
+      background: var(--bg-surface);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .forge-bottom--collapsed {
+      height: 0;
+      min-height: 0;
+    }
+
+    .forge-bottom-tabs {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      flex-shrink: 0;
+    }
+
+    .forge-bottom-tab {
+      padding: 7px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .forge-bottom-tab:hover {
+      color: var(--text-secondary);
+    }
+
+    .forge-bottom-tab--active {
+      color: var(--accent-cyan);
+      border-bottom-color: var(--accent-cyan);
+    }
+
+    .forge-bottom-tab .count-badge {
+      font-size: 0.58rem;
+      padding: 1px 5px;
+      border-radius: var(--radius-full);
+      background: var(--bg-overlay);
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .forge-bottom-tab .count-badge--warning {
+      background: rgba(245, 166, 35, 0.15);
+      color: var(--accent-amber);
+    }
+
+    .forge-bottom-tab .count-badge--error {
+      background: rgba(255, 107, 107, 0.15);
+      color: var(--accent-coral);
+    }
+
+    .forge-bottom-toggle {
+      margin-left: auto;
+      padding: 4px 8px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.15s;
+    }
+
+    .forge-bottom-toggle:hover {
+      color: var(--text-secondary);
+    }
+
+    .forge-bottom-content {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .forge-bottom-panel {
+      display: none;
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+    }
+
+    .forge-bottom-panel::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .forge-bottom-panel::-webkit-scrollbar-thumb {
+      background: var(--bg-overlay);
+      border-radius: 2px;
+    }
+
+    .forge-bottom-panel--active {
+      display: block;
+    }
+
+    /* Terminal panel */
+    .forge-terminal {
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      line-height: 1.9;
+      color: var(--text-secondary);
+    }
+
+    .term-prompt {
+      color: var(--accent-green);
+    }
+
+    .term-path {
+      color: var(--accent-cyan);
+    }
+
+    .term-success {
+      color: var(--accent-green);
+    }
+
+    .term-info {
+      color: var(--text-muted);
+    }
+
+    .term-warn {
+      color: var(--accent-amber);
+    }
+
+    .term-line {
+      opacity: 0;
+      animation: term-appear 0.3s forwards;
+    }
+
+    @keyframes term-appear {
+      to { opacity: 1; }
+    }
+
+    /* AI Assistant panel */
+    .forge-ai {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .forge-ai-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-sm) var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .forge-ai-messages::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .forge-ai-messages::-webkit-scrollbar-thumb {
+      background: var(--bg-overlay);
+      border-radius: 2px;
+    }
+
+    .ai-msg {
+      display: flex;
+      gap: var(--space-sm);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    .ai-msg-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.58rem;
+      font-weight: 600;
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+    }
+
+    .ai-msg--user .ai-msg-avatar {
+      background: rgba(0, 255, 213, 0.12);
+      color: var(--accent-cyan);
+    }
+
+    .ai-msg--ai .ai-msg-avatar {
+      background: rgba(167, 139, 250, 0.12);
+      color: var(--accent-violet);
+    }
+
+    .ai-msg-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .ai-msg-name {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .ai-msg--user .ai-msg-name { color: var(--accent-cyan); }
+    .ai-msg--ai .ai-msg-name { color: var(--accent-violet); }
+
+    .ai-msg-text {
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+    }
+
+    .ai-msg-code {
+      margin-top: 6px;
+      padding: 8px 10px;
+      background: var(--bg-deep);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-primary);
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .forge-ai-input {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .forge-ai-input input {
+      flex: 1;
+      padding: 7px 12px;
+      background: var(--bg-deep);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .forge-ai-input input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .forge-ai-input input:focus {
+      border-color: var(--border-active);
+    }
+
+    .forge-ai-input button {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .forge-ai-input button:hover {
+      color: var(--accent-cyan);
+      border-color: var(--border-active);
+    }
+
+    /* Problems panel */
+    .forge-problems {
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .problem-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      padding: 6px 8px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      line-height: 1.5;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .problem-item:hover {
+      background: var(--bg-elevated);
+    }
+
+    .problem-icon {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .problem-icon--warning {
+      color: var(--accent-amber);
+    }
+
+    .problem-text {
+      color: var(--text-secondary);
+    }
+
+    .problem-location {
+      color: var(--text-muted);
+      margin-left: auto;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── STATUS BAR (very bottom) ── */
+    .forge-statusbar {
+      display: flex;
+      align-items: center;
+      height: 24px;
+      min-height: 24px;
+      padding: 0 var(--space-md);
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      gap: var(--space-md);
+    }
+
+    .forge-statusbar-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .statusbar-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+
+    .statusbar-dot--green {
+      background: var(--accent-green);
+      box-shadow: 0 0 4px rgba(57, 255, 20, 0.4);
+    }
+
+    .forge-statusbar-right {
+      margin-left: auto;
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    /* ── MOBILE PANEL TOGGLE ── */
+    .forge-mobile-toggle {
+      display: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .forge-preview {
+        width: 280px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .forge-topbar-left .forge-project-name,
+      .forge-topbar-left .forge-branch {
+        display: none;
+      }
+
+      .forge-tabs {
+        justify-content: flex-start;
+      }
+
+      .forge-sidebar {
+        display: none;
+      }
+
+      .forge-sidebar + .forge-resize-h {
+        display: none;
+      }
+
+      .forge-preview {
+        display: none;
+      }
+
+      .forge-preview + .forge-resize-h,
+      .forge-resize-h:last-of-type {
+        display: none;
+      }
+
+      .forge-mobile-toggle {
+        display: flex;
+        gap: 2px;
+        position: fixed;
+        bottom: 32px;
+        right: var(--space-md);
+        z-index: 60;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-active);
+        border-radius: var(--radius-sm);
+        padding: 4px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      }
+
+      .forge-mobile-btn {
+        padding: 6px 10px;
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        border: none;
+        background: transparent;
+        color: var(--text-muted);
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .forge-mobile-btn--active {
+        background: rgba(0, 255, 213, 0.1);
+        color: var(--accent-cyan);
+      }
+
+      .forge-bottom {
+        height: 160px;
+      }
+
+      .forge-main--show-preview .forge-editor {
+        display: none;
+      }
+
+      .forge-main--show-preview .forge-preview {
+        display: flex;
+        width: 100%;
+      }
+
+      .forge-main--show-terminal .forge-editor {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .forge-topbar .avatar-stack {
+        display: none;
+      }
+
+      .forge-tab {
+        padding: 0 var(--space-sm);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="forge" role="application" aria-label="CrowdForge Editor">
+
+    <!-- ═══ TOP BAR ═══ -->
+    <header class="forge-topbar" role="banner">
+      <div class="forge-topbar-left">
+        <div class="forge-logo" aria-hidden="true">C</div>
+        <span class="forge-project-name">PetMatch AI</span>
+        <button class="forge-branch" aria-label="Switch branch: main">
+          <span class="forge-branch-icon" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zm-2.25.75a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.492 2.492 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25zM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zM4.25 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5z"/></svg>
+          </span>
+          main
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4.427 7.427l3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427z"/></svg>
+        </button>
+      </div>
+
+      <nav class="forge-tabs" role="tablist" aria-label="Open files">
+        <button class="forge-tab forge-tab--active" role="tab" aria-selected="true" data-file="index.tsx">
+          <span class="forge-tab-dot forge-tab-dot--tsx" aria-hidden="true"></span>
+          index.tsx
+          <span class="forge-tab-close" aria-label="Close index.tsx" role="button" tabindex="0">&times;</span>
+        </button>
+        <button class="forge-tab" role="tab" aria-selected="false" data-file="matchAlgo.ts">
+          <span class="forge-tab-dot forge-tab-dot--ts" aria-hidden="true"></span>
+          matchAlgo.ts
+          <span class="forge-tab-close" aria-label="Close matchAlgo.ts" role="button" tabindex="0">&times;</span>
+        </button>
+        <button class="forge-tab" role="tab" aria-selected="false" data-file="styles.css">
+          <span class="forge-tab-dot forge-tab-dot--css" aria-hidden="true"></span>
+          styles.css
+          <span class="forge-tab-close" aria-label="Close styles.css" role="button" tabindex="0">&times;</span>
+        </button>
+      </nav>
+
+      <div class="forge-topbar-right">
+        <div class="avatar-stack" aria-label="4 collaborators online">
+          <div class="avatar avatar--cyan" title="You">LM</div>
+          <div class="avatar avatar--coral" title="Sarah K.">SK</div>
+          <div class="avatar avatar--green" title="Alex R.">AR</div>
+          <div class="avatar avatar--bot" title="ForgeBot (AI)">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a1 1 0 0 1 1 1v1.07A7.002 7.002 0 0 1 15 10a1 1 0 1 1-2 0 5 5 0 1 0-10 0 1 1 0 1 1-2 0 7.002 7.002 0 0 1 6-6.93V2a1 1 0 0 1 1-1zm0 7a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
+          </div>
+        </div>
+        <button class="btn--forge-primary" aria-label="Submit for review">Submit for Review</button>
+        <button class="forge-icon-btn" aria-label="Settings">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M7.429 1.525a3.5 3.5 0 0 1 1.142 0l.548 2.02a.75.75 0 0 0 .867.517l2.008-.575a3.5 3.5 0 0 1 .571.989l-1.46 1.445a.75.75 0 0 0 0 1.058l1.46 1.445a3.5 3.5 0 0 1-.571.989l-2.008-.575a.75.75 0 0 0-.867.517l-.548 2.02a3.5 3.5 0 0 1-1.142 0l-.548-2.02a.75.75 0 0 0-.867-.517l-2.008.575a3.5 3.5 0 0 1-.571-.989l1.46-1.445a.75.75 0 0 0 0-1.058L3.435 4.476a3.5 3.5 0 0 1 .571-.989l2.008.575a.75.75 0 0 0 .867-.517l.548-2.02zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ═══ MAIN AREA ═══ -->
+    <div class="forge-main" id="forgeMain">
+
+      <!-- LEFT: File Tree -->
+      <aside class="forge-sidebar" role="complementary" aria-label="File explorer">
+        <div class="forge-sidebar-header">
+          <span class="forge-sidebar-title">Explorer</span>
+          <div class="forge-sidebar-actions">
+            <button aria-label="New file" title="New File">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 1h8l4.5 4.5V14a1.5 1.5 0 0 1-1.5 1.5H1.5A1.5 1.5 0 0 1 0 14V2.5A1.5 1.5 0 0 1 1.5 1zM1.5 14H12.5V6H9V2.5H1.5V14zM7 7v2.5H4.5v1H7V13h1v-2.5H10.5v-1H8V7H7z"/></svg>
+            </button>
+            <button aria-label="New folder" title="New Folder">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M14.5 3H7.71l-.85-.85L6.51 2H1.5l-.5.5v11l.5.5h13l.5-.5v-10L14.5 3zm-.51 8.49V13H2V3h4.29l.85.85.36.15H14v7.49z"/><path d="M7 7v2H5v1h2v2h1V10h2V9H8V7H7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="forge-file-tree" role="tree" aria-label="File tree">
+          <!-- src/ -->
+          <div class="tree-node" data-folder="src">
+            <div class="tree-item" role="treeitem" aria-expanded="true" tabindex="0">
+              <span class="tree-chevron tree-chevron--open" aria-hidden="true">&#9654;</span>
+              <span class="tree-folder-icon" aria-hidden="true">&#128193;</span>
+              <span>src</span>
+            </div>
+            <div class="tree-children tree-children--open">
+              <!-- components/ -->
+              <div class="tree-node" data-folder="components">
+                <div class="tree-item" role="treeitem" aria-expanded="true" tabindex="0">
+                  <span class="tree-indent" aria-hidden="true"></span>
+                  <span class="tree-chevron tree-chevron--open" aria-hidden="true">&#9654;</span>
+                  <span class="tree-folder-icon" aria-hidden="true">&#128193;</span>
+                  <span>components</span>
+                </div>
+                <div class="tree-children tree-children--open">
+                  <div class="tree-item tree-item--active" role="treeitem" tabindex="0" data-file="PetCard.tsx">
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                    <span class="tree-icon tree-icon--tsx" aria-hidden="true"></span>
+                    <span>PetCard.tsx</span>
+                  </div>
+                  <div class="tree-item" role="treeitem" tabindex="0" data-file="MatchList.tsx">
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                    <span class="tree-icon tree-icon--tsx" aria-hidden="true"></span>
+                    <span>MatchList.tsx</span>
+                  </div>
+                  <div class="tree-item" role="treeitem" tabindex="0" data-file="Header.tsx">
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                    <span class="tree-icon tree-icon--tsx" aria-hidden="true"></span>
+                    <span>Header.tsx</span>
+                  </div>
+                </div>
+              </div>
+              <!-- lib/ -->
+              <div class="tree-node" data-folder="lib">
+                <div class="tree-item" role="treeitem" aria-expanded="false" tabindex="0">
+                  <span class="tree-indent" aria-hidden="true"></span>
+                  <span class="tree-chevron" aria-hidden="true">&#9654;</span>
+                  <span class="tree-folder-icon" aria-hidden="true">&#128193;</span>
+                  <span>lib</span>
+                </div>
+                <div class="tree-children">
+                  <div class="tree-item" role="treeitem" tabindex="0" data-file="matchAlgo.ts">
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                    <span class="tree-icon tree-icon--ts" aria-hidden="true"></span>
+                    <span>matchAlgo.ts</span>
+                  </div>
+                  <div class="tree-item" role="treeitem" tabindex="0" data-file="api.ts">
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                    <span class="tree-icon tree-icon--ts" aria-hidden="true"></span>
+                    <span>api.ts</span>
+                  </div>
+                  <div class="tree-item" role="treeitem" tabindex="0" data-file="types.ts">
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                    <span class="tree-icon tree-icon--ts" aria-hidden="true"></span>
+                    <span>types.ts</span>
+                  </div>
+                </div>
+              </div>
+              <!-- styles/ -->
+              <div class="tree-node" data-folder="styles">
+                <div class="tree-item" role="treeitem" aria-expanded="false" tabindex="0">
+                  <span class="tree-indent" aria-hidden="true"></span>
+                  <span class="tree-chevron" aria-hidden="true">&#9654;</span>
+                  <span class="tree-folder-icon" aria-hidden="true">&#128193;</span>
+                  <span>styles</span>
+                </div>
+                <div class="tree-children">
+                  <div class="tree-item" role="treeitem" tabindex="0" data-file="globals.css">
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                    <span class="tree-icon tree-icon--css" aria-hidden="true"></span>
+                    <span>globals.css</span>
+                  </div>
+                  <div class="tree-item" role="treeitem" tabindex="0" data-file="petcard.module.css">
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-indent" aria-hidden="true"></span>
+                    <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                    <span class="tree-icon tree-icon--css" aria-hidden="true"></span>
+                    <span>petcard.module.css</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Root files -->
+              <div class="tree-item" role="treeitem" tabindex="0" data-file="index.tsx">
+                <span class="tree-indent" aria-hidden="true"></span>
+                <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                <span class="tree-icon tree-icon--tsx" aria-hidden="true"></span>
+                <span>index.tsx</span>
+              </div>
+              <div class="tree-item" role="treeitem" tabindex="0" data-file="App.tsx">
+                <span class="tree-indent" aria-hidden="true"></span>
+                <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                <span class="tree-icon tree-icon--tsx" aria-hidden="true"></span>
+                <span>App.tsx</span>
+              </div>
+            </div>
+          </div>
+          <!-- public/ -->
+          <div class="tree-node" data-folder="public">
+            <div class="tree-item" role="treeitem" aria-expanded="false" tabindex="0">
+              <span class="tree-chevron" aria-hidden="true">&#9654;</span>
+              <span class="tree-folder-icon" aria-hidden="true">&#128193;</span>
+              <span>public</span>
+            </div>
+            <div class="tree-children">
+              <div class="tree-item" role="treeitem" tabindex="0" data-file="favicon.ico">
+                <span class="tree-indent" aria-hidden="true"></span>
+                <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                <span class="tree-icon tree-icon--ico" aria-hidden="true"></span>
+                <span>favicon.ico</span>
+              </div>
+              <div class="tree-item" role="treeitem" tabindex="0" data-file="logo.svg">
+                <span class="tree-indent" aria-hidden="true"></span>
+                <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+                <span class="tree-icon tree-icon--svg" aria-hidden="true"></span>
+                <span>logo.svg</span>
+              </div>
+            </div>
+          </div>
+          <!-- Root config files -->
+          <div class="tree-item" role="treeitem" tabindex="0" data-file="package.json">
+            <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+            <span class="tree-icon tree-icon--json" aria-hidden="true"></span>
+            <span>package.json</span>
+          </div>
+          <div class="tree-item" role="treeitem" tabindex="0" data-file="tsconfig.json">
+            <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+            <span class="tree-icon tree-icon--json" aria-hidden="true"></span>
+            <span>tsconfig.json</span>
+          </div>
+          <div class="tree-item" role="treeitem" tabindex="0" data-file="README.md">
+            <span class="tree-chevron tree-chevron--hidden" aria-hidden="true">&#9654;</span>
+            <span class="tree-icon tree-icon--md" aria-hidden="true"></span>
+            <span>README.md</span>
+          </div>
+        </div>
+      </aside>
+
+      <div class="forge-resize-h" role="separator" aria-orientation="vertical" aria-label="Resize file explorer"></div>
+
+      <!-- CENTER: Code Editor -->
+      <main class="forge-editor" role="main" aria-label="Code editor">
+        <div class="forge-editor-scroll" id="editorScroll">
+          <table class="code-table" role="presentation" aria-label="Source code for PetCard.tsx">
+            <tbody id="codeBody">
+              <tr class="code-line"><td class="code-linenum">1</td><td class="code-content"><span class="syn-keyword">import</span> React <span class="syn-keyword">from</span> <span class="syn-string">'react'</span>;</td></tr>
+              <tr class="code-line"><td class="code-linenum">2</td><td class="code-content"><span class="syn-keyword">import</span> { <span class="syn-type">Pet</span>, <span class="syn-type">MatchScore</span> } <span class="syn-keyword">from</span> <span class="syn-string">'../lib/types'</span>;</td></tr>
+              <tr class="code-line"><td class="code-linenum">3</td><td class="code-content"><span class="syn-keyword">import</span> { <span class="syn-function">calculateMatch</span> } <span class="syn-keyword">from</span> <span class="syn-string">'../lib/matchAlgo'</span>;</td></tr>
+              <tr class="code-line"><td class="code-linenum">4</td><td class="code-content"><span class="syn-keyword">import</span> styles <span class="syn-keyword">from</span> <span class="syn-string">'../styles/petcard.module.css'</span>;</td></tr>
+              <tr class="code-line"><td class="code-linenum">5</td><td class="code-content"></td></tr>
+              <tr class="code-line"><td class="code-linenum">6</td><td class="code-content"><span class="syn-keyword">interface</span> <span class="syn-type">PetCardProps</span> {</td></tr>
+              <tr class="code-line"><td class="code-linenum">7</td><td class="code-content">  pet: <span class="syn-type">Pet</span>;</td></tr>
+              <tr class="code-line"><td class="code-linenum">8</td><td class="code-content">  userPrefs: <span class="syn-type">MatchScore</span>;</td></tr>
+              <tr class="code-line"><td class="code-linenum">9</td><td class="code-content">  onLike<span class="syn-operator">?</span>: <span class="syn-operator">(</span>id: <span class="syn-type">string</span><span class="syn-operator">)</span> <span class="syn-operator">=&gt;</span> <span class="syn-type">void</span>;</td></tr>
+              <tr class="code-line"><td class="code-linenum">10</td><td class="code-content">  onSkip<span class="syn-operator">?</span>: <span class="syn-operator">(</span>id: <span class="syn-type">string</span><span class="syn-operator">)</span> <span class="syn-operator">=&gt;</span> <span class="syn-type">void</span>;</td></tr>
+              <tr class="code-line"><td class="code-linenum">11</td><td class="code-content">}</td></tr>
+              <tr class="code-line"><td class="code-linenum">12</td><td class="code-content"></td></tr>
+              <tr class="code-line"><td class="code-linenum">13</td><td class="code-content"><span class="syn-keyword">export</span> <span class="syn-keyword">const</span> <span class="syn-function">PetCard</span><span class="syn-operator">:</span> <span class="syn-type">React.FC</span><span class="syn-operator">&lt;</span><span class="syn-type">PetCardProps</span><span class="syn-operator">&gt;</span> <span class="syn-operator">=</span> <span class="syn-operator">(</span>{ pet, userPrefs, onLike, onSkip }<span class="syn-operator">)</span> <span class="syn-operator">=&gt;</span> {</td></tr>
+              <tr class="code-line"><td class="code-linenum">14</td><td class="code-content">  <span class="syn-keyword">const</span> matchScore <span class="syn-operator">=</span> <span class="syn-function">calculateMatch</span>(pet.traits, userPrefs);</td></tr>
+              <tr class="code-line"><td class="code-linenum">15</td><td class="code-content">  <span class="syn-keyword">const</span> matchPct <span class="syn-operator">=</span> Math.<span class="syn-function">round</span>(matchScore <span class="syn-operator">*</span> <span class="syn-number">100</span>);</td></tr>
+              <tr class="code-line"><td class="code-linenum">16</td><td class="code-content"></td></tr>
+              <tr class="code-line"><td class="code-linenum">17</td><td class="code-content">  <span class="syn-comment">// Color intensity scales with match confidence</span></td></tr>
+              <tr class="code-line code-line--active"><td class="code-linenum">18</td><td class="code-content">  <span class="syn-keyword">const</span> accentColor <span class="syn-operator">=</span> matchPct <span class="syn-operator">&gt;</span> <span class="syn-number">85</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">19</td><td class="code-content">    <span class="syn-operator">?</span> <span class="syn-string">'var(--accent-green)'</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">20</td><td class="code-content">    <span class="syn-operator">:</span> matchPct <span class="syn-operator">&gt;</span> <span class="syn-number">60</span> <span class="syn-operator">?</span> <span class="syn-string">'var(--accent-cyan)'</span> <span class="syn-operator">:</span> <span class="syn-string">'var(--text-muted)'</span>;</td></tr>
+              <tr class="code-line"><td class="code-linenum">21</td><td class="code-content"></td></tr>
+              <tr class="code-line"><td class="code-linenum">22</td><td class="code-content">  <span class="syn-keyword">return</span> (</td></tr>
+              <tr class="code-line"><td class="code-linenum">23</td><td class="code-content">    <span class="syn-operator">&lt;</span><span class="syn-type">div</span> className<span class="syn-operator">=</span>{styles.card}<span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">24</td><td class="code-content">      <span class="syn-operator">&lt;</span><span class="syn-type">div</span> className<span class="syn-operator">=</span>{styles.imageWrap}<span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">25</td><td class="code-content">        <span class="syn-operator">&lt;</span><span class="syn-type">img</span> src<span class="syn-operator">=</span>{pet.photoUrl} alt<span class="syn-operator">=</span>{pet.name} <span class="syn-operator">/&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">26</td><td class="code-content">        <span class="syn-operator">&lt;</span><span class="syn-type">span</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">27</td><td class="code-content">          className<span class="syn-operator">=</span>{styles.matchBadge}</td></tr>
+              <tr class="code-line"><td class="code-linenum">28</td><td class="code-content">          style<span class="syn-operator">=</span>{{ color: accentColor }}</td></tr>
+              <tr class="code-line"><td class="code-linenum">29</td><td class="code-content">        <span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">30</td><td class="code-content">          {matchPct}% match</td></tr>
+              <tr class="code-line"><td class="code-linenum">31</td><td class="code-content">        <span class="syn-operator">&lt;/</span><span class="syn-type">span</span><span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">32</td><td class="code-content">      <span class="syn-operator">&lt;/</span><span class="syn-type">div</span><span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">33</td><td class="code-content"></td></tr>
+              <tr class="code-line"><td class="code-linenum">34</td><td class="code-content">      <span class="syn-operator">&lt;</span><span class="syn-type">div</span> className<span class="syn-operator">=</span>{styles.body}<span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">35</td><td class="code-content">        <span class="syn-operator">&lt;</span><span class="syn-type">h3</span> className<span class="syn-operator">=</span>{styles.name}<span class="syn-operator">&gt;</span>{pet.name}<span class="syn-operator">&lt;/</span><span class="syn-type">h3</span><span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">36</td><td class="code-content">        <span class="syn-operator">&lt;</span><span class="syn-type">p</span> className<span class="syn-operator">=</span>{styles.breed}<span class="syn-operator">&gt;</span>{pet.breed} <span class="syn-operator">&middot;</span> {pet.age}<span class="syn-operator">&lt;/</span><span class="syn-type">p</span><span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">37</td><td class="code-content"></td></tr>
+              <tr class="code-line"><td class="code-linenum">38</td><td class="code-content">        <span class="syn-operator">&lt;</span><span class="syn-type">div</span> className<span class="syn-operator">=</span>{styles.traits}<span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">39</td><td class="code-content">          {pet.traits.<span class="syn-function">map</span>(<span class="syn-operator">(</span>trait<span class="syn-operator">)</span> <span class="syn-operator">=&gt;</span> (</td></tr>
+              <tr class="code-line"><td class="code-linenum">40</td><td class="code-content">            <span class="syn-operator">&lt;</span><span class="syn-type">span</span> key<span class="syn-operator">=</span>{trait} className<span class="syn-operator">=</span>{styles.trait}<span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">41</td><td class="code-content">              {trait}</td></tr>
+              <tr class="code-line"><td class="code-linenum">42</td><td class="code-content">            <span class="syn-operator">&lt;/</span><span class="syn-type">span</span><span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">43</td><td class="code-content">          <span class="syn-operator">)</span>)}</td></tr>
+              <tr class="code-line"><td class="code-linenum">44</td><td class="code-content">        <span class="syn-operator">&lt;/</span><span class="syn-type">div</span><span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">45</td><td class="code-content"></td></tr>
+              <tr class="code-line"><td class="code-linenum">46</td><td class="code-content">        <span class="syn-operator">&lt;</span><span class="syn-type">div</span> className<span class="syn-operator">=</span>{styles.actions}<span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">47</td><td class="code-content">          <span class="syn-operator">&lt;</span><span class="syn-type">button</span> onClick<span class="syn-operator">=</span>{<span class="syn-operator">()</span> <span class="syn-operator">=&gt;</span> onLike<span class="syn-operator">?.</span>(pet.id)} className<span class="syn-operator">=</span>{styles.likeBtn}<span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">48</td><td class="code-content">            Meet {pet.name}</td></tr>
+              <tr class="code-line"><td class="code-linenum">49</td><td class="code-content">          <span class="syn-operator">&lt;/</span><span class="syn-type">button</span><span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">50</td><td class="code-content">          <span class="syn-operator">&lt;</span><span class="syn-type">button</span> onClick<span class="syn-operator">=</span>{<span class="syn-operator">()</span> <span class="syn-operator">=&gt;</span> onSkip<span class="syn-operator">?.</span>(pet.id)} className<span class="syn-operator">=</span>{styles.skipBtn}<span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">51</td><td class="code-content">            Skip</td></tr>
+              <tr class="code-line"><td class="code-linenum">52</td><td class="code-content">          <span class="syn-operator">&lt;/</span><span class="syn-type">button</span><span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">53</td><td class="code-content">        <span class="syn-operator">&lt;/</span><span class="syn-type">div</span><span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">54</td><td class="code-content">      <span class="syn-operator">&lt;/</span><span class="syn-type">div</span><span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">55</td><td class="code-content">    <span class="syn-operator">&lt;/</span><span class="syn-type">div</span><span class="syn-operator">&gt;</span></td></tr>
+              <tr class="code-line"><td class="code-linenum">56</td><td class="code-content">  );</td></tr>
+              <tr class="code-line"><td class="code-linenum">57</td><td class="code-content">};</td></tr>
+            </tbody>
+          </table>
+
+          <!-- Collaborative cursors -->
+          <div class="collab-cursor collab-cursor--sarah" id="cursorSarah" aria-hidden="true" style="top: 380px; left: 220px;">
+            <div class="collab-cursor-label">Sarah K.</div>
+            <div class="collab-cursor-line"></div>
+          </div>
+          <div class="collab-cursor collab-cursor--alex" id="cursorAlex" aria-hidden="true" style="top: 140px; left: 340px;">
+            <div class="collab-cursor-label">Alex R.</div>
+            <div class="collab-cursor-line"></div>
+          </div>
+
+          <!-- Minimap -->
+          <div class="forge-minimap" aria-hidden="true">
+            <div class="minimap-viewport"></div>
+            <div class="minimap-bar minimap-bar--keyword" style="top: 6px; left: 12px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 11px; left: 18px;"></div>
+            <div class="minimap-bar minimap-bar--keyword" style="top: 16px; left: 12px;"></div>
+            <div class="minimap-bar minimap-bar--string" style="top: 16px; left: 34px;"></div>
+            <div class="minimap-bar minimap-bar--keyword" style="top: 21px; left: 12px;"></div>
+            <div class="minimap-bar minimap-bar--function" style="top: 21px; left: 34px;"></div>
+            <div class="minimap-bar minimap-bar--keyword" style="top: 26px; left: 12px;"></div>
+            <div class="minimap-bar minimap-bar--string" style="top: 26px; left: 34px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 36px; left: 12px;"></div>
+            <div class="minimap-bar minimap-bar--keyword" style="top: 36px; left: 34px;"></div>
+            <div class="minimap-bar minimap-bar--type" style="top: 41px; left: 18px;"></div>
+            <div class="minimap-bar minimap-bar--type" style="top: 46px; left: 18px;"></div>
+            <div class="minimap-bar minimap-bar--type" style="top: 51px; left: 18px;"></div>
+            <div class="minimap-bar minimap-bar--type" style="top: 56px; left: 18px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 61px; left: 12px;"></div>
+            <div class="minimap-bar minimap-bar--keyword" style="top: 68px; left: 12px;"></div>
+            <div class="minimap-bar minimap-bar--function" style="top: 68px; left: 38px;"></div>
+            <div class="minimap-bar minimap-bar--keyword" style="top: 73px; left: 18px;"></div>
+            <div class="minimap-bar minimap-bar--function" style="top: 73px; left: 38px;"></div>
+            <div class="minimap-bar minimap-bar--keyword" style="top: 78px; left: 18px;"></div>
+            <div class="minimap-bar minimap-bar--comment" style="top: 86px; left: 18px;"></div>
+            <div class="minimap-bar minimap-bar--keyword" style="top: 91px; left: 18px;"></div>
+            <div class="minimap-bar minimap-bar--string" style="top: 96px; left: 24px;"></div>
+            <div class="minimap-bar minimap-bar--string" style="top: 101px; left: 24px;"></div>
+            <div class="minimap-bar minimap-bar--keyword" style="top: 109px; left: 18px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 114px; left: 24px;"></div>
+            <div class="minimap-bar minimap-bar--type" style="top: 119px; left: 24px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 124px; left: 30px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 129px; left: 30px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 134px; left: 30px;"></div>
+            <div class="minimap-bar minimap-bar--type" style="top: 142px; left: 24px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 147px; left: 24px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 152px; left: 24px;"></div>
+            <div class="minimap-bar minimap-bar--function" style="top: 157px; left: 30px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 162px; left: 36px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 170px; left: 24px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 175px; left: 30px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 180px; left: 30px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 185px; left: 24px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 190px; left: 18px;"></div>
+            <div class="minimap-bar minimap-bar--plain" style="top: 195px; left: 12px;"></div>
+          </div>
+        </div>
+
+        <!-- Editor cursor blink -->
+        <div class="cursor-blink" id="editorCursor" style="position: absolute; top: 444px; left: 135px; z-index: 15;" aria-hidden="true"></div>
+      </main>
+
+      <div class="forge-resize-h" role="separator" aria-orientation="vertical" aria-label="Resize code editor and preview"></div>
+
+      <!-- RIGHT: Live Preview -->
+      <aside class="forge-preview" role="complementary" aria-label="Live preview">
+        <div class="forge-preview-header">
+          <span class="forge-preview-title">Preview</span>
+          <div class="forge-preview-actions">
+            <button aria-label="Refresh preview" title="Refresh">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M13.451 5.609l-.579-.921-1.843 1.153.579.921 1.843-1.153zm-1.168 5.248l-.585-.917-1.838 1.164.585.917 1.838-1.164zM8 3.5a4.5 4.5 0 1 0 .001 9.001A4.5 4.5 0 0 0 8 3.5zm0 10.5a6 6 0 1 1 .001-12.001A6 6 0 0 1 8 14zm0-8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm6-5h-2V0h3.5l.5.5V4h-1V1.5L12.036 4.5 11 3.536 13.958 1H14zM2 15h2v1H.5l-.5-.5V12h1v2.5L3.964 11.5 5 12.464 2.042 15H2z"/></svg>
+            </button>
+            <button aria-label="Open preview in new tab" title="Open in new tab">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M1.5 1h5v1H2v12h12V8.5h1v6l-.5.5h-13l-.5-.5v-13l.5-.5zm7-.5l3.793-.001L8.146 4.646l.708.708L13 1.207V5h1V0H9v1l-.5-.5z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="forge-preview-body">
+          <div class="pet-card-preview">
+            <div class="pet-card-image">
+              <span class="pet-card-image-icon" aria-hidden="true">&#128054;</span>
+              <span class="pet-card-match-badge">92% match</span>
+            </div>
+            <div class="pet-card-body">
+              <h3 class="pet-card-name">Luna</h3>
+              <p class="pet-card-breed">Golden Retriever &middot; 2 years</p>
+              <div class="pet-card-traits">
+                <span class="pet-card-trait">friendly</span>
+                <span class="pet-card-trait">energetic</span>
+                <span class="pet-card-trait">trained</span>
+                <span class="pet-card-trait">good-with-kids</span>
+              </div>
+              <div class="pet-card-footer">
+                <button class="pet-card-btn pet-card-btn--primary">Meet Luna</button>
+                <button class="pet-card-btn pet-card-btn--secondary">Skip</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="forge-preview-status">
+          <span class="forge-preview-status-dot" aria-hidden="true"></span>
+          Hot reload active
+        </div>
+      </aside>
+    </div>
+
+    <!-- ═══ BOTTOM PANELS ═══ -->
+    <div class="forge-bottom-wrapper">
+      <div class="forge-resize-v" role="separator" aria-orientation="horizontal" aria-label="Resize bottom panel"></div>
+      <div class="forge-bottom" id="forgeBottom">
+        <div class="forge-bottom-tabs" role="tablist" aria-label="Bottom panels">
+          <button class="forge-bottom-tab forge-bottom-tab--active" role="tab" aria-selected="true" data-panel="terminal">
+            Terminal
+          </button>
+          <button class="forge-bottom-tab" role="tab" aria-selected="false" data-panel="ai">
+            AI Assistant
+          </button>
+          <button class="forge-bottom-tab" role="tab" aria-selected="false" data-panel="problems">
+            Problems
+            <span class="count-badge count-badge--warning">1</span>
+          </button>
+          <button class="forge-bottom-toggle" aria-label="Toggle bottom panel" id="bottomToggle">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M4.427 9.573l3.396-3.396a.25.25 0 0 1 .354 0l3.396 3.396a.25.25 0 0 1-.177.427H4.604a.25.25 0 0 1-.177-.427z"/></svg>
+          </button>
+        </div>
+        <div class="forge-bottom-content">
+          <!-- Terminal -->
+          <div class="forge-bottom-panel forge-bottom-panel--active" id="panel-terminal" role="tabpanel" aria-label="Terminal output">
+            <div class="forge-terminal" id="terminalOutput">
+              <div class="term-line" style="animation-delay: 0s;"><span class="term-prompt">$</span> <span class="term-path">~/petmatch-ai</span> npm run dev</div>
+              <div class="term-line" style="animation-delay: 0.3s;"></div>
+              <div class="term-line" style="animation-delay: 0.6s;"><span class="term-info">&gt; petmatch-ai@0.1.0 dev</span></div>
+              <div class="term-line" style="animation-delay: 0.9s;"><span class="term-info">&gt; next dev</span></div>
+              <div class="term-line" style="animation-delay: 1.2s;"></div>
+              <div class="term-line" style="animation-delay: 1.5s;">  <span class="term-warn">▲ Next.js 14.1.0</span></div>
+              <div class="term-line" style="animation-delay: 1.8s;">  - Local:   <span class="syn-function">http://localhost:3000</span></div>
+              <div class="term-line" style="animation-delay: 2.1s;"></div>
+              <div class="term-line" style="animation-delay: 2.4s;"> <span class="term-success">&#10003;</span> Ready in 1.2s</div>
+              <div class="term-line" style="animation-delay: 2.7s;"> <span class="term-success">&#10003;</span> Compiled <span class="syn-function">/</span> in 340ms</div>
+              <div class="term-line" style="animation-delay: 3.0s;"> <span class="term-success">&#10003;</span> Compiled successfully</div>
+            </div>
+          </div>
+
+          <!-- AI Assistant -->
+          <div class="forge-bottom-panel" id="panel-ai" role="tabpanel" aria-label="AI Assistant">
+            <div class="forge-ai">
+              <div class="forge-ai-messages">
+                <div class="ai-msg ai-msg--user">
+                  <div class="ai-msg-avatar">LM</div>
+                  <div class="ai-msg-body">
+                    <div class="ai-msg-name">You</div>
+                    <div class="ai-msg-text">How does the matching algorithm work?</div>
+                  </div>
+                </div>
+                <div class="ai-msg ai-msg--ai">
+                  <div class="ai-msg-avatar">AI</div>
+                  <div class="ai-msg-body">
+                    <div class="ai-msg-name">ForgeBot</div>
+                    <div class="ai-msg-text">The <code>matchAlgo.ts</code> file implements a weighted cosine similarity scorer. Each pet trait is mapped to a vector, and the user preference profile is compared against it. The score is normalized to 0&ndash;1:</div>
+                    <div class="ai-msg-code"><span class="syn-keyword">export function</span> <span class="syn-function">calculateMatch</span>(traits: <span class="syn-type">string</span>[], prefs: <span class="syn-type">MatchScore</span>): <span class="syn-type">number</span> {
+  <span class="syn-keyword">const</span> traitVec = <span class="syn-function">vectorize</span>(traits);
+  <span class="syn-keyword">return</span> <span class="syn-function">cosineSimilarity</span>(traitVec, prefs.weights);
+}</div>
+                  </div>
+                </div>
+                <div class="ai-msg ai-msg--user">
+                  <div class="ai-msg-avatar">LM</div>
+                  <div class="ai-msg-body">
+                    <div class="ai-msg-name">You</div>
+                    <div class="ai-msg-text">Can we add a "dealbreaker" filter before the similarity check?</div>
+                  </div>
+                </div>
+              </div>
+              <div class="forge-ai-input">
+                <label for="aiInput" class="sr-only">Ask about this codebase</label>
+                <input type="text" id="aiInput" placeholder="Ask about this codebase..." autocomplete="off">
+                <button aria-label="Send message">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1.724 1.053a.5.5 0 0 0-.714.545l1.403 4.85a.5.5 0 0 0 .397.354l5.69.953c.268.045.268.445 0 .49l-5.69.953a.5.5 0 0 0-.397.354l-1.403 4.85a.5.5 0 0 0 .714.545l13-6.5a.5.5 0 0 0 0-.894l-13-6.5z"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Problems -->
+          <div class="forge-bottom-panel" id="panel-problems" role="tabpanel" aria-label="Problems">
+            <div class="forge-problems">
+              <div class="problem-item">
+                <span class="problem-icon problem-icon--warning" aria-label="Warning">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M7.56 1.08a.5.5 0 0 1 .88 0l6.5 12A.5.5 0 0 1 14.5 14h-13a.5.5 0 0 1-.44-.74l6.5-12zM8 5a.75.75 0 0 0-.75.75v3.5a.75.75 0 0 0 1.5 0v-3.5A.75.75 0 0 0 8 5zm0 7.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z"/></svg>
+                </span>
+                <span class="problem-text">Unused import <code>'useState'</code> in PetCard.tsx</span>
+                <span class="problem-location">Ln 1, Col 17</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ STATUS BAR ═══ -->
+    <footer class="forge-statusbar" role="contentinfo">
+      <div class="forge-statusbar-item">
+        <span class="statusbar-dot statusbar-dot--green" aria-hidden="true"></span>
+        Connected
+      </div>
+      <div class="forge-statusbar-item">main</div>
+      <div class="forge-statusbar-item">TypeScript React</div>
+      <div class="forge-statusbar-right">
+        <div class="forge-statusbar-item">Ln 18, Col 34</div>
+        <div class="forge-statusbar-item">UTF-8</div>
+        <div class="forge-statusbar-item">Spaces: 2</div>
+        <div class="forge-statusbar-item">4 collaborators</div>
+      </div>
+    </footer>
+
+    <!-- Mobile panel toggle -->
+    <div class="forge-mobile-toggle" aria-label="Switch visible panel">
+      <button class="forge-mobile-btn forge-mobile-btn--active" data-show="code">Code</button>
+      <button class="forge-mobile-btn" data-show="preview">Preview</button>
+      <button class="forge-mobile-btn" data-show="terminal">Terminal</button>
+    </div>
+  </div>
+
+  <script>
+    /* ── File tree expand/collapse ── */
+    document.querySelectorAll('.tree-node > .tree-item').forEach(function(item) {
+      var chevron = item.querySelector('.tree-chevron:not(.tree-chevron--hidden)');
+      if (!chevron) return;
+
+      item.addEventListener('click', function() {
+        var node = item.closest('.tree-node');
+        var children = node.querySelector('.tree-children');
+        if (!children) return;
+
+        var isOpen = children.classList.contains('tree-children--open');
+        children.classList.toggle('tree-children--open');
+        chevron.classList.toggle('tree-chevron--open');
+        item.setAttribute('aria-expanded', String(!isOpen));
+      });
+
+      item.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          item.click();
+        }
+      });
+    });
+
+    /* ── File tab switching ── */
+    var fileTabs = document.querySelectorAll('.forge-tab[data-file]');
+    fileTabs.forEach(function(tab) {
+      tab.addEventListener('click', function(e) {
+        if (e.target.classList.contains('forge-tab-close')) return;
+        fileTabs.forEach(function(t) {
+          t.classList.remove('forge-tab--active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('forge-tab--active');
+        tab.setAttribute('aria-selected', 'true');
+      });
+    });
+
+    /* ── Bottom panel tab switching ── */
+    var bottomTabs = document.querySelectorAll('.forge-bottom-tab[data-panel]');
+    var bottomPanels = document.querySelectorAll('.forge-bottom-panel');
+    bottomTabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        bottomTabs.forEach(function(t) {
+          t.classList.remove('forge-bottom-tab--active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('forge-bottom-tab--active');
+        tab.setAttribute('aria-selected', 'true');
+
+        var panelId = 'panel-' + tab.getAttribute('data-panel');
+        bottomPanels.forEach(function(p) {
+          p.classList.remove('forge-bottom-panel--active');
+        });
+        var target = document.getElementById(panelId);
+        if (target) target.classList.add('forge-bottom-panel--active');
+      });
+    });
+
+    /* ── Bottom panel collapse/expand ── */
+    var bottomToggle = document.getElementById('bottomToggle');
+    var forgeBottom = document.getElementById('forgeBottom');
+    var bottomCollapsed = false;
+    bottomToggle.addEventListener('click', function() {
+      bottomCollapsed = !bottomCollapsed;
+      forgeBottom.classList.toggle('forge-bottom--collapsed', bottomCollapsed);
+      bottomToggle.setAttribute('aria-label', bottomCollapsed ? 'Expand bottom panel' : 'Collapse bottom panel');
+      bottomToggle.querySelector('svg').style.transform = bottomCollapsed ? 'rotate(180deg)' : '';
+    });
+
+    /* ── Collaborative cursor animation ── */
+    var cursorSarah = document.getElementById('cursorSarah');
+    var cursorAlex = document.getElementById('cursorAlex');
+
+    var sarahPositions = [
+      { top: 380, left: 220 },
+      { top: 410, left: 260 },
+      { top: 460, left: 180 },
+      { top: 500, left: 300 },
+      { top: 530, left: 200 },
+      { top: 460, left: 250 },
+      { top: 380, left: 220 }
+    ];
+
+    var alexPositions = [
+      { top: 140, left: 340 },
+      { top: 100, left: 280 },
+      { top: 60, left: 320 },
+      { top: 100, left: 400 },
+      { top: 170, left: 350 },
+      { top: 140, left: 300 },
+      { top: 140, left: 340 }
+    ];
+
+    var sarahIdx = 0;
+    var alexIdx = 0;
+
+    function moveSarah() {
+      sarahIdx = (sarahIdx + 1) % sarahPositions.length;
+      var pos = sarahPositions[sarahIdx];
+      cursorSarah.style.top = pos.top + 'px';
+      cursorSarah.style.left = pos.left + 'px';
+    }
+
+    function moveAlex() {
+      alexIdx = (alexIdx + 1) % alexPositions.length;
+      var pos = alexPositions[alexIdx];
+      cursorAlex.style.top = pos.top + 'px';
+      cursorAlex.style.left = pos.left + 'px';
+    }
+
+    setInterval(moveSarah, 3000);
+    setInterval(moveAlex, 4000);
+
+    /* ── Terminal line-by-line appearance ── */
+    var termLines = document.querySelectorAll('.term-line');
+    termLines.forEach(function(line, i) {
+      line.style.animationDelay = (i * 0.3) + 's';
+    });
+
+    /* ── Submit for Review button effect ── */
+    var submitBtn = document.querySelector('.btn--forge-primary');
+    submitBtn.addEventListener('click', function() {
+      var original = submitBtn.textContent;
+      submitBtn.textContent = 'Submitted!';
+      submitBtn.style.background = 'linear-gradient(135deg, var(--accent-green), var(--accent-cyan))';
+      setTimeout(function() {
+        submitBtn.textContent = original;
+        submitBtn.style.background = '';
+      }, 2000);
+    });
+
+    /* ── Mobile panel switching ── */
+    var mobileBtns = document.querySelectorAll('.forge-mobile-btn');
+    var forgeMain = document.getElementById('forgeMain');
+    mobileBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        mobileBtns.forEach(function(b) { b.classList.remove('forge-mobile-btn--active'); });
+        btn.classList.add('forge-mobile-btn--active');
+        var show = btn.getAttribute('data-show');
+        forgeMain.classList.remove('forge-main--show-preview', 'forge-main--show-terminal');
+        if (show === 'preview') forgeMain.classList.add('forge-main--show-preview');
+        if (show === 'terminal') forgeMain.classList.add('forge-main--show-terminal');
+      });
+    });
+
+    /* ── AI input submit ── */
+    var aiInput = document.getElementById('aiInput');
+    aiInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && aiInput.value.trim()) {
+        var msg = aiInput.value.trim();
+        var messages = document.querySelector('.forge-ai-messages');
+        var userMsg = document.createElement('div');
+        userMsg.className = 'ai-msg ai-msg--user';
+        userMsg.innerHTML = '<div class="ai-msg-avatar">LM</div><div class="ai-msg-body"><div class="ai-msg-name">You</div><div class="ai-msg-text">' + escapeHtml(msg) + '</div></div>';
+        messages.appendChild(userMsg);
+        aiInput.value = '';
+        messages.scrollTop = messages.scrollHeight;
+
+        setTimeout(function() {
+          var aiMsg = document.createElement('div');
+          aiMsg.className = 'ai-msg ai-msg--ai';
+          aiMsg.innerHTML = '<div class="ai-msg-avatar">AI</div><div class="ai-msg-body"><div class="ai-msg-name">ForgeBot</div><div class="ai-msg-text">Let me look into that for you. Analyzing the codebase...</div></div>';
+          messages.appendChild(aiMsg);
+          messages.scrollTop = messages.scrollHeight;
+        }, 800);
+      }
+    });
+
+    function escapeHtml(str) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    }
+
+    /* ── Active line tracking on click ── */
+    document.querySelectorAll('.code-line').forEach(function(line) {
+      line.addEventListener('click', function() {
+        document.querySelectorAll('.code-line--active').forEach(function(l) {
+          l.classList.remove('code-line--active');
+        });
+        line.classList.add('code-line--active');
+        var lineNum = line.querySelector('.code-linenum').textContent;
+        var statusLn = document.querySelector('.forge-statusbar-right .forge-statusbar-item');
+        if (statusLn) statusLn.textContent = 'Ln ' + lineNum + ', Col 1';
+      });
+    });
+
+    /* ── Resize handle visual feedback ── */
+    document.querySelectorAll('.forge-resize-h, .forge-resize-v').forEach(function(handle) {
+      handle.addEventListener('mousedown', function() {
+        handle.classList.add('active');
+        var up = function() {
+          handle.classList.remove('active');
+          document.removeEventListener('mouseup', up);
+        };
+        document.addEventListener('mouseup', up);
+      });
+    });
+  </script>
+</body>
+</html>
