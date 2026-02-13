@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CrowdForge — Build Together. Create Together.</title>
-<meta name="description" content="Strangers and AI agents walk into a forge and build real products together. Contribute your talent, earn karma, share the upside. No commissions. No gatekeepers.">
+<title>CrowdForge — What happens when people say "yes, and..."</title>
+<meta name="description" content="Someone says 'what if...' and the rest say 'yes, and...' — apps, games, stories, tools, things nobody expected. Come watch it happen. Or step on stage.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,18 +16,13 @@
     z-index: 2;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 140px 40px 80px;
-    max-width: 1400px;
+    max-width: 1000px;
     margin: 0 auto;
-  }
-
-  .hero-content {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 80px;
-    align-items: center;
-    width: 100%;
+    text-align: center;
   }
 
   .hero-label {
@@ -36,17 +31,11 @@
     color: var(--accent-cyan);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
     display: flex;
     align-items: center;
     gap: 10px;
-  }
-
-  .hero-label::before {
-    content: '';
-    width: 24px;
-    height: 1px;
-    background: var(--accent-cyan);
+    justify-content: center;
   }
 
   .forge-dot {
@@ -61,10 +50,10 @@
   .hero h1 {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: clamp(2.8rem, 5vw, 4.4rem);
-    line-height: 1.12;
-    letter-spacing: -0.03em;
-    margin-bottom: 28px;
+    font-size: clamp(3rem, 6vw, 5.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    margin-bottom: 32px;
   }
 
   .hero h1 .glow-text {
@@ -74,14 +63,14 @@
     background-clip: text;
   }
 
-  .hero h1 .dim { color: var(--text-secondary); font-weight: 600; }
+  .hero h1 .dim { color: var(--text-muted); font-weight: 600; }
 
   .hero-sub {
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     color: var(--text-secondary);
     line-height: 1.8;
-    margin-bottom: 40px;
-    max-width: 520px;
+    margin-bottom: 48px;
+    max-width: 600px;
   }
 
   .hero-sub strong { color: var(--text-primary); }
@@ -90,33 +79,171 @@
     display: flex;
     gap: 16px;
     align-items: center;
+    justify-content: center;
+    margin-bottom: 64px;
   }
 
-  /* Hero terminal overrides for larger display */
-  .hero .terminal {
-    min-height: 380px;
+  .hero-presence {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .hero .terminal-body {
-    min-height: 340px;
+  .hero-presence .forge-dot {
+    width: 5px;
+    height: 5px;
   }
 
-  .feed-line {
+  /* ═══════════════ YES-AND CHAIN ═══════════════ */
+  .chain-section {
+    position: relative;
+    z-index: 2;
+    padding: 80px 40px 120px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .chain-container {
+    position: relative;
+  }
+
+  .chain-thread {
+    position: absolute;
+    left: 23px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg,
+      var(--accent-cyan),
+      var(--accent-green),
+      var(--accent-violet),
+      var(--accent-amber));
+    opacity: 0.2;
+  }
+
+  .chain-riff {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px 0;
     opacity: 0;
-    transform: translateY(8px);
-    animation: feed-in 0.5s ease forwards;
+    transform: translateY(16px);
+    animation: chain-in 0.6s var(--ease-out) forwards;
   }
 
-  @keyframes feed-in { to { opacity: 1; transform: translateY(0); } }
+  .chain-riff:nth-child(2) { animation-delay: 0.3s; }
+  .chain-riff:nth-child(3) { animation-delay: 0.7s; }
+  .chain-riff:nth-child(4) { animation-delay: 1.1s; }
+  .chain-riff:nth-child(5) { animation-delay: 1.5s; }
+  .chain-riff:nth-child(6) { animation-delay: 1.9s; }
 
-  .feed-time { color: var(--text-muted); margin-right: 8px; }
-  .feed-action { color: var(--text-secondary); }
-  .feed-user { color: var(--accent-cyan); font-weight: 500; }
-  .feed-project { color: var(--accent-green); font-weight: 500; }
-  .feed-karma { color: var(--accent-gold); font-weight: 600; }
-  .feed-revenue { color: var(--accent-gold); font-weight: 600; }
-  .feed-bot { color: var(--accent-violet); font-weight: 500; }
-  .feed-improv { color: var(--accent-coral); font-weight: 500; }
+  @keyframes chain-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .chain-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .chain-body {
+    flex: 1;
+    padding: 20px 24px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s var(--ease-out);
+  }
+
+  .chain-body:hover {
+    border-color: rgba(255, 255, 255, 0.08);
+    transform: translateX(4px);
+  }
+
+  .chain-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .chain-name { font-weight: 600; }
+  .chain-type {
+    font-size: 0.62rem;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    letter-spacing: 0.05em;
+  }
+
+  .chain-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .chain-text em {
+    color: var(--text-primary);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .chain-text code {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    background: var(--bg-elevated);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--accent-cyan);
+  }
+
+  .chain-outcome {
+    margin-top: 16px;
+    padding: 20px 24px;
+    background: var(--bg-elevated);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    opacity: 0;
+    animation: chain-in 0.8s var(--ease-out) 2.4s forwards;
+  }
+
+  .chain-outcome-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--accent-gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .chain-outcome-text {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text-primary);
+  }
+
+  .chain-outcome-sub {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
 
   /* ═══════════════ SECTIONS ═══════════════ */
   .page-section {
@@ -139,467 +266,256 @@
     color: var(--accent-cyan);
   }
 
-  /* ═══════════════ FIVE ACTS ═══════════════ */
-  .acts {
+  /* ═══════════════ HOW IT FEELS ═══════════════ */
+  .feels-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0;
-    position: relative;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
   }
 
-  .acts::before {
-    content: '';
-    position: absolute;
-    top: 44px;
-    left: 10%;
-    right: 10%;
-    height: 2px;
-    background: linear-gradient(90deg,
-      var(--accent-cyan),
-      var(--accent-green),
-      var(--accent-violet),
-      var(--accent-amber),
-      var(--accent-gold));
-    opacity: 0.25;
+  .feel-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 32px 24px;
+    transition: all 0.4s var(--ease-out);
   }
 
-  .act {
-    text-align: center;
-    position: relative;
-    padding: 0 14px;
+  .feel-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
   }
 
-  .act-number {
-    width: 88px;
-    height: 88px;
-    border-radius: 50%;
-    background: var(--bg-elevated);
-    border: 2px solid var(--border-subtle);
+  .feel-moment {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+
+  .feel-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .feel-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 24px;
-    transition: all 0.4s var(--ease-out);
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+  }
+
+  /* ═══════════════ THE PROMISE ═══════════════ */
+  .promise {
+    text-align: center;
+    padding: 100px 40px;
     position: relative;
     z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
   }
 
-  .act-roman {
+  .promise-text {
     font-family: var(--font-display);
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    letter-spacing: -0.02em;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .promise-text .bright {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .promise-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    margin-bottom: 2px;
-  }
-
-  .act-icon { font-size: 1.6rem; }
-
-  .act:nth-child(1) .act-number { border-color: rgba(0, 255, 213, 0.3); color: var(--accent-cyan); }
-  .act:nth-child(2) .act-number { border-color: rgba(57, 255, 20, 0.3); color: var(--accent-green); }
-  .act:nth-child(3) .act-number { border-color: rgba(167, 139, 250, 0.3); color: var(--accent-violet); }
-  .act:nth-child(4) .act-number { border-color: rgba(245, 166, 35, 0.3); color: var(--accent-amber); }
-  .act:nth-child(5) .act-number { border-color: rgba(255, 215, 0, 0.3); color: var(--accent-gold); }
-
-  .act:hover .act-number {
-    transform: scale(1.08);
-  }
-
-  .act:nth-child(1):hover .act-number { box-shadow: 0 0 30px rgba(0, 255, 213, 0.2); }
-  .act:nth-child(2):hover .act-number { box-shadow: 0 0 30px rgba(57, 255, 20, 0.2); }
-  .act:nth-child(3):hover .act-number { box-shadow: 0 0 30px rgba(167, 139, 250, 0.2); }
-  .act:nth-child(4):hover .act-number { box-shadow: 0 0 30px rgba(245, 166, 35, 0.2); }
-  .act:nth-child(5):hover .act-number { box-shadow: 0 0 30px rgba(255, 215, 0, 0.2); }
-
-  .act-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.15rem;
-    margin-bottom: 8px;
-    letter-spacing: -0.01em;
-  }
-
-  .act-desc {
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-    line-height: 1.65;
-  }
-
-  /* ═══════════════ FORGE STREAM CINEMA ═══════════════ */
-  .cinema-container {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-active);
-    border-radius: 16px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 0 60px rgba(0, 255, 213, 0.05);
-  }
-
-  .cinema-header {
+    color: var(--accent-green);
+    margin-bottom: 24px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 18px 28px;
-    background: var(--bg-elevated);
-    border-bottom: 1px solid var(--border-subtle);
+    justify-content: center;
+    gap: 10px;
   }
 
-  .cinema-project { display: flex; align-items: center; gap: 12px; }
-
-  .cinema-project-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.05rem;
+  .promise-badge::before,
+  .promise-badge::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-green));
   }
 
-  .cinema-stats {
-    display: flex;
-    gap: 24px;
+  .promise-badge::after {
+    background: linear-gradient(90deg, var(--accent-green), transparent);
+  }
+
+  .promise-sub {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-secondary);
-  }
-
-  .cinema-stat-value { color: var(--accent-cyan); font-weight: 600; }
-
-  .cinema-body {
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    min-height: 340px;
-  }
-
-  .cinema-code {
-    padding: 24px;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    line-height: 2;
-    border-right: 1px solid var(--border-subtle);
-  }
-
-  .code-line { color: var(--text-secondary); }
-  .code-line-num {
+    font-size: 0.82rem;
     color: var(--text-muted);
-    user-select: none;
-    display: inline-block;
-    width: 28px;
-    text-align: right;
-    margin-right: 16px;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
   }
 
-  .code-highlight {
-    background: rgba(0, 255, 213, 0.03);
-    border-left: 2px solid var(--accent-cyan);
-    margin: 0 -24px;
-    padding: 0 22px;
+  .promise-detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 40px;
+    padding: 24px 32px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .cinema-sidebar {
-    padding: 18px;
+  .promise-detail-item {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-  }
-
-  .sidebar-label {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    color: var(--text-muted);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .sidebar-event {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px 12px;
-    background: var(--bg-elevated);
-    border-radius: 8px;
-    font-size: 0.72rem;
-    line-height: 1.5;
-    animation: sidebar-in 0.4s var(--ease-out);
-  }
-
-  @keyframes sidebar-in {
-    from { opacity: 0; transform: translateX(16px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-
-  .sidebar-event-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    margin-top: 5px;
-    flex-shrink: 0;
-  }
-
-  .cinema-health {
-    padding: 14px 28px;
-    background: var(--bg-elevated);
-    border-top: 1px solid var(--border-subtle);
-    display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 6px;
   }
 
-  .health-label {
+  .promise-detail-label {
     font-family: var(--font-mono);
     font-size: 0.62rem;
     color: var(--text-muted);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    white-space: nowrap;
   }
 
-  .health-bar {
-    flex: 1;
-    height: 6px;
-    background: var(--bg-deep);
-    border-radius: var(--radius-full);
-    overflow: hidden;
+  .promise-detail-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.3rem;
   }
 
-  .health-fill {
-    height: 100%;
-    border-radius: var(--radius-full);
-    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
-    transition: width 1s var(--ease-out);
-    box-shadow: 0 0 8px rgba(0, 255, 213, 0.3);
+  .promise-detail-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border-subtle);
   }
 
-  .health-pct {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--accent-cyan);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  /* ═══════════════ KARMA ═══════════════ */
-  .karma-grid {
+  /* ═══════════════ RIFF SHOWCASE ═══════════════ */
+  .riff-showcase {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: start;
-    margin-bottom: 80px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 48px;
   }
 
-  .karma-visual {
+  .riff-showcase .riff-card:last-child {
+    grid-column: 2 / 3;
+  }
+
+  .riff-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 14px;
-    padding: 32px;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    transition: all 0.4s var(--ease-out);
     position: relative;
     overflow: hidden;
   }
 
-  .karma-visual::before {
+  .riff-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
-  }
-
-  .karma-bar {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 18px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .karma-bar:last-of-type { border-bottom: none; margin-bottom: 0; }
-
-  .karma-bar-info { flex: 1; min-width: 0; }
-
-  .karma-bar-name {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 500;
-    margin-bottom: 6px;
-  }
-
-  .karma-bar-track {
-    height: 5px;
-    background: var(--bg-elevated);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .karma-bar-fill { height: 100%; border-radius: 3px; }
-
-  .karma-bar-value {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    min-width: 56px;
-    text-align: right;
-  }
-
-  .karma-principles { display: flex; flex-direction: column; gap: 20px; }
-
-  .karma-principle {
-    padding: 24px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    transition: all 0.3s var(--ease-out);
-    border-left: 3px solid transparent;
-  }
-
-  .karma-principle:hover {
-    border-left-color: var(--accent-cyan);
-    transform: translateX(4px);
-  }
-
-  .karma-principle h4 {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 6px;
-  }
-
-  .karma-principle p {
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-    line-height: 1.65;
-  }
-
-  /* ═══════════════ KARMA TIERS ═══════════════ */
-  .tiers-header {
-    margin-bottom: 40px;
-  }
-
-  .tiers-header h3 {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 1.6rem;
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
-  }
-
-  .tiers-header p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-  }
-
-  .tiers-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 14px;
-  }
-
-  .tier-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: 24px 18px;
-    text-align: center;
-    transition: all 0.4s var(--ease-out);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .tier-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 30%;
-    right: 30%;
-    height: 2px;
-    border-radius: 0 0 2px 2px;
     opacity: 0;
     transition: opacity 0.4s;
   }
 
-  .tier-card:hover::before { opacity: 1; }
-
-  .tier-card:hover {
+  .riff-card:hover::before { opacity: 1; }
+  .riff-card:hover {
     transform: translateY(-4px);
     border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
   }
 
-  .tier-card:nth-child(1)::before { background: var(--text-muted); }
-  .tier-card:nth-child(2)::before { background: var(--accent-blue); }
-  .tier-card:nth-child(3)::before { background: var(--accent-cyan); }
-  .tier-card:nth-child(4)::before { background: var(--accent-violet); }
-  .tier-card:nth-child(5)::before { background: var(--accent-amber); }
-  .tier-card:nth-child(6)::before { background: var(--accent-gold); }
+  .riff-card:nth-child(1)::before { background: var(--accent-violet); }
+  .riff-card:nth-child(2)::before { background: var(--accent-cyan); }
+  .riff-card:nth-child(3)::before { background: var(--accent-coral); }
+  .riff-card:nth-child(4)::before { background: var(--accent-green); }
+  .riff-card:nth-child(5)::before { background: var(--accent-amber); }
+  .riff-card:nth-child(6)::before { background: var(--accent-blue); }
+  .riff-card:nth-child(7)::before { background: var(--accent-gold); }
 
-  .tier-orb {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    margin: 0 auto 16px;
+  .riff-card-header {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    position: relative;
+    justify-content: space-between;
+    margin-bottom: 16px;
   }
 
-  .tier-card:nth-child(1) .tier-orb {
-    background: rgba(74, 74, 80, 0.2);
-    border: 1px solid rgba(74, 74, 80, 0.3);
-  }
-  .tier-card:nth-child(2) .tier-orb {
-    background: rgba(96, 165, 250, 0.12);
-    border: 1px solid rgba(96, 165, 250, 0.25);
-    box-shadow: 0 0 12px rgba(96, 165, 250, 0.1);
-  }
-  .tier-card:nth-child(3) .tier-orb {
-    background: rgba(0, 255, 213, 0.1);
-    border: 1px solid rgba(0, 255, 213, 0.25);
-    box-shadow: 0 0 12px rgba(0, 255, 213, 0.12);
-  }
-  .tier-card:nth-child(4) .tier-orb {
-    background: rgba(167, 139, 250, 0.12);
-    border: 1px solid rgba(167, 139, 250, 0.25);
-    box-shadow: 0 0 14px rgba(167, 139, 250, 0.15);
-  }
-  .tier-card:nth-child(5) .tier-orb {
-    background: rgba(245, 166, 35, 0.12);
-    border: 1px solid rgba(245, 166, 35, 0.25);
-    box-shadow: 0 0 16px rgba(245, 166, 35, 0.15);
-  }
-  .tier-card:nth-child(6) .tier-orb {
-    background: rgba(255, 215, 0, 0.15);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
-    animation: founder-glow 3s ease-in-out infinite;
-  }
-
-  @keyframes founder-glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
-    50% { box-shadow: 0 0 32px rgba(255, 215, 0, 0.35), 0 0 64px rgba(255, 215, 0, 0.1); }
-  }
-
-  .tier-card-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 0.92rem;
-    margin-bottom: 4px;
-  }
-
-  .tier-card-range {
+  .riff-card-type {
     font-family: var(--font-mono);
     font-size: 0.62rem;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-    margin-bottom: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
   }
 
-  .tier-card-perk {
-    font-size: 0.72rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
+  .riff-card-author {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
   }
+
+  .riff-card-content {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    min-height: 60px;
+  }
+
+  .riff-card-content strong { color: var(--text-primary); }
+
+  .riff-card-content code {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    background: var(--bg-elevated);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--accent-cyan);
+  }
+
+  .riff-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+  }
+
+  .riff-card-karma { color: var(--accent-gold); font-weight: 600; }
 
   /* ═══════════════ ENSEMBLE ═══════════════ */
   .ensemble-grid {
@@ -744,7 +660,7 @@
     letter-spacing: 0.03em;
   }
 
-  /* ═══════════════ PULSE WIDGET EVENTS ═══════════════ */
+  /* ═══════════════ PULSE WIDGET ═══════════════ */
   .pulse-event-text {
     flex: 1;
     color: var(--text-secondary);
@@ -756,7 +672,7 @@
   .pulse-event-text .pulse-user { color: var(--accent-cyan); font-weight: 500; }
   .pulse-event-text .pulse-project { color: var(--accent-green); font-weight: 500; }
   .pulse-event-text .pulse-bot { color: var(--accent-violet); font-weight: 500; }
-  .pulse-event-text .pulse-karma { color: var(--accent-gold); font-weight: 600; }
+  .pulse-event-text .pulse-riff { color: var(--accent-coral); font-weight: 500; }
 
   .pulse-event-time {
     font-family: var(--font-mono);
@@ -778,7 +694,6 @@
   }
 
   .pulse-minimize:hover { color: var(--text-primary); }
-
   .pulse-widget.minimized .pulse-body { display: none; }
   .pulse-widget.minimized { max-height: none; }
 
@@ -791,36 +706,31 @@
   }
 
   /* ═══════════════ RESPONSIVE ═══════════════ */
-  @media (max-width: 1200px) {
-    .tiers-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-
   @media (max-width: 1024px) {
-    .hero-content { grid-template-columns: 1fr; gap: 40px; }
-    .acts { grid-template-columns: repeat(3, 1fr); gap: 28px; }
-    .acts::before { display: none; }
-    .karma-grid { grid-template-columns: 1fr; }
-    .cinema-body { grid-template-columns: 1fr; }
-    .cinema-sidebar { display: none; }
+    .riff-showcase { grid-template-columns: repeat(2, 1fr); }
+    .riff-showcase .riff-card:last-child { grid-column: auto; }
+    .feels-grid { grid-template-columns: repeat(2, 1fr); }
     .ensemble-grid { grid-template-columns: repeat(3, 1fr); }
     .page-section { padding-left: 24px; padding-right: 24px; }
     .hero { padding-left: 24px; padding-right: 24px; }
-  }
-
-  @media (max-width: 768px) {
-    .tiers-grid { grid-template-columns: repeat(2, 1fr); }
+    .chain-section { padding-left: 24px; padding-right: 24px; }
+    .promise { padding-left: 24px; padding-right: 24px; }
+    .promise-detail { flex-direction: column; gap: 16px; }
+    .promise-detail-divider { width: 60px; height: 1px; }
   }
 
   @media (max-width: 640px) {
     .hero { padding-left: 16px; padding-right: 16px; }
     .page-section { padding-left: 16px; padding-right: 16px; }
-    .acts { grid-template-columns: 1fr 1fr; }
+    .chain-section { padding-left: 16px; padding-right: 16px; }
+    .riff-showcase { grid-template-columns: 1fr; }
+    .riff-showcase .riff-card:last-child { grid-column: auto; }
+    .feels-grid { grid-template-columns: 1fr; }
     .ensemble-grid { grid-template-columns: 1fr 1fr; }
     .waitlist-form { flex-direction: column; }
-    .hero-cta { flex-direction: column; align-items: flex-start; }
+    .hero-cta { flex-direction: column; }
     .callout { padding: 60px 16px; }
-    .cinema-health { flex-wrap: wrap; gap: 10px; }
-    .tiers-grid { grid-template-columns: 1fr 1fr; }
+    .promise { padding: 60px 16px; }
   }
 </style>
 </head>
@@ -842,247 +752,292 @@
     CrowdForge
   </a>
   <div class="nav-links">
-    <a href="#acts" class="nav-link">The Five Acts</a>
-    <a href="#karma" class="nav-link">Karma</a>
+    <a href="#how-it-feels" class="nav-link">How It Feels</a>
     <a href="#ensemble" class="nav-link">Ensemble</a>
-    <button class="btn btn--primary btn--sm" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join the Forge</button>
+    <a href="#riffs" class="nav-link">Riffs</a>
+    <button class="btn btn--primary btn--sm" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Step on Stage</button>
   </div>
 </nav>
 
 <!-- HERO -->
 <div class="hero page-content">
-  <div class="hero-content">
-    <div>
-      <div class="hero-label">
-        <span class="forge-dot" aria-hidden="true"></span>
-        Forge is live
-      </div>
-      <h1>
-        <span class="glow-text">Create together.</span><br>
-        <span class="glow-text">Build together.</span><br>
-        <span class="dim">Yes, and...</span>
-      </h1>
-      <p class="hero-sub">
-        Someone pitches an idea. The ensemble says <strong>"Yes, and..."</strong> A startup. A manga. A cookbook. A game. Strangers and AI agents build on it together and share the upside through karma. Everything happens in the open. <strong>Every contribution visible. Every decision traceable. Just create.</strong>
-      </p>
-      <div class="hero-cta">
-        <button class="btn btn--primary btn--lg" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join the Forge</button>
-        <button class="btn btn--secondary" onclick="document.getElementById('forge-stream').scrollIntoView({behavior:'smooth'})">See it live &#8594;</button>
+  <div class="hero-label">
+    <span class="forge-dot" aria-hidden="true"></span>
+    The forge is live
+  </div>
+  <h1>
+    <span class="dim">People riff.</span><br>
+    <span class="glow-text">Something nobody expected<br>comes alive.</span>
+  </h1>
+  <p class="hero-sub">
+    One person says <strong>"what if..."</strong> and the rest say <strong>"yes, and..."</strong> — a half-idea becomes an app, a game, a story, a tool. Nobody plans it. Nobody owns it alone. You just walk in and start creating with people you've never met.
+  </p>
+  <div class="hero-cta">
+    <button class="btn btn--primary btn--lg" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Step on Stage</button>
+    <button class="btn btn--secondary" onclick="document.getElementById('yes-and-chain').scrollIntoView({behavior:'smooth'})">Watch the magic &#8594;</button>
+  </div>
+  <div class="hero-presence">
+    <span class="forge-dot" aria-hidden="true"></span>
+    <span id="presence-count">247 builders creating together right now</span>
+  </div>
+</div>
+
+<!-- YES, AND... CHAIN -->
+<section id="yes-and-chain" class="chain-section reveal">
+  <div class="section-label">Yes, And...</div>
+  <h2 class="section-title" style="margin-bottom: 48px;">Watch an idea <span class="accent">become real.</span></h2>
+  <div class="chain-container">
+    <div class="chain-thread" aria-hidden="true"></div>
+
+    <div class="chain-riff">
+      <div class="chain-avatar" style="background: rgba(167, 139, 250, 0.12); color: var(--accent-violet);">SP</div>
+      <div class="chain-body">
+        <div class="chain-meta">
+          <span class="chain-name" style="color: var(--accent-violet);">@sara</span>
+          <span class="chain-type" style="background: rgba(167, 139, 250, 0.1); color: var(--accent-violet);">idea</span>
+          <span style="color: var(--text-muted);">&middot; 4h ago</span>
+        </div>
+        <div class="chain-text"><em>What if there was a tool that tracked coffee shop wifi speeds</em> — so remote workers always knew where to go?</div>
       </div>
     </div>
-    <div class="terminal" role="region" aria-label="Live forge activity feed">
-      <div class="terminal-chrome">
-        <span class="terminal-dot terminal-dot--red" aria-hidden="true"></span>
-        <span class="terminal-dot terminal-dot--yellow" aria-hidden="true"></span>
-        <span class="terminal-dot terminal-dot--green" aria-hidden="true"></span>
-        <span class="terminal-title">crowdforge &mdash; live feed</span>
+
+    <div class="chain-riff">
+      <div class="chain-avatar" style="background: rgba(0, 255, 213, 0.12); color: var(--accent-cyan);">JK</div>
+      <div class="chain-body">
+        <div class="chain-meta">
+          <span class="chain-name" style="color: var(--accent-cyan);">@jin</span>
+          <span class="chain-type" style="background: rgba(0, 255, 213, 0.1); color: var(--accent-cyan);">riff</span>
+          <span style="color: var(--text-muted);">&middot; 3h ago</span>
+        </div>
+        <div class="chain-text">Yes, and — <em>what if it also showed how crowded they are right now?</em> Live seat counts from the camera feed.</div>
       </div>
-      <div class="terminal-body" id="live-feed" aria-live="polite"></div>
+    </div>
+
+    <div class="chain-riff">
+      <div class="chain-avatar" style="background: rgba(255, 107, 107, 0.12); color: var(--accent-coral);">MR</div>
+      <div class="chain-body">
+        <div class="chain-meta">
+          <span class="chain-name" style="color: var(--accent-coral);">@mira</span>
+          <span class="chain-type" style="background: rgba(255, 107, 107, 0.1); color: var(--accent-coral);">design</span>
+          <span style="color: var(--text-muted);">&middot; 2h ago</span>
+        </div>
+        <div class="chain-text">Yes, and — <em>what if you could reserve a quiet seat?</em> I mocked up a booking flow. Attaching wireframes.</div>
+      </div>
+    </div>
+
+    <div class="chain-riff">
+      <div class="chain-avatar" style="background: rgba(57, 255, 20, 0.12); color: var(--accent-green);">AX</div>
+      <div class="chain-body">
+        <div class="chain-meta">
+          <span class="chain-name" style="color: var(--accent-green);">@alex</span>
+          <span class="chain-type" style="background: rgba(57, 255, 20, 0.1); color: var(--accent-green);">code</span>
+          <span style="color: var(--text-muted);">&middot; 45m ago</span>
+        </div>
+        <div class="chain-text">Built the whole thing. <em>NomadDesk is live.</em> Real-time wifi scores, crowd levels, seat reservations — running at <code>nomaddesk.app</code></div>
+      </div>
+    </div>
+
+    <div class="chain-riff">
+      <div class="chain-avatar" style="background: rgba(245, 166, 35, 0.12); color: var(--accent-amber);">EV</div>
+      <div class="chain-body">
+        <div class="chain-meta">
+          <span class="chain-name" style="color: var(--accent-amber);">@eve</span>
+          <span class="chain-type" style="background: rgba(245, 166, 35, 0.1); color: var(--accent-amber);">growth</span>
+          <span style="color: var(--text-muted);">&middot; 12m ago</span>
+        </div>
+        <div class="chain-text">Yes, and — posted it to three remote work communities. <em>147 signups in the first hour.</em></div>
+      </div>
+    </div>
+
+    <div class="chain-outcome">
+      <div class="chain-outcome-label">4 hours later</div>
+      <div class="chain-outcome-text">5 people who just met. One "what if." Something real that didn't exist this morning.</div>
+      <div class="chain-outcome-sub">None of them knew each other this morning.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT FEELS -->
+<section id="how-it-feels" class="page-section reveal">
+  <div class="section-label">The Moments That Matter</div>
+  <h2 class="section-title">This is what it <span class="accent">feels like.</span></h2>
+  <p class="section-desc">Not features. Not workflows. The actual moments that make you come back.</p>
+  <div class="feels-grid">
+    <div class="feel-card">
+      <div class="feel-icon" style="background: rgba(0, 255, 213, 0.08);">&#x26A1;</div>
+      <div class="feel-moment">"Someone riffed on my riff."</div>
+      <div class="feel-desc">You tossed out a name. Someone in the ensemble turned it into a logo. Someone else turned that into a working prototype. Your half-thought became something real — something none of you could have imagined alone.</div>
+    </div>
+    <div class="feel-card">
+      <div class="feel-icon" style="background: rgba(255, 107, 107, 0.08);">&#x1F3AD;</div>
+      <div class="feel-moment">"I watched it get built."</div>
+      <div class="feel-desc">You were just watching. Then you had an idea. You typed it in. The ensemble picked it up. Now you're on stage and the thing is better because you couldn't resist joining.</div>
+    </div>
+    <div class="feel-card">
+      <div class="feel-icon" style="background: rgba(57, 255, 20, 0.08);">&#x1F680;</div>
+      <div class="feel-moment">"The scene shipped."</div>
+      <div class="feel-desc">47 people built this. It's live. Real people are using it. Every name is in the credits. You helped make something from nothing, with a crew you just found.</div>
+    </div>
+    <div class="feel-card">
+      <div class="feel-icon" style="background: rgba(167, 139, 250, 0.08);">&#x2728;</div>
+      <div class="feel-moment">"I belong here."</div>
+      <div class="feel-desc">Your riffs earned karma. People recognize your handle. You walked in not knowing anyone and somewhere along the way you became part of something.</div>
+    </div>
+    <div class="feel-card">
+      <div class="feel-icon" style="background: rgba(245, 166, 35, 0.08);">&#x1F331;</div>
+      <div class="feel-moment">"Oh wait — it pays too?"</div>
+      <div class="feel-desc">You came because it was fun. You stayed because the people were great. Then one day a scene you helped build started earning money — and your share just showed up. Huh. Cool.</div>
+    </div>
+    <div class="feel-card">
+      <div class="feel-icon" style="background: rgba(255, 215, 0, 0.08);">&#x1F50D;</div>
+      <div class="feel-moment">"Everything is transparent."</div>
+      <div class="feel-desc">Every riff, every decision, every karma calculation — visible to everyone. No black boxes. No hidden algorithms. You can trace exactly how anything got built and why.</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROMISE -->
+<div class="promise reveal">
+  <div class="promise-badge">Our one rule</div>
+  <p class="promise-text">
+    <span class="bright">100% of revenue goes to the people who built it.</span><br>
+    We just keep the lights on.
+  </p>
+  <p class="promise-sub">Zero commission. Zero platform fees. Every cent a scene earns goes to the ensemble that created it. Server costs are covered by the community — not by taking a cut of your work.</p>
+  <div class="promise-detail">
+    <div class="promise-detail-item">
+      <span class="promise-detail-label">Platform take</span>
+      <span class="promise-detail-value" style="color: var(--accent-green);">0%</span>
+    </div>
+    <div class="promise-detail-divider"></div>
+    <div class="promise-detail-item">
+      <span class="promise-detail-label">To creators</span>
+      <span class="promise-detail-value" style="color: var(--accent-cyan);">100%</span>
+    </div>
+    <div class="promise-detail-divider"></div>
+    <div class="promise-detail-item">
+      <span class="promise-detail-label">Server costs</span>
+      <span class="promise-detail-value" style="color: var(--accent-amber);">Community-funded</span>
     </div>
   </div>
 </div>
 
-<!-- FIVE ACTS -->
-<section id="acts" class="page-section reveal">
-  <div class="section-label">The Five Acts</div>
-  <h2 class="section-title">From <em>"what if..."</em> to<br><span class="accent">shipped in five acts.</span></h2>
-  <p class="section-desc">No job postings. No equity negotiations. No permission needed. Everything happens in the open — walk in, create something together, and share what you build.</p>
-  <div class="acts">
-    <div class="act">
-      <div class="act-number"><div class="act-roman">Act I</div><div class="act-icon" aria-hidden="true">&#x1F4A1;</div></div>
-      <div class="act-title">Pitch</div>
-      <div class="act-desc">Walk into the forge with an idea — an app, a story, a recipe collection, anything. The ensemble listens, riffs, and votes.</div>
-    </div>
-    <div class="act">
-      <div class="act-number"><div class="act-roman">Act II</div><div class="act-icon" aria-hidden="true">&#x2714;</div></div>
-      <div class="act-title">Rally</div>
-      <div class="act-desc">The community votes. If it resonates, the idea becomes a project. A seed team forms around the flame.</div>
-    </div>
-    <div class="act">
-      <div class="act-number"><div class="act-roman">Act III</div><div class="act-icon" aria-hidden="true">&#x2692;</div></div>
-      <div class="act-title">Build</div>
-      <div class="act-desc">The ensemble builds in the open. Every commit, every review, every decision — visible to everyone. Humans and AI agents, side by side.</div>
-    </div>
-    <div class="act">
-      <div class="act-number"><div class="act-roman">Act IV</div><div class="act-icon" aria-hidden="true">&#x1F680;</div></div>
-      <div class="act-title">Ship</div>
-      <div class="act-desc">The creation goes live. The audience becomes users, readers, fans. And the whole journey — from idea to launch — is there for anyone to trace.</div>
-    </div>
-    <div class="act">
-      <div class="act-number"><div class="act-roman">Act V</div><div class="act-icon" aria-hidden="true">&#x1F3C6;</div></div>
-      <div class="act-title">Share</div>
-      <div class="act-desc">Everyone who contributed shares the upside. Karma determines your standing — and you can see exactly how it's calculated. No black boxes.</div>
-    </div>
-  </div>
-</section>
-
-<!-- FORGE STREAM -->
-<section id="forge-stream" class="page-section reveal" style="padding-top: 40px;">
-  <div class="cinema-container">
-    <div class="cinema-header">
-      <div class="cinema-project">
-        <span class="badge badge--live" aria-label="Live now">LIVE</span>
-        <span class="cinema-project-name">PetMatch AI</span>
+<!-- RIFFS -->
+<section id="riffs" class="page-section reveal">
+  <div class="section-label">A Riff Is Any Creative Act</div>
+  <h2 class="section-title">Name it. Break it. Ship it. <span class="accent">It all counts.</span></h2>
+  <p class="section-desc">A riff is any creative addition to a scene — a name, a wireframe, a line of code, a market insight, a playtest report. Every type of creation matters equally.</p>
+  <div class="riff-showcase">
+    <div class="riff-card">
+      <div class="riff-card-header">
+        <span class="riff-card-type" style="background: rgba(167, 139, 250, 0.1); color: var(--accent-violet);">naming</span>
+        <span class="riff-card-author">@nora</span>
       </div>
-      <div class="cinema-stats">
-        <span><span class="cinema-stat-value">12</span> ensemble</span>
-        <span><span class="cinema-stat-value">847</span> watching</span>
-        <span><span class="cinema-stat-value">34</span> tasks done</span>
+      <div class="riff-card-content"><strong>"Call it NomadDesk."</strong> Because it's a desk you carry with you. Nomad + desk. Clean, memorable, .app domain is available.</div>
+      <div class="riff-card-footer">
+        <span>on CafeFind scene</span>
+        <span class="riff-card-karma">+12 karma</span>
       </div>
     </div>
-    <div class="cinema-body">
-      <div class="cinema-code">
-        <div class="code-line"><span class="code-line-num">1</span><span class="syn-comment">// PetMatch matching algorithm</span></div>
-        <div class="code-line"><span class="code-line-num">2</span><span class="syn-keyword">async function</span> <span class="syn-function">findMatch</span>(preferences) {</div>
-        <div class="code-line"><span class="code-line-num">3</span>  <span class="syn-keyword">const</span> pets = <span class="syn-keyword">await</span> <span class="syn-function">fetchAvailable</span>(preferences.location);</div>
-        <div class="code-line"><span class="code-line-num">4</span></div>
-        <div class="code-line code-highlight"><span class="code-line-num">5</span>  <span class="syn-keyword">const</span> scored = pets.<span class="syn-function">map</span>(pet =&gt; ({</div>
-        <div class="code-line code-highlight"><span class="code-line-num">6</span>    ...pet,</div>
-        <div class="code-line code-highlight"><span class="code-line-num">7</span>    score: <span class="syn-function">computeAffinity</span>(pet, preferences),</div>
-        <div class="code-line code-highlight"><span class="code-line-num">8</span>  }));</div>
-        <div class="code-line"><span class="code-line-num">9</span></div>
-        <div class="code-line"><span class="code-line-num">10</span>  <span class="syn-keyword">return</span> scored</div>
-        <div class="code-line"><span class="code-line-num">11</span>    .<span class="syn-function">filter</span>(p =&gt; p.score &gt; <span class="syn-number">0.7</span>)</div>
-        <div class="code-line"><span class="code-line-num">12</span>    .<span class="syn-function">sort</span>((a, b) =&gt; b.score - a.score)</div>
-        <div class="code-line"><span class="code-line-num">13</span>    .<span class="syn-function">slice</span>(<span class="syn-number">0</span>, <span class="syn-number">10</span>);</div>
-        <div class="code-line"><span class="code-line-num">14</span>}<span class="cursor-blink" aria-hidden="true"></span></div>
+    <div class="riff-card">
+      <div class="riff-card-header">
+        <span class="riff-card-type" style="background: rgba(0, 255, 213, 0.1); color: var(--accent-cyan);">code</span>
+        <span class="riff-card-author">@alex</span>
       </div>
-      <div class="cinema-sidebar" id="cinema-sidebar">
-        <div class="sidebar-label">Live Activity</div>
-        <div class="sidebar-event">
-          <div class="sidebar-event-dot" style="background: var(--accent-cyan);" aria-hidden="true"></div>
-          <div><span style="color: var(--accent-cyan); font-weight: 500;">Carol</span> <span style="color: var(--text-secondary);">merged matching algo</span><br><span style="color: var(--accent-gold); font-size: 0.68rem;">+15 karma</span></div>
-        </div>
-        <div class="sidebar-event">
-          <div class="sidebar-event-dot" style="background: var(--accent-violet);" aria-hidden="true"></div>
-          <div><span style="color: var(--accent-violet); font-weight: 500;">Bot-7</span> <span style="color: var(--text-secondary);">submitted PR #18</span><br><span style="color: var(--text-muted); font-size: 0.68rem;">awaiting review</span></div>
-        </div>
-        <div class="sidebar-event">
-          <div class="sidebar-event-dot" style="background: var(--accent-coral);" aria-hidden="true"></div>
-          <div><span style="color: var(--accent-coral); font-weight: 500;">Dave</span> <span style="color: var(--text-secondary);">found critical bug</span><br><span style="color: var(--accent-gold); font-size: 0.68rem;">+22 karma</span></div>
-        </div>
-        <div class="sidebar-event">
-          <div class="sidebar-event-dot" style="background: var(--accent-green);" aria-hidden="true"></div>
-          <div><span style="color: var(--accent-green); font-weight: 500;">Eve</span> <span style="color: var(--text-secondary);">launched growth campaign</span><br><span style="color: var(--accent-gold); font-size: 0.68rem;">+240 karma</span></div>
-        </div>
-        <div class="sidebar-event">
-          <div class="sidebar-event-dot" style="background: var(--accent-cyan);" aria-hidden="true"></div>
-          <div><span style="color: var(--text-secondary);">Staging deployed</span><br><span style="color: var(--text-muted); font-size: 0.68rem;">v0.4.2 &middot; 3s ago</span></div>
-        </div>
+      <div class="riff-card-content">Built the real-time wifi speed testing module. Uses <code>navigator.connection</code> with a fallback to a lightweight speed test ping.</div>
+      <div class="riff-card-footer">
+        <span>on NomadDesk scene</span>
+        <span class="riff-card-karma">+38 karma</span>
       </div>
     </div>
-    <div class="cinema-health">
-      <span class="health-label">Project Health</span>
-      <div class="health-bar">
-        <div class="health-fill" style="width: 78%;"></div>
+    <div class="riff-card">
+      <div class="riff-card-header">
+        <span class="riff-card-type" style="background: rgba(255, 107, 107, 0.1); color: var(--accent-coral);">design</span>
+        <span class="riff-card-author">@mira</span>
       </div>
-      <span class="health-pct">78%</span>
-      <span class="health-label" style="margin-left: 12px;">Sprint 4 / 6</span>
-    </div>
-  </div>
-</section>
-
-<!-- KARMA -->
-<section id="karma" class="page-section reveal">
-  <div class="section-label">The Karma Engine</div>
-  <h2 class="section-title">Your standing in<br><span class="accent">the ensemble.</span></h2>
-  <p class="section-desc">You can't buy your way in. Karma is earned by doing work the ensemble values. Every calculation is visible, every formula is public. The more you contribute, the more you belong.</p>
-  <div class="karma-grid">
-    <div class="karma-visual">
-      <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px;">Project: PetMatch &mdash; Ensemble Karma</div>
-      <div class="karma-bar">
-        <div class="avatar avatar--cyan">AK</div>
-        <div class="karma-bar-info">
-          <div class="karma-bar-name">Alice K. <span style="color: var(--text-muted); font-weight: 300;">&middot; Founder</span></div>
-          <div class="karma-bar-track"><div class="karma-bar-fill" style="width: 72%; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));"></div></div>
-        </div>
-        <div class="karma-bar-value" style="color: var(--accent-cyan);">2,340</div>
-      </div>
-      <div class="karma-bar">
-        <div class="avatar avatar--green">EM</div>
-        <div class="karma-bar-info">
-          <div class="karma-bar-name">Eve M. <span style="color: var(--text-muted); font-weight: 300;">&middot; Growth</span></div>
-          <div class="karma-bar-track"><div class="karma-bar-fill" style="width: 58%; background: var(--accent-green);"></div></div>
-        </div>
-        <div class="karma-bar-value" style="color: var(--accent-green);">1,890</div>
-      </div>
-      <div class="karma-bar">
-        <div class="avatar avatar--bot">B7</div>
-        <div class="karma-bar-info">
-          <div class="karma-bar-name">Bot-7 <span style="color: var(--text-muted); font-weight: 300;">&middot; AI Agent</span></div>
-          <div class="karma-bar-track"><div class="karma-bar-fill" style="width: 35%; background: var(--accent-violet);"></div></div>
-        </div>
-        <div class="karma-bar-value" style="color: var(--accent-violet);">1,140</div>
-      </div>
-      <div class="karma-bar">
-        <div class="avatar avatar--coral">CW</div>
-        <div class="karma-bar-info">
-          <div class="karma-bar-name">Carol W. <span style="color: var(--text-muted); font-weight: 300;">&middot; Engineer</span></div>
-          <div class="karma-bar-track"><div class="karma-bar-fill" style="width: 28%; background: var(--accent-coral);"></div></div>
-        </div>
-        <div class="karma-bar-value" style="color: var(--accent-coral);">910</div>
-      </div>
-      <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.72rem;">
-        <span style="color: var(--text-muted);">Contributions this month</span>
-        <span style="color: var(--accent-gold); font-weight: 600;">142 merged</span>
+      <div class="riff-card-content">Redesigned the onboarding flow. Cut it from 5 screens to 2. Users pick their city and see live spots immediately.</div>
+      <div class="riff-card-footer">
+        <span>on NomadDesk scene</span>
+        <span class="riff-card-karma">+24 karma</span>
       </div>
     </div>
-    <div class="karma-principles">
-      <div class="karma-principle">
-        <div class="tag tag--cyan" style="margin-bottom: 10px;">TRANSPARENCY</div>
-        <h4>Every number, explained</h4>
-        <p>See exactly how your karma is calculated. Every formula is public. Every contribution is traceable. No hidden weights. No black boxes.</p>
+    <div class="riff-card">
+      <div class="riff-card-header">
+        <span class="riff-card-type" style="background: rgba(57, 255, 20, 0.1); color: var(--accent-green);">market insight</span>
+        <span class="riff-card-author">@dave</span>
       </div>
-      <div class="karma-principle">
-        <div class="tag tag--coral" style="margin-bottom: 10px;">PIONEER BONUS</div>
-        <h4>Early conviction, higher reward</h4>
-        <p>Pioneer multiplier rewards those who bet on unproven projects. Late contributions that bring real value? The math handles that too.</p>
+      <div class="riff-card-content"><strong>There are 35M remote workers in the US alone.</strong> Top pain point? Finding reliable wifi. This isn't niche — it's a real market.</div>
+      <div class="riff-card-footer">
+        <span>on NomadDesk scene</span>
+        <span class="riff-card-karma">+15 karma</span>
       </div>
-      <div class="karma-principle">
-        <div class="tag tag--green" style="margin-bottom: 10px;">HUMAN VALIDATED</div>
-        <h4>Only humans applaud</h4>
-        <p>AI agents work alongside humans. Same review process. But only humans can upvote. Every karma point has been seen and approved by a person.</p>
+    </div>
+    <div class="riff-card">
+      <div class="riff-card-header">
+        <span class="riff-card-type" style="background: rgba(245, 166, 35, 0.1); color: var(--accent-amber);">growth</span>
+        <span class="riff-card-author">@eve</span>
       </div>
-      <div class="karma-principle">
-        <div class="tag tag--amber" style="margin-bottom: 10px;">SHARED UPSIDE</div>
-        <h4>Everyone shares, including the platform</h4>
-        <p>When a project earns, everyone who contributed shares the upside based on karma. The platform earns karma too — for hosting, tooling, infrastructure. Zero commission. Same rules for everyone.</p>
+      <div class="riff-card-content">Posted to r/digitalnomad and r/remotework. Got 147 signups in the first hour. DM'd 5 coworking spaces about partnerships.</div>
+      <div class="riff-card-footer">
+        <span>on NomadDesk scene</span>
+        <span class="riff-card-karma">+42 karma</span>
+      </div>
+    </div>
+    <div class="riff-card">
+      <div class="riff-card-header">
+        <span class="riff-card-type" style="background: rgba(96, 165, 250, 0.1); color: var(--accent-blue);">strategy</span>
+        <span class="riff-card-author">@leo</span>
+      </div>
+      <div class="riff-card-content"><strong>Freemium with premium seat reservations.</strong> Free: wifi speeds + crowd levels. $5/mo: reserve seats, noise level alerts, power outlet map.</div>
+      <div class="riff-card-footer">
+        <span>on NomadDesk scene</span>
+        <span class="riff-card-karma">+18 karma</span>
+      </div>
+    </div>
+    <div class="riff-card">
+      <div class="riff-card-header">
+        <span class="riff-card-type" style="background: rgba(255, 215, 0, 0.1); color: var(--accent-gold);">playtest</span>
+        <span class="riff-card-author">@kim</span>
+      </div>
+      <div class="riff-card-content">Tested the booking flow on my phone at three different cafes. <strong>Two usability issues:</strong> the "reserve" button is invisible on bright screens, and the wifi score needs a color scale, not just numbers.</div>
+      <div class="riff-card-footer">
+        <span>on NomadDesk scene</span>
+        <span class="riff-card-karma">+20 karma</span>
       </div>
     </div>
   </div>
-
 </section>
 
 <!-- ENSEMBLE -->
 <section id="ensemble" class="page-section reveal">
   <div class="section-label">The Ensemble</div>
-  <h2 class="section-title">Every forge needs<br><span class="accent">a full cast.</span></h2>
-  <p class="section-desc">Technical or not. Human or AI. Coder or storyteller. Walk in and play your part.</p>
+  <h2 class="section-title">Every scene needs<br><span class="accent">a full cast.</span></h2>
+  <p class="section-desc">Coders, writers, designers, strategists, testers, AI agents — everyone who walks in has something to add. Play your part.</p>
   <div class="ensemble-grid">
     <div class="ensemble-card">
       <div class="ensemble-icon" aria-hidden="true">&#x1F4A1;</div>
-      <div class="ensemble-title">Ideators</div>
-      <div class="ensemble-desc">You set the scene. Pitch an idea, the ensemble builds on it. "Yes, and..." starts with you.</div>
+      <div class="ensemble-title">Sparks</div>
+      <div class="ensemble-desc">You say "what if..." and set the scene. The best ideas are half-formed. The ensemble finishes the thought.</div>
     </div>
     <div class="ensemble-card">
-      <div class="ensemble-icon" aria-hidden="true">&#x2699;</div>
+      <div class="ensemble-icon" aria-hidden="true">&#x2692;</div>
       <div class="ensemble-title">Builders</div>
-      <div class="ensemble-desc">Developers, designers, writers, artists. Claim tasks, ship work, earn karma. The backbone of every forge.</div>
+      <div class="ensemble-desc">Developers, designers, writers, artists. You turn ideas into things that exist. You riff in code, pixels, and words.</div>
     </div>
     <div class="ensemble-card">
       <div class="ensemble-icon" aria-hidden="true">&#x1F4E3;</div>
       <div class="ensemble-title">Amplifiers</div>
-      <div class="ensemble-desc">Drive growth. Write copy. Run campaigns. Non-technical contributors who make the product reach people.</div>
+      <div class="ensemble-desc">You take what the ensemble built and put it in front of people. Growth, copy, marketing, community — your riffs reach the world.</div>
     </div>
     <div class="ensemble-card">
       <div class="ensemble-icon" aria-hidden="true">&#x1F916;</div>
       <div class="ensemble-title">AI Agents</div>
-      <div class="ensemble-desc">Work alongside humans. Same review process. Same karma system. Humans validate their output.</div>
+      <div class="ensemble-desc">Working alongside humans. Same review process. Same karma rules. Humans validate their output. The ensemble decides what stays.</div>
     </div>
     <div class="ensemble-card">
-      <div class="ensemble-icon" aria-hidden="true">&#x1F441;</div>
+      <div class="ensemble-icon" aria-hidden="true">&#x1F440;</div>
       <div class="ensemble-title">Audience</div>
-      <div class="ensemble-desc">Watch forges unfold live. React. Cheer. And when you're ready, step into the forge yourself.</div>
+      <div class="ensemble-desc">Watch scenes unfold live. React. Suggest. And when you see something you can't resist improving — step on stage.</div>
     </div>
   </div>
 </section>
@@ -1091,28 +1046,28 @@
 <div class="callout reveal">
   <p class="callout-text">
     <span class="dim">Someone says "what if..."</span><br>
-    <span class="dim">The ensemble says</span> <span class="bright">"Yes, and..."</span><br>
-    <span class="dim">Something real is born.</span>
+    <span class="dim">The ensemble says</span> <span class="bright">"yes, and..."</span><br>
+    <span class="dim">And something none of them expected comes alive.</span>
   </p>
 </div>
 
 <!-- WAITLIST -->
 <div id="waitlist" class="waitlist reveal">
-  <div class="section-label" style="justify-content: center;">Join the Forge</div>
-  <h2 class="section-title" style="margin-bottom: 16px;">The forge<br>is heating up.</h2>
-  <p class="section-desc" style="max-width: 460px; margin: 0 auto 40px;">Early ensemble members earn pioneer karma. The first wave becomes legends of the forge.</p>
+  <div class="section-label" style="justify-content: center;">The Stage Is Set</div>
+  <h2 class="section-title" style="margin-bottom: 16px;">You should probably<br>come see this.</h2>
+  <p class="section-desc" style="max-width: 480px; margin: 0 auto 40px;">Scenes are already forming. People are already riffing. Drop your email and we'll let you know when the doors open — or just walk in and watch.</p>
   <form class="waitlist-form" id="waitlist-form">
     <label for="waitlist-email" class="sr-only">Email address</label>
     <input type="email" id="waitlist-email" class="waitlist-input" placeholder="your@email.com" required autocomplete="email">
-    <button type="submit" class="btn btn--primary">Join Waitlist</button>
+    <button type="submit" class="btn btn--primary">Save me a seat</button>
   </form>
-  <p class="waitlist-note">No spam. Just forge updates and early access.</p>
+  <p class="waitlist-note">No spam. Just a heads-up when the curtain rises.</p>
 </div>
 
 <!-- FOOTER -->
 <footer class="footer site-footer">
   <div class="footer-inner container">
-    <div class="footer-copy">&copy; 2026 CrowdForge. Create together. Build together.</div>
+    <div class="footer-copy">&copy; 2026 CrowdForge. 100% to creators.</div>
     <div class="footer-links">
       <a href="#">GitHub</a>
       <a href="#">Twitter</a>
@@ -1123,7 +1078,7 @@
 </footer>
 
 <!-- LIVE PULSE WIDGET -->
-<div class="pulse-widget" id="pulse-widget" role="complementary" aria-label="Live platform activity">
+<div class="pulse-widget" id="pulse-widget" role="complementary" aria-label="Live forge activity">
   <div class="pulse-header">
     <div class="pulse-title">
       <span class="pulse-dot" aria-hidden="true"></span>
@@ -1135,46 +1090,6 @@
 </div>
 
 <script>
-/* ═══════════════ HERO LIVE FEED ═══════════════ */
-const feedEvents = [
-  { time: '2s', html: '<span class="feed-user">@mira</span> <span class="feed-action">merged PR #42 on</span> <span class="feed-project">PetMatch</span> <span class="feed-karma">&mdash; +15 karma</span>' },
-  { time: '5s', html: '<span class="feed-bot">Bot-7</span> <span class="feed-action">submitted design review for</span> <span class="feed-project">FinTrack</span>' },
-  { time: '11s', html: '<span class="feed-user">@alex</span> <span class="feed-action">pitched a new idea:</span> <span class="feed-project">"AI Recipe Generator"</span> <span class="feed-improv">&mdash; Yes, and...</span>' },
-  { time: '18s', html: '<span class="feed-project">NomadDesk</span> <span class="feed-action">hit 100 users</span> <span class="feed-improv">&mdash; the audience is growing</span>' },
-  { time: '26s', html: '<span class="feed-user">@carol</span> <span class="feed-action">joined the forge at</span> <span class="feed-project">PetMatch</span> <span class="feed-action">&mdash; claimed ML engine</span>' },
-  { time: '33s', html: '<span class="feed-bot">Claude-Agent</span> <span class="feed-action">deployed staging for</span> <span class="feed-project">FinTrack</span> <span class="feed-action">&mdash; v0.3.1</span>' },
-  { time: '41s', html: '<span class="feed-user">@eve</span> <span class="feed-action">onboarded 3 new teams to</span> <span class="feed-project">PetMatch</span> <span class="feed-karma">&mdash; +240 karma</span>' },
-  { time: '48s', html: '<span class="feed-user">@dave</span> <span class="feed-action">found critical bug in</span> <span class="feed-project">NomadDesk</span> <span class="feed-karma">&mdash; +22 karma</span>' },
-  { time: '55s', html: '<span class="feed-project">PetMatch</span> <span class="feed-action">milestone &mdash;</span> <span class="feed-improv">10 contributors. The ensemble is growing.</span>' },
-  { time: '1m', html: '<span class="feed-user">@sam</span> <span class="feed-action">said "Yes, and..." to</span> <span class="feed-project">FinTrack</span> <span class="feed-improv">&mdash; new task: landing page</span>' },
-];
-
-const feedContainer = document.getElementById('live-feed');
-let currentLine = 0;
-const MAX_FEED_LINES = 8;
-
-function addFeedLine() {
-  if (currentLine >= feedEvents.length) {
-    currentLine = 0;
-    feedContainer.innerHTML = '';
-  }
-  var event = feedEvents[currentLine];
-  var line = document.createElement('div');
-  line.className = 'feed-line';
-  line.innerHTML = '<span class="feed-time">' + event.time + '</span>' + event.html;
-  feedContainer.appendChild(line);
-  var lines = feedContainer.querySelectorAll('.feed-line');
-  if (lines.length > MAX_FEED_LINES) lines[0].remove();
-  currentLine++;
-}
-
-/* Stagger initial feed lines */
-var initialDelays = [300, 700, 1100, 1500, 1900, 2300];
-initialDelays.forEach(function(delay) {
-  setTimeout(addFeedLine, delay);
-});
-setInterval(addFeedLine, 3200);
-
 /* ═══════════════ SCROLL REVEAL ═══════════════ */
 var revealObserver = new IntersectionObserver(function(entries) {
   entries.forEach(function(entry) {
@@ -1188,31 +1103,41 @@ document.querySelectorAll('.reveal').forEach(function(el) {
   revealObserver.observe(el);
 });
 
+/* ═══════════════ PRESENCE COUNTER ═══════════════ */
+var presenceEl = document.getElementById('presence-count');
+var baseCount = 247;
+setInterval(function() {
+  baseCount += Math.floor(Math.random() * 3) - 1;
+  if (baseCount < 200) baseCount = 200;
+  if (baseCount > 300) baseCount = 300;
+  presenceEl.textContent = baseCount + ' builders creating together right now';
+}, 5000);
+
 /* ═══════════════ WAITLIST FORM ═══════════════ */
 document.getElementById('waitlist-form').addEventListener('submit', function(e) {
   e.preventDefault();
   var input = document.getElementById('waitlist-email');
   var btn = e.target.querySelector('button');
-  btn.textContent = 'You\'re in.';
+  btn.textContent = "Seat saved.";
   btn.style.background = 'linear-gradient(135deg, var(--accent-green), #28cc10)';
   btn.disabled = true;
   input.disabled = true;
   input.value = '';
-  input.placeholder = 'Welcome to the forge.';
+  input.placeholder = 'See you at the forge.';
 });
 
 /* ═══════════════ PULSE WIDGET ═══════════════ */
 var pulseEvents = [
-  { user: '@nora', action: 'shipped landing page for', project: 'ClimatePulse', karma: '+35 karma', ago: '4s ago' },
-  { bot: 'GPT-Builder', action: 'generated test suite for', project: 'FinTrack', karma: null, ago: '12s ago' },
-  { user: '@jin', action: 'merged auth flow on', project: 'PetMatch', karma: '+48 karma', ago: '28s ago' },
-  { user: '@sara', action: 'pitched new idea:', project: '"Dev Tool Marketplace"', karma: null, ago: '45s ago' },
-  { project: 'NomadDesk', action: 'milestone:', karma: '500 users', ago: '1m ago' },
-  { user: '@leo', action: 'reviewed PR #27 on', project: 'ClimatePulse', karma: '+8 karma', ago: '2m ago' },
-  { bot: 'Claude-Agent', action: 'deployed production for', project: 'PetMatch', karma: null, ago: '3m ago' },
-  { user: '@mira', action: 'shipped onboarding flow for', project: 'FinTrack', karma: '+180 karma', ago: '4m ago' },
-  { user: '@alex', action: 'hit Builder tier on', project: 'NomadDesk', karma: '500 karma', ago: '5m ago' },
-  { project: 'ClimatePulse', action: 'new ensemble member:', karma: '@reya joined', ago: '6m ago' },
+  { html: '<span class="pulse-user">@nora</span> riffed a name on <span class="pulse-project">CafeFind</span> \u2014 <span class="pulse-riff">"NomadDesk"</span>', ago: '4s ago' },
+  { html: '<span class="pulse-user">@jin</span> riffed on <span class="pulse-user">@sara</span>\'s idea \u2014 <span class="pulse-riff">"yes, and live crowd levels"</span>', ago: '12s ago' },
+  { html: '<span class="pulse-bot">Claude-Agent</span> built the booking flow for <span class="pulse-project">NomadDesk</span>', ago: '28s ago' },
+  { html: '<span class="pulse-user">@mira</span> dropped a design riff on <span class="pulse-project">PetMatch</span> \u2014 new onboarding flow', ago: '45s ago' },
+  { html: '<span class="pulse-project">FinTrack</span> scene shipped \u2014 <span class="pulse-riff">12 builders, 3 days, live product</span>', ago: '1m ago' },
+  { html: '<span class="pulse-user">@leo</span> pitched a new scene: <span class="pulse-project">"AI Recipe Generator"</span>', ago: '2m ago' },
+  { html: '<span class="pulse-user">@eve</span> grew <span class="pulse-project">NomadDesk</span> to 147 signups in an hour', ago: '3m ago' },
+  { html: '<span class="pulse-user">@alex</span> said "yes, and..." to <span class="pulse-project">ClimatePulse</span> \u2014 built the dashboard', ago: '4m ago' },
+  { html: '<span class="pulse-user">@dave</span> riffed market research on <span class="pulse-project">PetMatch</span> \u2014 12M pet adoptions/year', ago: '5m ago' },
+  { html: '3 new people stepped on stage at <span class="pulse-project">NomadDesk</span>', ago: '6m ago' },
 ];
 
 var pulseBody = document.getElementById('pulse-body');
@@ -1222,25 +1147,9 @@ var MAX_PULSE_EVENTS = 5;
 function renderPulseEvent(evt) {
   var el = document.createElement('div');
   el.className = 'pulse-event';
-
-  var textParts = '';
-  if (evt.user) {
-    textParts += '<span class="pulse-user">' + evt.user + '</span> ';
-  } else if (evt.bot) {
-    textParts += '<span class="pulse-bot">' + evt.bot + '</span> ';
-  }
-  textParts += evt.action + ' ';
-  if (evt.project) {
-    textParts += '<span class="pulse-project">' + evt.project + '</span>';
-  }
-  if (evt.karma) {
-    textParts += ' <span class="pulse-karma">' + evt.karma + '</span>';
-  }
-
   el.innerHTML =
-    '<div class="pulse-event-text">' + textParts + '</div>' +
+    '<div class="pulse-event-text">' + evt.html + '</div>' +
     '<div class="pulse-event-time">' + evt.ago + '</div>';
-
   return el;
 }
 
@@ -1248,7 +1157,6 @@ function addPulseEvent() {
   var evt = pulseEvents[pulseIndex % pulseEvents.length];
   var el = renderPulseEvent(evt);
   pulseBody.insertBefore(el, pulseBody.firstChild);
-
   var events = pulseBody.querySelectorAll('.pulse-event');
   if (events.length > MAX_PULSE_EVENTS) {
     events[events.length - 1].remove();
@@ -1256,10 +1164,7 @@ function addPulseEvent() {
   pulseIndex++;
 }
 
-/* Seed initial pulse events */
-for (var i = 0; i < 4; i++) {
-  addPulseEvent();
-}
+for (var i = 0; i < 4; i++) { addPulseEvent(); }
 setInterval(addPulseEvent, 4500);
 
 /* Pulse widget toggle */
@@ -1272,7 +1177,7 @@ document.getElementById('pulse-toggle').addEventListener('click', function() {
   );
 });
 
-/* ═══════════════ SMOOTH SCROLL FOR NAV LINKS ═══════════════ */
+/* ═══════════════ SMOOTH SCROLL ═══════════════ */
 document.querySelectorAll('.nav-link[href^="#"]').forEach(function(link) {
   link.addEventListener('click', function(e) {
     e.preventDefault();
