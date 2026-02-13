@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrowdForge — The Director's Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #0d0907;
+    --bg-surface: #161110;
+    --bg-elevated: #1e1816;
+    --accent-amber: #f5a623;
+    --accent-coral: #ff6b6b;
+    --accent-violet: #a78bfa;
+    --accent-gold: #ffd700;
+    --accent-teal: #2dd4bf;
+    --text-primary: #f0e6d3;
+    --text-secondary: #9a8e80;
+    --text-muted: #4d4239;
+    --glow-amber: 0 0 40px rgba(245, 166, 35, 0.15), 0 0 80px rgba(245, 166, 35, 0.05);
+    --glow-coral: 0 0 40px rgba(255, 107, 107, 0.12);
+    --border-subtle: rgba(240, 230, 211, 0.06);
+    --border-warm: rgba(245, 166, 35, 0.15);
+    --font-display: 'Bricolage Grotesque', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'Instrument Sans', sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ═══════════════ STAGE LIGHTS ═══════════════ */
+  .stage-lights { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+  .stage-lights::before {
+    content: ''; position: absolute; top: -20%; left: 30%; width: 500px; height: 800px;
+    background: conic-gradient(from 180deg at 50% 0%, transparent 30%, rgba(245, 166, 35, 0.06) 50%, transparent 70%);
+    animation: spotlight-sway 8s ease-in-out infinite;
+  }
+  .stage-lights::after {
+    content: ''; position: absolute; top: -20%; right: 25%; width: 400px; height: 700px;
+    background: conic-gradient(from 180deg at 50% 0%, transparent 30%, rgba(255, 107, 107, 0.04) 50%, transparent 70%);
+    animation: spotlight-sway 10s ease-in-out infinite reverse;
+  }
+  @keyframes spotlight-sway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+
+  .grain {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+  .stage-floor {
+    position: fixed; bottom: 0; left: 0; right: 0; height: 40%; z-index: 0;
+    background: linear-gradient(0deg, rgba(245, 166, 35, 0.02) 0%, transparent 100%); pointer-events: none;
+  }
+
+  /* ═══════════════ NAV ═══════════════ */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100; padding: 20px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(20px); background: rgba(13, 9, 7, 0.85);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .logo { font-family: var(--font-display); font-weight: 800; font-size: 1.4rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 10px; color: var(--text-primary); text-decoration: none; }
+  .logo-icon {
+    width: 30px; height: 30px; background: linear-gradient(135deg, var(--accent-amber), var(--accent-coral));
+    border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px;
+    animation: stage-pulse 4s ease-in-out infinite;
+  }
+  @keyframes stage-pulse { 0%, 100% { box-shadow: 0 0 12px rgba(245, 166, 35, 0.3); } 50% { box-shadow: 0 0 28px rgba(245, 166, 35, 0.5), 0 0 56px rgba(245, 166, 35, 0.15); } }
+  .nav-links { display: flex; gap: 32px; align-items: center; list-style: none; }
+  .nav-links a { color: var(--text-secondary); text-decoration: none; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 400; letter-spacing: 0.04em; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--accent-amber); }
+  .btn-nav { background: transparent; border: 1px solid var(--accent-amber); color: var(--accent-amber); padding: 8px 20px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.78rem; cursor: pointer; transition: all 0.3s; }
+  .btn-nav:hover { background: var(--accent-amber); color: var(--bg-deep); box-shadow: var(--glow-amber); }
+
+  /* ═══════════════ SECTIONS ═══════════════ */
+  section { position: relative; z-index: 2; padding: 120px 40px; max-width: 1400px; margin: 0 auto; }
+  .section-label { font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent-amber); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: '~'; font-size: 1rem; color: var(--accent-coral); }
+  .section-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 3.5vw, 3.1rem); letter-spacing: -0.03em; margin-bottom: 20px; line-height: 1.2; }
+  .section-title .accent { color: var(--accent-amber); }
+  .section-title em { font-style: italic; color: var(--accent-coral); }
+  .section-desc { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; line-height: 1.8; margin-bottom: 60px; }
+
+  /* ═══════════════ HERO ═══════════════ */
+  .hero {
+    position: relative; z-index: 2; min-height: 100vh; display: flex; align-items: center;
+    padding: 140px 40px 80px; max-width: 1400px; margin: 0 auto; text-align: center;
+    flex-direction: column; justify-content: center;
+  }
+  .hero-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-amber); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 28px; display: flex; align-items: center; gap: 10px; justify-content: center; }
+  .hero-label::before { content: ''; width: 24px; height: 1px; background: var(--accent-amber); }
+  .stage-dot { width: 7px; height: 7px; background: var(--accent-amber); border-radius: 50%; animation: blink 2.5s ease-in-out infinite; box-shadow: 0 0 10px var(--accent-amber); }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+  .hero h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.8rem, 5vw, 4.4rem); line-height: 1.12; letter-spacing: -0.03em; margin-bottom: 28px; }
+  .hero h1 .gradient { background: linear-gradient(135deg, var(--accent-amber), var(--accent-coral)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero h1 .dim { color: var(--text-secondary); font-weight: 600; }
+  .hero-sub { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 40px; max-width: 640px; }
+
+  /* ═══════════════ SCORECARD ═══════════════ */
+  .scorecard-layout { display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; }
+  .scorecard-dimensions { display: flex; flex-direction: column; gap: 28px; }
+  .dimension-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 28px; position: relative; overflow: hidden; transition: border-color 0.3s; }
+  .dimension-card:hover { border-color: var(--border-warm); }
+  .dimension-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .dimension-card[data-dim="market"]::before { background: linear-gradient(90deg, var(--accent-amber), transparent); }
+  .dimension-card[data-dim="solution"]::before { background: linear-gradient(90deg, var(--accent-coral), transparent); }
+  .dimension-card[data-dim="execution"]::before { background: linear-gradient(90deg, var(--accent-teal), transparent); }
+  .dimension-card[data-dim="team"]::before { background: linear-gradient(90deg, var(--accent-violet), transparent); }
+  .dim-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .dim-title { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; }
+  .dim-weight { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.05em; }
+  .dim-guidance { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; font-style: italic; }
+  .criteria-row { display: flex; align-items: center; gap: 14px; padding: 10px 0; border-top: 1px solid var(--border-subtle); }
+  .criteria-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-secondary); min-width: 130px; }
+  .criteria-slider { flex: 1; -webkit-appearance: none; appearance: none; height: 4px; background: var(--bg-elevated); border-radius: 2px; outline: none; cursor: pointer; }
+  .criteria-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--accent-amber); background: var(--bg-deep); cursor: pointer; transition: all 0.2s; }
+  .criteria-slider::-webkit-slider-thumb:hover { box-shadow: 0 0 12px rgba(245, 166, 35, 0.4); transform: scale(1.15); }
+  .criteria-value { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; min-width: 20px; text-align: center; }
+  .dimension-card[data-dim="market"] .criteria-value { color: var(--accent-amber); }
+  .dimension-card[data-dim="solution"] .criteria-value { color: var(--accent-coral); }
+  .dimension-card[data-dim="execution"] .criteria-value { color: var(--accent-teal); }
+  .dimension-card[data-dim="team"] .criteria-value { color: var(--accent-violet); }
+  .dimension-card[data-dim="market"] .criteria-slider::-webkit-slider-thumb { border-color: var(--accent-amber); }
+  .dimension-card[data-dim="solution"] .criteria-slider::-webkit-slider-thumb { border-color: var(--accent-coral); }
+  .dimension-card[data-dim="execution"] .criteria-slider::-webkit-slider-thumb { border-color: var(--accent-teal); }
+  .dimension-card[data-dim="team"] .criteria-slider::-webkit-slider-thumb { border-color: var(--accent-violet); }
+
+  /* Scorecard sidebar */
+  .scorecard-result { position: sticky; top: 120px; }
+  .score-gauge-container { background: var(--bg-surface); border: 1px solid var(--border-warm); border-radius: 14px; padding: 32px; text-align: center; }
+  .score-svg { width: 200px; height: 200px; margin: 0 auto 20px; }
+  .score-circle-bg { fill: none; stroke: var(--bg-elevated); stroke-width: 8; }
+  .score-circle-fill { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease, stroke 0.5s ease; }
+  .score-value-text { font-family: var(--font-display); font-weight: 800; font-size: 3.2rem; letter-spacing: -0.03em; }
+  .score-label-text { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.1em; }
+  .score-verdict { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin-top: 12px; transition: color 0.5s; }
+  .dimension-breakdown { margin-top: 20px; text-align: left; }
+  .breakdown-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-subtle); font-family: var(--font-mono); font-size: 0.72rem; }
+  .breakdown-row:last-child { border-bottom: none; }
+  .breakdown-bar { flex: 1; height: 3px; background: var(--bg-elevated); border-radius: 2px; margin: 0 12px; overflow: hidden; }
+  .breakdown-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+
+  /* Radar chart */
+  .radar-container { margin-top: 24px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 24px; }
+  .radar-svg { width: 100%; max-width: 280px; margin: 0 auto; display: block; }
+  .radar-grid { fill: none; stroke: var(--border-subtle); stroke-width: 0.5; }
+  .radar-axis { stroke: var(--border-subtle); stroke-width: 0.5; }
+  .radar-shape { fill: rgba(245, 166, 35, 0.12); stroke: var(--accent-amber); stroke-width: 1.5; transition: all 0.6s ease; }
+  .radar-label { font-family: var(--font-mono); font-size: 8px; fill: var(--text-secondary); }
+
+  /* ═══════════════ HEALTH DASHBOARD ═══════════════ */
+  .health-layout { display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: start; }
+  .health-gauge-card { background: var(--bg-surface); border: 1px solid var(--border-warm); border-radius: 14px; padding: 36px; text-align: center; position: sticky; top: 120px; }
+  .health-gauge-svg { width: 220px; height: 220px; margin: 0 auto 16px; }
+  .health-gauge-bg { fill: none; stroke: var(--bg-elevated); stroke-width: 10; }
+  .health-gauge-fill { fill: none; stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset 1.2s ease, stroke 0.5s ease; }
+  .health-total { font-family: var(--font-display); font-weight: 800; font-size: 3.6rem; letter-spacing: -0.03em; }
+  .health-status { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; margin: 8px 0; }
+  .health-project-name { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.06em; }
+  .health-quadrants { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .health-quad { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 24px; position: relative; overflow: hidden; }
+  .health-quad::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .health-quad[data-q="growth"]::before { background: var(--accent-amber); }
+  .health-quad[data-q="engagement"]::before { background: var(--accent-coral); }
+  .health-quad[data-q="team"]::before { background: var(--accent-teal); }
+  .health-quad[data-q="validation"]::before { background: var(--accent-violet); }
+  .quad-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .quad-title { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; }
+  .quad-score { font-family: var(--font-mono); font-weight: 600; font-size: 1.4rem; }
+  .quad-score span { font-size: 0.72rem; color: var(--text-muted); font-weight: 400; }
+  .quad-metric { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 0.78rem; }
+  .quad-metric-label { color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.68rem; }
+  .quad-metric-value { font-family: var(--font-mono); font-weight: 500; font-size: 0.78rem; }
+  .quad-bar { height: 4px; background: var(--bg-elevated); border-radius: 2px; margin-top: 12px; overflow: hidden; }
+  .quad-bar-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
+
+  .health-recommendations { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+  .recommendation { display: flex; align-items: flex-start; gap: 14px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 16px 20px; border-left: 3px solid var(--accent-amber); }
+  .recommendation.warning { border-left-color: var(--accent-coral); }
+  .rec-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+  .rec-text { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+  .rec-text strong { color: var(--text-primary); }
+
+  /* ═══════════════ MILESTONES ═══════════════ */
+  .milestones-track { display: flex; gap: 0; position: relative; padding-top: 40px; }
+  .milestones-track::before { content: ''; position: absolute; top: 64px; left: 5%; right: 5%; height: 3px; background: var(--bg-elevated); border-radius: 2px; }
+  .milestones-track::after { content: ''; position: absolute; top: 64px; left: 5%; height: 3px; width: 35%; background: linear-gradient(90deg, var(--accent-amber), var(--accent-teal)); border-radius: 2px; }
+  .milestone { flex: 1; text-align: center; position: relative; cursor: pointer; }
+  .milestone-dot {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--bg-elevated); border: 3px solid var(--text-muted);
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; position: relative; z-index: 2;
+    font-size: 1.2rem; transition: all 0.4s;
+  }
+  .milestone.completed .milestone-dot { border-color: var(--accent-teal); background: rgba(45, 212, 191, 0.1); }
+  .milestone.current .milestone-dot { border-color: var(--accent-amber); background: rgba(245, 166, 35, 0.1); animation: milestone-glow 2s ease-in-out infinite; }
+  @keyframes milestone-glow { 0%, 100% { box-shadow: 0 0 12px rgba(245, 166, 35, 0.2); } 50% { box-shadow: 0 0 28px rgba(245, 166, 35, 0.45); } }
+  .milestone-stage { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+  .milestone-name { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+  .milestone-sub { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; padding: 0 8px; }
+
+  .milestone-detail {
+    display: none; margin-top: 40px; background: var(--bg-surface); border: 1px solid var(--border-warm);
+    border-radius: 14px; padding: 36px; position: relative; overflow: hidden;
+  }
+  .milestone-detail.active { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  .milestone-detail::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent-amber), var(--accent-teal)); }
+  .md-checklist { list-style: none; }
+  .md-checklist li { padding: 8px 0; font-size: 0.82rem; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid var(--border-subtle); }
+  .md-checklist li:last-child { border-bottom: none; }
+  .md-check { color: var(--accent-teal); flex-shrink: 0; font-size: 0.9rem; }
+  .md-metrics { display: flex; flex-direction: column; gap: 12px; }
+  .md-metric { background: var(--bg-elevated); border-radius: 8px; padding: 14px 16px; }
+  .md-metric-label { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  .md-metric-value { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
+  .md-quote { grid-column: 1 / -1; font-style: italic; color: var(--text-secondary); font-size: 0.88rem; line-height: 1.7; border-left: 3px solid var(--accent-amber); padding-left: 20px; margin-top: 8px; }
+  .md-quote cite { display: block; font-style: normal; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); margin-top: 8px; }
+  .md-mistakes { margin-top: 12px; font-size: 0.78rem; color: var(--accent-coral); }
+
+  /* ═══════════════ REVENUE PLAYBOOKS ═══════════════ */
+  .playbook-tabs { display: flex; gap: 6px; margin-bottom: 32px; flex-wrap: wrap; }
+  .playbook-tab {
+    padding: 10px 22px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.78rem;
+    background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-secondary);
+    cursor: pointer; transition: all 0.3s;
+  }
+  .playbook-tab:hover { border-color: var(--border-warm); color: var(--text-primary); }
+  .playbook-tab.active { background: rgba(245, 166, 35, 0.08); border-color: var(--accent-amber); color: var(--accent-amber); }
+  .playbook-panel { display: none; }
+  .playbook-panel.active { display: block; }
+  .playbook-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .playbook-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 14px; padding: 28px; }
+  .pb-card-title { font-family: var(--font-display); font-weight: 700; font-size: 1rem; margin-bottom: 16px; }
+  .pb-metric-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-subtle); }
+  .pb-metric-row:last-child { border-bottom: none; }
+  .pb-metric-name { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-secondary); }
+  .pb-metric-target { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; }
+  .pb-zone { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .pb-zone.green { background: var(--accent-teal); }
+  .pb-zone.yellow { background: var(--accent-amber); }
+  .pb-zone.red { background: var(--accent-coral); }
+  .pb-questions { list-style: none; margin-top: 16px; }
+  .pb-questions li { padding: 8px 0; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; border-bottom: 1px solid var(--border-subtle); }
+  .pb-questions li:last-child { border-bottom: none; }
+  .pb-questions li::before { content: '?'; font-family: var(--font-mono); color: var(--accent-amber); font-weight: 700; margin-right: 10px; }
+  .pb-examples { margin-top: 16px; }
+  .pb-example { display: inline-block; padding: 4px 12px; background: var(--bg-elevated); border-radius: 6px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); margin: 3px 4px 3px 0; }
+
+  /* ═══════════════ MONITORING ═══════════════ */
+  .monitor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .monitor-panel {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 12px;
+    padding: 24px; font-family: var(--font-mono); position: relative; overflow: hidden;
+  }
+  .monitor-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-amber), transparent); opacity: 0.3; }
+  .monitor-title { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .monitor-status { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-teal); animation: blink 2s ease-in-out infinite; }
+  .monitor-big { font-family: var(--font-display); font-weight: 800; font-size: 2.2rem; letter-spacing: -0.03em; margin-bottom: 4px; }
+  .monitor-sub { font-size: 0.68rem; color: var(--text-secondary); margin-bottom: 16px; }
+  .sparkline { display: flex; align-items: flex-end; gap: 3px; height: 40px; margin-top: 12px; }
+  .spark-bar { flex: 1; border-radius: 2px 2px 0 0; transition: height 0.3s ease; min-width: 0; }
+  .channel-bars { margin-top: 16px; }
+  .channel-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .channel-name { font-size: 0.68rem; color: var(--text-secondary); min-width: 60px; }
+  .channel-track { flex: 1; height: 6px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden; }
+  .channel-fill { height: 100%; border-radius: 3px; }
+  .channel-val { font-size: 0.68rem; font-weight: 600; min-width: 38px; text-align: right; }
+
+  .heatmap-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 12px; }
+  .heatmap-cell { aspect-ratio: 1; border-radius: 3px; }
+  .heatmap-labels { display: flex; justify-content: space-between; font-size: 0.58rem; color: var(--text-muted); margin-top: 6px; }
+
+  .retention-curve { display: flex; align-items: flex-end; gap: 2px; height: 50px; margin-top: 12px; }
+  .retention-bar { flex: 1; border-radius: 2px 2px 0 0; background: var(--accent-teal); transition: height 0.3s; }
+
+  .alert-card { background: var(--bg-elevated); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; border-left: 3px solid var(--accent-coral); }
+  .alert-card:last-child { margin-bottom: 0; }
+  .alert-time { font-size: 0.6rem; color: var(--text-muted); margin-bottom: 4px; }
+  .alert-text { font-size: 0.72rem; color: var(--text-secondary); line-height: 1.5; }
+  .alert-text strong { color: var(--text-primary); }
+
+  .monitor-wide { grid-column: 1 / -1; }
+  .decision-framework { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 20px; }
+  .decision-btn {
+    padding: 24px; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s;
+    border: 1px solid var(--border-subtle);
+  }
+  .decision-btn.pivot { background: rgba(245, 166, 35, 0.06); border-color: rgba(245, 166, 35, 0.2); }
+  .decision-btn.pivot:hover { background: rgba(245, 166, 35, 0.12); box-shadow: 0 0 24px rgba(245, 166, 35, 0.1); }
+  .decision-btn.persevere { background: rgba(45, 212, 191, 0.06); border-color: rgba(45, 212, 191, 0.2); }
+  .decision-btn.persevere:hover { background: rgba(45, 212, 191, 0.12); box-shadow: 0 0 24px rgba(45, 212, 191, 0.1); }
+  .decision-btn.kill { background: rgba(255, 107, 107, 0.06); border-color: rgba(255, 107, 107, 0.2); }
+  .decision-btn.kill:hover { background: rgba(255, 107, 107, 0.12); box-shadow: 0 0 24px rgba(255, 107, 107, 0.1); }
+  .decision-icon { font-size: 1.8rem; margin-bottom: 10px; }
+  .decision-label { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; margin-bottom: 6px; }
+  .decision-desc { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; }
+  .decision-criteria { margin-top: 10px; font-size: 0.68rem; color: var(--text-muted); font-family: var(--font-mono); }
+
+  /* ═══════════════ KNOWLEDGE BASE ═══════════════ */
+  .kb-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .kb-column-header { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; margin-bottom: 6px; }
+  .kb-column-sub { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); letter-spacing: 0.06em; margin-bottom: 20px; }
+  .kb-card {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 12px;
+    padding: 20px; margin-bottom: 14px; transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden;
+  }
+  .kb-card:hover { border-color: var(--border-warm); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3); }
+  .kb-card-tags { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+  .kb-tag { font-family: var(--font-mono); font-size: 0.58rem; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.04em; }
+  .kb-tag.beginner { background: rgba(45, 212, 191, 0.1); color: var(--accent-teal); }
+  .kb-tag.intermediate { background: rgba(245, 166, 35, 0.1); color: var(--accent-amber); }
+  .kb-tag.advanced { background: rgba(255, 107, 107, 0.1); color: var(--accent-coral); }
+  .kb-tag.time { background: rgba(240, 230, 211, 0.04); color: var(--text-muted); }
+  .kb-card-title { font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; margin-bottom: 6px; }
+  .kb-card-desc { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.6; }
+  .kb-progress-track { height: 3px; background: var(--bg-elevated); border-radius: 2px; margin-top: 12px; overflow: hidden; }
+  .kb-progress-fill { height: 100%; border-radius: 2px; background: var(--accent-teal); }
+  .kb-card-preview { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .kb-card:hover .kb-card-preview { max-height: 80px; }
+  .kb-preview-text { padding-top: 12px; font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; border-top: 1px solid var(--border-subtle); margin-top: 10px; }
+
+  /* ═══════════════ FOOTER ═══════════════ */
+  footer {
+    position: relative; z-index: 2; padding: 40px; border-top: 1px solid var(--border-subtle);
+    display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto;
+  }
+  .footer-left { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--accent-amber); }
+
+  /* ═══════════════ SCROLL REVEAL ═══════════════ */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ═══════════════ RESPONSIVE ═══════════════ */
+  @media (max-width: 1024px) {
+    .scorecard-layout { grid-template-columns: 1fr; }
+    .scorecard-result { position: static; }
+    .health-layout { grid-template-columns: 1fr; }
+    .health-gauge-card { position: static; }
+    .health-quadrants { grid-template-columns: 1fr 1fr; }
+    .monitor-grid { grid-template-columns: 1fr 1fr; }
+    .monitor-wide { grid-column: 1 / -1; }
+    .milestones-track { flex-wrap: wrap; justify-content: center; }
+    .milestones-track::before, .milestones-track::after { display: none; }
+    .milestone { flex: 0 0 33%; }
+    .kb-columns { grid-template-columns: 1fr; }
+    .playbook-grid { grid-template-columns: 1fr; }
+    .milestone-detail.active { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    section, .hero { padding-left: 20px; padding-right: 20px; }
+    .health-quadrants { grid-template-columns: 1fr; }
+    .monitor-grid { grid-template-columns: 1fr; }
+    .decision-framework { grid-template-columns: 1fr; }
+    .milestone { flex: 0 0 50%; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage-lights"></div>
+<div class="grain"></div>
+<div class="stage-floor"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="index.html">
+    <div class="logo-icon">&#x2692;</div>
+    CrowdForge
+  </a>
+  <ul class="nav-links">
+    <li><a href="#scorecard">Scorecard</a></li>
+    <li><a href="#health">Health</a></li>
+    <li><a href="#milestones">Milestones</a></li>
+    <li><a href="#playbooks">Playbooks</a></li>
+    <li><a href="#monitoring">Monitoring</a></li>
+    <li><a href="#knowledge">Knowledge</a></li>
+    <li><a href="index.html" class="btn-nav">Main Stage</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label"><span class="stage-dot"></span>The Director's Playbook</div>
+  <h1><span class="dim">Structure that enables</span><br><span class="gradient">spontaneity.</span></h1>
+  <p class="hero-sub">Frameworks that guide without prescribing. Like improv scene formats &mdash; constraints that unlock creativity. Opinionated tools for founders who'd rather build than guess.</p>
+</div>
+
+<!-- ACT I: IDEA EVALUATION SCORECARD -->
+<section id="scorecard" class="reveal">
+  <div class="section-label">Act I &mdash; The Audition</div>
+  <h2 class="section-title">Rate the scene<br><span class="accent">before it starts.</span></h2>
+  <p class="section-desc">Every great improv scene has a strong premise. Score your idea across four dimensions. Be honest &mdash; the ensemble will be.</p>
+  <div class="scorecard-layout">
+    <div class="scorecard-dimensions">
+
+      <div class="dimension-card" data-dim="market">
+        <div class="dim-header"><span class="dim-title">Market / Problem</span><span class="dim-weight">35% weight</span></div>
+        <div class="dim-guidance">"Consider whether people are pulling their hair out over this. If they're merely annoyed, you'll need a lot of them."</div>
+        <div class="criteria-row"><span class="criteria-label">Problem severity</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="market"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">Market size</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="market"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">Timing</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="market"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">Urgency</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="market"><span class="criteria-value">3</span></div>
+      </div>
+
+      <div class="dimension-card" data-dim="solution">
+        <div class="dim-header"><span class="dim-title">Solution / Differentiation</span><span class="dim-weight">25% weight</span></div>
+        <div class="dim-guidance">"Consider whether your solution is 10x better, not 10% better. Incremental improvements rarely justify switching costs."</div>
+        <div class="criteria-row"><span class="criteria-label">Uniqueness</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="solution"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">10x improvement</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="solution"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">Defensibility</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="solution"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">Simplicity</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="solution"><span class="criteria-value">3</span></div>
+      </div>
+
+      <div class="dimension-card" data-dim="execution">
+        <div class="dim-header"><span class="dim-title">Execution Feasibility</span><span class="dim-weight">20% weight</span></div>
+        <div class="dim-guidance">"Consider whether the ensemble can actually build this. The graveyard of startups is full of ideas that were too expensive to prove."</div>
+        <div class="criteria-row"><span class="criteria-label">Skills match</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="execution"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">Complexity</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="execution"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">Time to MVP</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="execution"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">Resources</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="execution"><span class="criteria-value">3</span></div>
+      </div>
+
+      <div class="dimension-card" data-dim="team">
+        <div class="dim-header"><span class="dim-title">Team</span><span class="dim-weight">20% weight</span></div>
+        <div class="dim-guidance">"Consider who's already at the table. A mediocre idea with a great ensemble outperforms a great idea with nobody to build it."</div>
+        <div class="criteria-row"><span class="criteria-label">Domain expertise</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="team"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">Complementary</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="team"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">Commitment</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="team"><span class="criteria-value">3</span></div>
+        <div class="criteria-row"><span class="criteria-label">Track record</span><input type="range" class="criteria-slider" min="1" max="5" value="3" data-dimension="team"><span class="criteria-value">3</span></div>
+      </div>
+    </div>
+
+    <div class="scorecard-result">
+      <div class="score-gauge-container">
+        <svg class="score-svg" viewBox="0 0 120 120">
+          <circle class="score-circle-bg" cx="60" cy="60" r="50"/>
+          <circle class="score-circle-fill" id="scoreCircle" cx="60" cy="60" r="50" stroke="var(--accent-amber)"
+            stroke-dasharray="314.16" stroke-dashoffset="125.66" transform="rotate(-90 60 60)"/>
+          <text class="score-value-text" x="60" y="56" text-anchor="middle" fill="var(--text-primary)" id="scoreText">60</text>
+          <text class="score-label-text" x="60" y="72" text-anchor="middle" fill="var(--text-muted)">/ 100</text>
+        </svg>
+        <div class="score-verdict" id="scoreVerdict">Promising</div>
+        <div class="dimension-breakdown">
+          <div class="breakdown-row"><span style="color:var(--accent-amber)">Market</span><div class="breakdown-bar"><div class="breakdown-fill" id="breakMarket" style="width:60%;background:var(--accent-amber)"></div></div><span id="breakMarketVal" style="color:var(--accent-amber)">21</span></div>
+          <div class="breakdown-row"><span style="color:var(--accent-coral)">Solution</span><div class="breakdown-bar"><div class="breakdown-fill" id="breakSolution" style="width:60%;background:var(--accent-coral)"></div></div><span id="breakSolutionVal" style="color:var(--accent-coral)">15</span></div>
+          <div class="breakdown-row"><span style="color:var(--accent-teal)">Execution</span><div class="breakdown-bar"><div class="breakdown-fill" id="breakExecution" style="width:60%;background:var(--accent-teal)"></div></div><span id="breakExecutionVal" style="color:var(--accent-teal)">12</span></div>
+          <div class="breakdown-row"><span style="color:var(--accent-violet)">Team</span><div class="breakdown-bar"><div class="breakdown-fill" id="breakTeam" style="width:60%;background:var(--accent-violet)"></div></div><span id="breakTeamVal" style="color:var(--accent-violet)">12</span></div>
+        </div>
+      </div>
+
+      <div class="radar-container">
+        <svg class="radar-svg" viewBox="0 0 200 200" id="radarSvg">
+          <g transform="translate(100,100)">
+            <polygon class="radar-grid" points="0,-70 66.5,-21.6 41.1,56.6 -41.1,56.6 -66.5,-21.6"/>
+            <polygon class="radar-grid" points="0,-52.5 49.9,-16.2 30.8,42.5 -30.8,42.5 -49.9,-16.2" style="opacity:0.6"/>
+            <polygon class="radar-grid" points="0,-35 33.3,-10.8 20.6,28.3 -20.6,28.3 -33.3,-10.8" style="opacity:0.4"/>
+            <line class="radar-axis" x1="0" y1="0" x2="0" y2="-70"/>
+            <line class="radar-axis" x1="0" y1="0" x2="66.5" y2="-21.6"/>
+            <line class="radar-axis" x1="0" y1="0" x2="41.1" y2="56.6"/>
+            <line class="radar-axis" x1="0" y1="0" x2="-41.1" y2="56.6"/>
+            <line class="radar-axis" x1="0" y1="0" x2="-66.5" y2="-21.6"/>
+            <polygon class="radar-shape" id="radarShape" points="0,-42 39.9,-12.96 24.66,33.96 -24.66,33.96 -39.9,-12.96"/>
+            <text class="radar-label" x="0" y="-78" text-anchor="middle">Severity</text>
+            <text class="radar-label" x="78" y="-18" text-anchor="start">Uniqueness</text>
+            <text class="radar-label" x="50" y="68" text-anchor="start">Skills</text>
+            <text class="radar-label" x="-50" y="68" text-anchor="end">Expertise</text>
+            <text class="radar-label" x="-78" y="-18" text-anchor="end">Size</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT II: PROJECT HEALTH DASHBOARD -->
+<section id="health" class="reveal">
+  <div class="section-label">Act II &mdash; The Rehearsal</div>
+  <h2 class="section-title">How's the scene<br><em>really going?</em></h2>
+  <p class="section-desc">Automated health scoring across four dimensions. No vanity metrics &mdash; just signal about whether this scene has legs.</p>
+  <div class="health-layout">
+    <div class="health-gauge-card">
+      <div class="health-project-name">DEMO: PETMATCH AI</div>
+      <svg class="health-gauge-svg" viewBox="0 0 120 120">
+        <circle class="health-gauge-bg" cx="60" cy="60" r="50"/>
+        <circle class="health-gauge-fill" id="healthCircle" cx="60" cy="60" r="50" stroke="var(--accent-teal)"
+          stroke-dasharray="314.16" stroke-dashoffset="78.54" transform="rotate(-90 60 60)"/>
+        <text x="60" y="56" text-anchor="middle" fill="var(--text-primary)" style="font-family:var(--font-display);font-weight:800;font-size:3rem;" id="healthText">75</text>
+        <text x="60" y="72" text-anchor="middle" fill="var(--text-muted)" style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.08em">HEALTH SCORE</text>
+      </svg>
+      <div class="health-status" id="healthStatus" style="color:var(--accent-teal)">Healthy</div>
+    </div>
+    <div>
+      <div class="health-quadrants">
+        <div class="health-quad" data-q="growth">
+          <div class="quad-header"><span class="quad-title">Growth</span><span class="quad-score" style="color:var(--accent-amber)">19 <span>/ 25</span></span></div>
+          <div class="quad-metric"><span class="quad-metric-label">Contributor growth</span><span class="quad-metric-value" style="color:var(--accent-amber)">+23%/wk</span></div>
+          <div class="quad-metric"><span class="quad-metric-label">Task velocity</span><span class="quad-metric-value" style="color:var(--accent-amber)">12/wk</span></div>
+          <div class="quad-metric"><span class="quad-metric-label">Commits</span><span class="quad-metric-value" style="color:var(--accent-amber)">47/wk</span></div>
+          <div class="quad-bar"><div class="quad-bar-fill" style="width:76%;background:var(--accent-amber)"></div></div>
+        </div>
+        <div class="health-quad" data-q="engagement">
+          <div class="quad-header"><span class="quad-title">Engagement</span><span class="quad-score" style="color:var(--accent-coral)">18 <span>/ 25</span></span></div>
+          <div class="quad-metric"><span class="quad-metric-label">Active ratio</span><span class="quad-metric-value" style="color:var(--accent-coral)">72%</span></div>
+          <div class="quad-metric"><span class="quad-metric-label">Discussion</span><span class="quad-metric-value" style="color:var(--accent-coral)">34 msgs/wk</span></div>
+          <div class="quad-metric"><span class="quad-metric-label">Review turnaround</span><span class="quad-metric-value" style="color:var(--accent-coral)">4.2 hrs</span></div>
+          <div class="quad-bar"><div class="quad-bar-fill" style="width:72%;background:var(--accent-coral)"></div></div>
+        </div>
+        <div class="health-quad" data-q="team">
+          <div class="quad-header"><span class="quad-title">Team</span><span class="quad-score" style="color:var(--accent-teal)">20 <span>/ 25</span></span></div>
+          <div class="quad-metric"><span class="quad-metric-label">Skill coverage</span><span class="quad-metric-value" style="color:var(--accent-teal)">85%</span></div>
+          <div class="quad-metric"><span class="quad-metric-label">Retention</span><span class="quad-metric-value" style="color:var(--accent-teal)">91%</span></div>
+          <div class="quad-metric"><span class="quad-metric-label">Collaboration</span><span class="quad-metric-value" style="color:var(--accent-teal)">High</span></div>
+          <div class="quad-bar"><div class="quad-bar-fill" style="width:80%;background:var(--accent-teal)"></div></div>
+        </div>
+        <div class="health-quad" data-q="validation">
+          <div class="quad-header"><span class="quad-title">Validation</span><span class="quad-score" style="color:var(--accent-violet)">18 <span>/ 25</span></span></div>
+          <div class="quad-metric"><span class="quad-metric-label">User signups</span><span class="quad-metric-value" style="color:var(--accent-violet)">127</span></div>
+          <div class="quad-metric"><span class="quad-metric-label">Revenue signals</span><span class="quad-metric-value" style="color:var(--accent-violet)">$420/mo</span></div>
+          <div class="quad-metric"><span class="quad-metric-label">External mentions</span><span class="quad-metric-value" style="color:var(--accent-violet)">8</span></div>
+          <div class="quad-bar"><div class="quad-bar-fill" style="width:72%;background:var(--accent-violet)"></div></div>
+        </div>
+        <div class="health-recommendations">
+          <div class="recommendation"><span class="rec-icon">&#x1F4C8;</span><div class="rec-text"><strong>Growth is strong.</strong> Contributor growth at +23%/wk is above benchmark. Consider documenting onboarding to sustain this as you scale past 20 contributors.</div></div>
+          <div class="recommendation warning"><span class="rec-icon">&#x26A0;</span><div class="rec-text"><strong>Revenue is early-stage.</strong> $420/mo with 127 signups suggests conversion could improve. Consider running a pricing experiment before investing more in acquisition.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT III: MILESTONE TEMPLATES -->
+<section id="milestones" class="reveal">
+  <div class="section-label">Act III &mdash; The Arc</div>
+  <h2 class="section-title">Every scene has<br><span class="accent">a natural arc.</span></h2>
+  <p class="section-desc">Five milestones every project passes through. Know where you are, and what "done" looks like for this stage.</p>
+  <div class="milestones-track" id="milestonesTrack">
+    <div class="milestone completed" data-ms="0" onclick="showMilestone(0)">
+      <div class="milestone-dot">&#x2714;</div>
+      <div class="milestone-stage">Stage 1</div>
+      <div class="milestone-name">Problem Validation</div>
+      <div class="milestone-sub">Talked to users, confirmed pain</div>
+    </div>
+    <div class="milestone current" data-ms="1" onclick="showMilestone(1)">
+      <div class="milestone-dot">&#x2692;</div>
+      <div class="milestone-stage">Stage 2</div>
+      <div class="milestone-name">MVP</div>
+      <div class="milestone-sub">Minimum viable product deployed</div>
+    </div>
+    <div class="milestone" data-ms="2" onclick="showMilestone(2)">
+      <div class="milestone-dot">&#x1F465;</div>
+      <div class="milestone-stage">Stage 3</div>
+      <div class="milestone-name">First Users</div>
+      <div class="milestone-sub">Organic users, not friends</div>
+    </div>
+    <div class="milestone" data-ms="3" onclick="showMilestone(3)">
+      <div class="milestone-dot">&#x1F4B0;</div>
+      <div class="milestone-stage">Stage 4</div>
+      <div class="milestone-name">First Revenue</div>
+      <div class="milestone-sub">Someone paid money</div>
+    </div>
+    <div class="milestone" data-ms="4" onclick="showMilestone(4)">
+      <div class="milestone-dot">&#x1F680;</div>
+      <div class="milestone-stage">Stage 5</div>
+      <div class="milestone-name">Growth</div>
+      <div class="milestone-sub">Sustainable traction</div>
+    </div>
+  </div>
+
+  <div class="milestone-detail active" id="ms-detail-0">
+    <div>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:16px;">What "done" looks like</div>
+      <ul class="md-checklist">
+        <li><span class="md-check">&#x2713;</span> Interviewed 10+ potential users about the problem</li>
+        <li><span class="md-check">&#x2713;</span> Identified a specific, recurring pain point</li>
+        <li><span class="md-check">&#x2713;</span> Found people actively seeking solutions (not just agreeing it's annoying)</li>
+        <li><span class="md-check">&#x2713;</span> Can articulate the problem in one sentence the user would agree with</li>
+        <li><span class="md-check">&#x2713;</span> At least 3 users said they'd pay for a solution</li>
+      </ul>
+      <div class="md-mistakes">Common mistake: Asking "would you use this?" instead of "tell me about the last time you had this problem."</div>
+    </div>
+    <div class="md-metrics">
+      <div class="md-metric"><div class="md-metric-label">Interviews Conducted</div><div class="md-metric-value" style="color:var(--accent-teal)">14</div></div>
+      <div class="md-metric"><div class="md-metric-label">Problem-Solution Fit</div><div class="md-metric-value" style="color:var(--accent-amber)">8.2 / 10</div></div>
+      <div class="md-metric"><div class="md-metric-label">Typical Timeline</div><div class="md-metric-value" style="color:var(--text-secondary)">1 &ndash; 3 weeks</div></div>
+    </div>
+    <div class="md-quote">"The most common mistake founders make is solving a problem nobody has. Talk to users before you write a line of code. If you can't find 10 people who desperately want what you're building, you don't have a business &mdash; you have a hobby."<cite>&mdash; Paul Graham, adapted</cite></div>
+  </div>
+
+  <div class="milestone-detail" id="ms-detail-1">
+    <div>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:16px;">What "done" looks like</div>
+      <ul class="md-checklist">
+        <li><span class="md-check">&#x25CB;</span> Core feature works end-to-end (one workflow, not ten)</li>
+        <li><span class="md-check">&#x25CB;</span> Deployed and accessible via URL</li>
+        <li><span class="md-check">&#x25CB;</span> One real user can complete the primary task</li>
+        <li><span class="md-check">&#x25CB;</span> Deliberately left out everything non-essential</li>
+        <li><span class="md-check">&#x25CB;</span> Analytics tracking basic usage</li>
+      </ul>
+      <div class="md-mistakes">Common mistake: Building for 6 months before showing anyone. Ship in weeks, not months.</div>
+    </div>
+    <div class="md-metrics">
+      <div class="md-metric"><div class="md-metric-label">Features Shipped</div><div class="md-metric-value" style="color:var(--accent-coral)">3 core</div></div>
+      <div class="md-metric"><div class="md-metric-label">Time to Deploy</div><div class="md-metric-value" style="color:var(--accent-amber)">Target: &lt;4 weeks</div></div>
+      <div class="md-metric"><div class="md-metric-label">Typical Timeline</div><div class="md-metric-value" style="color:var(--text-secondary)">2 &ndash; 6 weeks</div></div>
+    </div>
+    <div class="md-quote">"If you're not embarrassed by the first version of your product, you've launched too late. The goal of an MVP isn't to be impressive &mdash; it's to start learning."<cite>&mdash; Reid Hoffman, adapted</cite></div>
+  </div>
+
+  <div class="milestone-detail" id="ms-detail-2">
+    <div>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:16px;">What "done" looks like</div>
+      <ul class="md-checklist">
+        <li><span class="md-check">&#x25CB;</span> Users who found you without personal invitation</li>
+        <li><span class="md-check">&#x25CB;</span> At least 5 weekly active users who aren't contributors</li>
+        <li><span class="md-check">&#x25CB;</span> Users returning without prompting (Day 7 retention > 20%)</li>
+        <li><span class="md-check">&#x25CB;</span> At least one unsolicited positive testimonial</li>
+      </ul>
+      <div class="md-mistakes">Common mistake: Counting friends and family as validation. They'll say nice things regardless.</div>
+    </div>
+    <div class="md-metrics">
+      <div class="md-metric"><div class="md-metric-label">Organic Signups</div><div class="md-metric-value" style="color:var(--accent-teal)">Target: 50+</div></div>
+      <div class="md-metric"><div class="md-metric-label">Activation Rate</div><div class="md-metric-value" style="color:var(--accent-amber)">Target: 40%+</div></div>
+      <div class="md-metric"><div class="md-metric-label">Typical Timeline</div><div class="md-metric-value" style="color:var(--text-secondary)">4 &ndash; 12 weeks</div></div>
+    </div>
+    <div class="md-quote">"Do things that don't scale. Recruit users individually. Give them an insanely great experience. Then figure out how to automate it."<cite>&mdash; Paul Graham</cite></div>
+  </div>
+
+  <div class="milestone-detail" id="ms-detail-3">
+    <div>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:16px;">What "done" looks like</div>
+      <ul class="md-checklist">
+        <li><span class="md-check">&#x25CB;</span> A stranger exchanged money for your product</li>
+        <li><span class="md-check">&#x25CB;</span> Payment flow works end-to-end without manual intervention</li>
+        <li><span class="md-check">&#x25CB;</span> Customer support process exists (even if it's just email)</li>
+        <li><span class="md-check">&#x25CB;</span> Basic revenue tracking in place</li>
+      </ul>
+      <div class="md-mistakes">Common mistake: Offering lifetime deals or massive discounts. Charge full price to a small group &mdash; it's more honest signal.</div>
+    </div>
+    <div class="md-metrics">
+      <div class="md-metric"><div class="md-metric-label">First Dollar Date</div><div class="md-metric-value" style="color:var(--accent-gold)">The sooner, the better</div></div>
+      <div class="md-metric"><div class="md-metric-label">Conversion Rate</div><div class="md-metric-value" style="color:var(--accent-amber)">Target: 2 &ndash; 5%</div></div>
+      <div class="md-metric"><div class="md-metric-label">Typical Timeline</div><div class="md-metric-value" style="color:var(--text-secondary)">2 &ndash; 6 months</div></div>
+    </div>
+    <div class="md-quote">"Revenue is the ultimate form of validation. Not surveys, not signups, not 'nice product' emails. Someone reached into their wallet. That's the only signal that matters."<cite>&mdash; Jason Fried, adapted</cite></div>
+  </div>
+
+  <div class="milestone-detail" id="ms-detail-4">
+    <div>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:16px;">What "done" looks like</div>
+      <ul class="md-checklist">
+        <li><span class="md-check">&#x25CB;</span> Month-over-month growth consistently above 15%</li>
+        <li><span class="md-check">&#x25CB;</span> Acquisition channels identified and repeatable</li>
+        <li><span class="md-check">&#x25CB;</span> Unit economics positive (LTV > 3x CAC)</li>
+        <li><span class="md-check">&#x25CB;</span> Churn stabilized below 5% monthly</li>
+      </ul>
+      <div class="md-mistakes">Common mistake: Scaling acquisition before fixing retention. You're filling a leaky bucket.</div>
+    </div>
+    <div class="md-metrics">
+      <div class="md-metric"><div class="md-metric-label">MoM Growth</div><div class="md-metric-value" style="color:var(--accent-teal)">Target: 15%+</div></div>
+      <div class="md-metric"><div class="md-metric-label">LTV/CAC</div><div class="md-metric-value" style="color:var(--accent-amber)">Target: 3:1+</div></div>
+      <div class="md-metric"><div class="md-metric-label">Typical Timeline</div><div class="md-metric-value" style="color:var(--text-secondary)">6 &ndash; 18 months</div></div>
+    </div>
+    <div class="md-quote">"Startups don't die from starvation; they die from indigestion. Focus on one growth channel until it's exhausted before moving to the next."<cite>&mdash; Adapted from YC wisdom</cite></div>
+  </div>
+</section>
+
+<!-- ACT IV: REVENUE MODEL PLAYBOOKS -->
+<section id="playbooks" class="reveal">
+  <div class="section-label">Act IV &mdash; The Business</div>
+  <h2 class="section-title">Pick your model.<br><span class="accent">Know your numbers.</span></h2>
+  <p class="section-desc">Four revenue archetypes with the metrics that matter, the targets to hit, and the questions you can't avoid.</p>
+
+  <div class="playbook-tabs">
+    <div class="playbook-tab active" data-pb="saas">SaaS</div>
+    <div class="playbook-tab" data-pb="marketplace">Marketplace</div>
+    <div class="playbook-tab" data-pb="content">Content / Media</div>
+    <div class="playbook-tab" data-pb="api">API / Developer</div>
+  </div>
+
+  <div class="playbook-panel active" id="pb-saas">
+    <div class="playbook-grid">
+      <div class="playbook-card">
+        <div class="pb-card-title">Key Metrics</div>
+        <div class="pb-metric-row"><span class="pb-metric-name">MRR</span><span class="pb-metric-target"><span class="pb-zone green"></span>Growing 15%+ MoM</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Churn Rate</span><span class="pb-metric-target"><span class="pb-zone green"></span>&lt;5%&nbsp; <span class="pb-zone yellow"></span>5-10%&nbsp; <span class="pb-zone red"></span>&gt;10%</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">LTV/CAC</span><span class="pb-metric-target"><span class="pb-zone green"></span>&gt;3:1&nbsp; <span class="pb-zone yellow"></span>1-3:1&nbsp; <span class="pb-zone red"></span>&lt;1:1</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Expansion Revenue</span><span class="pb-metric-target"><span class="pb-zone green"></span>&gt;30% of new MRR</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Payback Period</span><span class="pb-metric-target"><span class="pb-zone green"></span>&lt;12 months</span></div>
+        <div class="pb-examples"><span class="pb-example">Slack</span><span class="pb-example">Notion</span><span class="pb-example">Linear</span><span class="pb-example">Figma</span></div>
+      </div>
+      <div class="playbook-card">
+        <div class="pb-card-title">Questions You Must Answer</div>
+        <ul class="pb-questions">
+          <li>Why will users pay monthly instead of finding a free alternative?</li>
+          <li>What's the natural upgrade trigger? When do free users hit a wall?</li>
+          <li>Can you reach $1M ARR with fewer than 1,000 customers?</li>
+          <li>What's your expected Net Revenue Retention? Can it exceed 100%?</li>
+          <li>How long does a typical user stay? What triggers churn?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="playbook-panel" id="pb-marketplace">
+    <div class="playbook-grid">
+      <div class="playbook-card">
+        <div class="pb-card-title">Key Metrics</div>
+        <div class="pb-metric-row"><span class="pb-metric-name">GMV</span><span class="pb-metric-target"><span class="pb-zone green"></span>Growing 20%+ MoM early</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Take Rate</span><span class="pb-metric-target"><span class="pb-zone green"></span>10-25%&nbsp; <span class="pb-zone yellow"></span>5-10%&nbsp; <span class="pb-zone red"></span>&lt;5%</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Liquidity</span><span class="pb-metric-target"><span class="pb-zone green"></span>&gt;60% of listings transact</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Supply/Demand Balance</span><span class="pb-metric-target"><span class="pb-zone green"></span>Both sides growing</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Repeat Rate</span><span class="pb-metric-target"><span class="pb-zone green"></span>&gt;50% monthly</span></div>
+        <div class="pb-examples"><span class="pb-example">Airbnb</span><span class="pb-example">Uber</span><span class="pb-example">Etsy</span><span class="pb-example">Fiverr</span></div>
+      </div>
+      <div class="playbook-card">
+        <div class="pb-card-title">Questions You Must Answer</div>
+        <ul class="pb-questions">
+          <li>Which side do you subsidize first? How do you solve cold start?</li>
+          <li>What prevents buyers and sellers from going off-platform after matching?</li>
+          <li>Is your market fragmented enough that discovery has value?</li>
+          <li>What's your plan when one side has 10x more supply than demand?</li>
+          <li>Can you maintain quality as you scale the supply side?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="playbook-panel" id="pb-content">
+    <div class="playbook-grid">
+      <div class="playbook-card">
+        <div class="pb-card-title">Key Metrics</div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Monthly Uniques</span><span class="pb-metric-target"><span class="pb-zone green"></span>Growing 25%+ MoM</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Engagement Depth</span><span class="pb-metric-target"><span class="pb-zone green"></span>&gt;3 min avg session</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Ad Revenue / 1K views</span><span class="pb-metric-target"><span class="pb-zone green"></span>&gt;$15 RPM&nbsp; <span class="pb-zone yellow"></span>$5-15&nbsp; <span class="pb-zone red"></span>&lt;$5</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Subscriber Conversion</span><span class="pb-metric-target"><span class="pb-zone green"></span>&gt;5% of regular readers</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Content Velocity</span><span class="pb-metric-target"><span class="pb-zone green"></span>Consistent publishing cadence</span></div>
+        <div class="pb-examples"><span class="pb-example">Substack</span><span class="pb-example">The Verge</span><span class="pb-example">Morning Brew</span></div>
+      </div>
+      <div class="playbook-card">
+        <div class="pb-card-title">Questions You Must Answer</div>
+        <ul class="pb-questions">
+          <li>Is your content defensible or will AI replicate it in 6 months?</li>
+          <li>What's your distribution moat? SEO, community, or brand?</li>
+          <li>Can you build a direct audience relationship (email, app) vs. renting from platforms?</li>
+          <li>What's your content-to-revenue ratio? How many pieces per dollar?</li>
+          <li>Will readers pay for premium? What separates free from paid?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="playbook-panel" id="pb-api">
+    <div class="playbook-grid">
+      <div class="playbook-card">
+        <div class="pb-card-title">Key Metrics</div>
+        <div class="pb-metric-row"><span class="pb-metric-name">API Calls / Month</span><span class="pb-metric-target"><span class="pb-zone green"></span>Growing 30%+ MoM</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Pricing Tier Adoption</span><span class="pb-metric-target"><span class="pb-zone green"></span>20%+ on paid tiers</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Developer NPS</span><span class="pb-metric-target"><span class="pb-zone green"></span>&gt;50&nbsp; <span class="pb-zone yellow"></span>20-50&nbsp; <span class="pb-zone red"></span>&lt;20</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Integration Count</span><span class="pb-metric-target"><span class="pb-zone green"></span>Growing weekly</span></div>
+        <div class="pb-metric-row"><span class="pb-metric-name">Time to First Call</span><span class="pb-metric-target"><span class="pb-zone green"></span>&lt;15 min&nbsp; <span class="pb-zone red"></span>&gt;1 hour</span></div>
+        <div class="pb-examples"><span class="pb-example">Stripe</span><span class="pb-example">Twilio</span><span class="pb-example">OpenAI</span><span class="pb-example">Plaid</span></div>
+      </div>
+      <div class="playbook-card">
+        <div class="pb-card-title">Questions You Must Answer</div>
+        <ul class="pb-questions">
+          <li>Can a developer go from signup to first API call in under 15 minutes?</li>
+          <li>What happens when a customer outgrows your pricing? Do they leave or upgrade?</li>
+          <li>Is your API solving a problem developers can't (or won't) build themselves?</li>
+          <li>How painful is it for a customer to switch away? What's the integration depth?</li>
+          <li>Can you maintain 99.9%+ uptime? What's your incident response plan?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT V: AUTOMATED MONITORING -->
+<section id="monitoring" class="reveal">
+  <div class="section-label">Act V &mdash; Mission Control</div>
+  <h2 class="section-title">Eyes on<br><em>every signal.</em></h2>
+  <p class="section-desc">Real-time monitoring that watches the numbers so you can focus on building. Automated alerts when something needs attention.</p>
+
+  <div class="monitor-grid">
+    <div class="monitor-panel">
+      <div class="monitor-title"><span class="monitor-status"></span>Ad Performance &mdash; ROAS</div>
+      <div class="monitor-big" style="color:var(--accent-teal)">3.2x</div>
+      <div class="monitor-sub">Return on ad spend (target: &gt;2x)</div>
+      <div class="channel-bars">
+        <div class="channel-row"><span class="channel-name">Google</span><div class="channel-track"><div class="channel-fill" style="width:78%;background:var(--accent-amber)"></div></div><span class="channel-val" style="color:var(--accent-amber)">4.1x</span></div>
+        <div class="channel-row"><span class="channel-name">Twitter</span><div class="channel-track"><div class="channel-fill" style="width:52%;background:var(--accent-teal)"></div></div><span class="channel-val" style="color:var(--accent-teal)">2.7x</span></div>
+        <div class="channel-row"><span class="channel-name">Reddit</span><div class="channel-track"><div class="channel-fill" style="width:65%;background:var(--accent-violet)"></div></div><span class="channel-val" style="color:var(--accent-violet)">3.4x</span></div>
+        <div class="channel-row"><span class="channel-name">Direct</span><div class="channel-track"><div class="channel-fill" style="width:40%;background:var(--accent-coral)"></div></div><span class="channel-val" style="color:var(--accent-coral)">2.1x</span></div>
+      </div>
+    </div>
+
+    <div class="monitor-panel">
+      <div class="monitor-title"><span class="monitor-status"></span>CPA Trend &mdash; 30 Days</div>
+      <div class="monitor-big" style="color:var(--accent-amber)">$4.20</div>
+      <div class="monitor-sub">Cost per acquisition (down 18% from last month)</div>
+      <div class="sparkline" id="cpaSparkline"></div>
+    </div>
+
+    <div class="monitor-panel">
+      <div class="monitor-title"><span class="monitor-status"></span>Signup Velocity</div>
+      <div class="monitor-big" style="color:var(--accent-coral)">+34</div>
+      <div class="monitor-sub">New signups this week (up 22% WoW)</div>
+      <div class="sparkline" id="signupSparkline"></div>
+    </div>
+
+    <div class="monitor-panel">
+      <div class="monitor-title"><span class="monitor-status"></span>Engagement &mdash; 28 Day</div>
+      <div class="monitor-sub" style="margin-bottom:8px">Daily active engagement heatmap</div>
+      <div class="heatmap-grid" id="heatmapGrid"></div>
+      <div class="heatmap-labels"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+    </div>
+
+    <div class="monitor-panel">
+      <div class="monitor-title"><span class="monitor-status"></span>Retention Curve</div>
+      <div class="monitor-sub" style="margin-bottom:8px">Week-over-week cohort retention</div>
+      <div class="retention-curve" id="retentionCurve"></div>
+      <div style="display:flex;justify-content:space-between;font-size:0.58rem;color:var(--text-muted);margin-top:6px"><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span><span>W8</span></div>
+    </div>
+
+    <div class="monitor-panel">
+      <div class="monitor-title"><span class="monitor-status" style="background:var(--accent-coral)"></span>Competitive Intel</div>
+      <div class="alert-card"><div class="alert-time">2 days ago</div><div class="alert-text"><strong>BuildTogether.io</strong> launched a public beta with similar collaborative building features. They're targeting open-source projects specifically.</div></div>
+      <div class="alert-card" style="border-left-color:var(--accent-amber)"><div class="alert-time">1 week ago</div><div class="alert-text"><strong>Replit</strong> expanded their Bounties program with revenue sharing. Different model but overlapping audience.</div></div>
+      <div class="alert-card" style="border-left-color:var(--accent-violet)"><div class="alert-time">2 weeks ago</div><div class="alert-text"><strong>GitStart</strong> raised a Series A. They focus on outsourced dev but may move toward community models.</div></div>
+    </div>
+
+    <div class="monitor-panel monitor-wide">
+      <div class="monitor-title"><span class="monitor-status" style="background:var(--accent-gold)"></span>Growth Benchmark</div>
+      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:8px">
+        <div class="monitor-big" style="color:var(--accent-gold)">+18%</div>
+        <div class="monitor-sub" style="margin:0">weekly growth rate</div>
+      </div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.7;max-width:700px;margin-bottom:24px">You're growing faster than 78% of projects at this stage. YC's benchmark for "good" is 5-7% weekly; you're well above that. The key question now: is this organic or paid? If mostly paid, focus on retention before scaling spend.</div>
+
+      <div class="decision-framework">
+        <div class="decision-btn persevere">
+          <div class="decision-icon">&#x2705;</div>
+          <div class="decision-label" style="color:var(--accent-teal)">Persevere</div>
+          <div class="decision-desc">Growth + retention + revenue signals are strong. Double down on what's working.</div>
+          <div class="decision-criteria">When: growth &gt;10%/wk AND retention &gt;30% D7 AND revenue growing</div>
+        </div>
+        <div class="decision-btn pivot">
+          <div class="decision-icon">&#x1F504;</div>
+          <div class="decision-label" style="color:var(--accent-amber)">Pivot</div>
+          <div class="decision-desc">Usage is there but monetization isn't. Or a specific segment loves you more than your target.</div>
+          <div class="decision-criteria">When: engagement high BUT revenue flat OR unexpected user segment emerging</div>
+        </div>
+        <div class="decision-btn kill">
+          <div class="decision-icon">&#x1F6D1;</div>
+          <div class="decision-label" style="color:var(--accent-coral)">Sunset</div>
+          <div class="decision-desc">The numbers say no. Low engagement, no retention, no revenue signals after sustained effort.</div>
+          <div class="decision-criteria">When: growth &lt;2%/wk AND D7 retention &lt;10% AND no revenue after 90 days</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENCORE: KNOWLEDGE BASE -->
+<section id="knowledge" class="reveal">
+  <div class="section-label">Encore &mdash; The Library</div>
+  <h2 class="section-title">Learn from those<br><span class="accent">who've been on stage.</span></h2>
+  <p class="section-desc">Playbooks to follow, reference cards to consult, and case studies from scenes that worked (and some that didn't).</p>
+
+  <div class="kb-columns">
+    <div>
+      <div class="kb-column-header">Playbooks</div>
+      <div class="kb-column-sub">Linear learning paths</div>
+
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag beginner">Beginner</span><span class="kb-tag time">12 min</span></div>
+        <div class="kb-card-title">Validating Your Idea</div>
+        <div class="kb-card-desc">How to know if your idea is worth building before writing a line of code.</div>
+        <div class="kb-progress-track"><div class="kb-progress-fill" style="width:100%"></div></div>
+        <div class="kb-card-preview"><div class="kb-preview-text">Start with the Mom Test: never ask "would you use this?" Instead ask about past behavior, current workarounds, and what they've already tried.</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag beginner">Beginner</span><span class="kb-tag time">8 min</span></div>
+        <div class="kb-card-title">Finding Co-founders on CrowdForge</div>
+        <div class="kb-card-desc">The ensemble approach to team formation. Work together first, formalize later.</div>
+        <div class="kb-progress-track"><div class="kb-progress-fill" style="width:65%"></div></div>
+        <div class="kb-card-preview"><div class="kb-preview-text">The best co-founder relationships start with shared work, not shared pitch decks. Post tasks, see who shows up consistently, and let chemistry develop naturally.</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag intermediate">Intermediate</span><span class="kb-tag time">15 min</span></div>
+        <div class="kb-card-title">Your First 100 Users</div>
+        <div class="kb-card-desc">Strategies for finding early adopters who genuinely need what you're building.</div>
+        <div class="kb-progress-track"><div class="kb-progress-fill" style="width:20%"></div></div>
+        <div class="kb-card-preview"><div class="kb-preview-text">Go where your users already complain. Reddit threads, Twitter rants, support forums, Hacker News "Ask HN" posts. These are people actively seeking solutions.</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag intermediate">Intermediate</span><span class="kb-tag time">10 min</span></div>
+        <div class="kb-card-title">Pricing Strategy</div>
+        <div class="kb-card-desc">How to price your product when you have zero data and maximum uncertainty.</div>
+        <div class="kb-progress-track"><div class="kb-progress-fill" style="width:0%"></div></div>
+        <div class="kb-card-preview"><div class="kb-preview-text">Price based on value, not cost. If your product saves someone $1,000/month, charging $50/month is not expensive. Start higher than you think &mdash; you can always lower it.</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag advanced">Advanced</span><span class="kb-tag time">20 min</span></div>
+        <div class="kb-card-title">When to Pivot</div>
+        <div class="kb-card-desc">The metrics, signals, and gut checks that tell you it's time to change direction.</div>
+        <div class="kb-progress-track"><div class="kb-progress-fill" style="width:0%"></div></div>
+        <div class="kb-card-preview"><div class="kb-preview-text">Pivoting isn't failure &mdash; it's learning. The signal: you're pushing uphill despite doing everything right. The anti-signal: you haven't tried hard enough yet.</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="kb-column-header">Reference Cards</div>
+      <div class="kb-column-sub">Quick lookup cheat sheets</div>
+
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag beginner">Beginner</span><span class="kb-tag time">3 min</span></div>
+        <div class="kb-card-title">Lean Canvas Template</div>
+        <div class="kb-card-desc">The 9-box model for mapping your business on a single page.</div>
+        <div class="kb-card-preview"><div class="kb-preview-text">Problem &rarr; Solution &rarr; Key Metrics &rarr; Unique Value Prop &rarr; Unfair Advantage &rarr; Channels &rarr; Customer Segments &rarr; Cost Structure &rarr; Revenue Streams</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag intermediate">Intermediate</span><span class="kb-tag time">5 min</span></div>
+        <div class="kb-card-title">Metrics Cheat Sheet</div>
+        <div class="kb-card-desc">Every metric you need by stage, with healthy ranges and red flags.</div>
+        <div class="kb-card-preview"><div class="kb-preview-text">Pre-launch: interview count, waitlist conversion. Post-launch: DAU/MAU, activation rate, D1/D7/D30 retention. Growth: MRR, churn, LTV/CAC, payback period.</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag beginner">Beginner</span><span class="kb-tag time">4 min</span></div>
+        <div class="kb-card-title">Pitch Deck Structure</div>
+        <div class="kb-card-desc">The 11 slides that tell your story to the ensemble and potential investors.</div>
+        <div class="kb-card-preview"><div class="kb-preview-text">Problem &rarr; Solution &rarr; Market &rarr; Product &rarr; Traction &rarr; Team &rarr; Business Model &rarr; Competition &rarr; Financials &rarr; Ask &rarr; Vision</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag advanced">Advanced</span><span class="kb-tag time">6 min</span></div>
+        <div class="kb-card-title">Legal Checklist</div>
+        <div class="kb-card-desc">Incorporation, IP, contracts, and compliance &mdash; the unglamorous necessities.</div>
+        <div class="kb-card-preview"><div class="kb-preview-text">Delaware C-Corp formation, 83(b) elections, IP assignment agreements, Terms of Service, Privacy Policy, contributor RSAs. Don't skip these.</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag intermediate">Intermediate</span><span class="kb-tag time">4 min</span></div>
+        <div class="kb-card-title">Fundraising Terms</div>
+        <div class="kb-card-desc">SAFEs, priced rounds, dilution, and pro-rata &mdash; decoded for humans.</div>
+        <div class="kb-card-preview"><div class="kb-preview-text">SAFE = Simple Agreement for Future Equity. You get money now, investors get shares later at a discount. No board seats, no valuation headaches. Start here.</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="kb-column-header">Case Studies</div>
+      <div class="kb-column-sub">Stories from the stage</div>
+
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag intermediate">Intermediate</span><span class="kb-tag time">7 min</span></div>
+        <div class="kb-card-title">How TaskFlow Hit $5K MRR</div>
+        <div class="kb-card-desc">From idea pitch to paying customers in 11 weeks with a 7-person ensemble.</div>
+        <div class="kb-card-preview"><div class="kb-preview-text">The key insight: they didn't build a better project manager. They built the simplest possible task tracker for freelancers and charged $9/mo from day one.</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag advanced">Advanced</span><span class="kb-tag time">10 min</span></div>
+        <div class="kb-card-title">The Pivot That Saved DevKit</div>
+        <div class="kb-card-desc">Started as a code snippet manager. Became a developer onboarding platform after user interviews revealed the real pain.</div>
+        <div class="kb-card-preview"><div class="kb-preview-text">Week 6 data showed users weren't saving snippets &mdash; they were sharing them with new hires. The team pivoted to onboarding docs in 48 hours. Revenue tripled.</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag intermediate">Intermediate</span><span class="kb-tag time">6 min</span></div>
+        <div class="kb-card-title">Why PhotoAI Sunset at the Right Time</div>
+        <div class="kb-card-desc">A case study in knowing when to stop. Strong tech, weak market, and the courage to call it.</div>
+        <div class="kb-card-preview"><div class="kb-preview-text">D7 retention: 8%. Growth: flat. The ensemble voted to archive after 90 days. Two contributors took learnings to their next project &mdash; which hit $10K MRR.</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag beginner">Beginner</span><span class="kb-tag time">5 min</span></div>
+        <div class="kb-card-title">NomadDesk: First Revenue in 3 Weeks</div>
+        <div class="kb-card-desc">A coworking space finder that launched with a single city and a Stripe checkout.</div>
+        <div class="kb-card-preview"><div class="kb-preview-text">Lesson: launch with one city, one feature, one payment flow. Scale the playbook after proving it works. NomadDesk's first 50 users all came from one Reddit thread.</div></div>
+      </div>
+      <div class="kb-card">
+        <div class="kb-card-tags"><span class="kb-tag advanced">Advanced</span><span class="kb-tag time">12 min</span></div>
+        <div class="kb-card-title">FinTrack's AI Agent Experiment</div>
+        <div class="kb-card-desc">What happened when 40% of contributions came from AI agents, and how the team balanced human and machine.</div>
+        <div class="kb-card-preview"><div class="kb-preview-text">AI agents handled boilerplate, tests, and docs. Humans handled architecture, UX, and customer calls. The karma split: 35% AI, 65% human &mdash; reflecting validated value.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">&copy; 2026 CrowdForge. The Director's Playbook.</div>
+  <div class="footer-links">
+    <a href="index.html">Main Stage</a>
+    <a href="#">GitHub</a>
+    <a href="#">Discord</a>
+  </div>
+</footer>
+
+<script>
+// ═══════════════ SCORECARD LOGIC ═══════════════
+const weights = { market: 0.35, solution: 0.25, execution: 0.20, team: 0.20 };
+
+function updateScorecard() {
+  const dims = {};
+  document.querySelectorAll('.dimension-card').forEach(card => {
+    const dim = card.dataset.dim;
+    const sliders = card.querySelectorAll('.criteria-slider');
+    let sum = 0;
+    sliders.forEach((s, i) => {
+      const val = parseInt(s.value);
+      card.querySelectorAll('.criteria-value')[i].textContent = val;
+      sum += val;
+    });
+    dims[dim] = (sum / (sliders.length * 5)) * 100;
+  });
+
+  const total = Math.round(
+    dims.market * weights.market +
+    dims.solution * weights.solution +
+    dims.execution * weights.execution +
+    dims.team * weights.team
+  );
+
+  // Update gauge
+  const circumference = 314.16;
+  const offset = circumference - (total / 100) * circumference;
+  const circle = document.getElementById('scoreCircle');
+  circle.style.strokeDashoffset = offset;
+
+  let color, verdict;
+  if (total >= 75) { color = 'var(--accent-teal)'; verdict = 'Strong'; }
+  else if (total >= 50) { color = 'var(--accent-amber)'; verdict = 'Promising'; }
+  else if (total >= 25) { color = 'var(--accent-coral)'; verdict = 'Needs Work'; }
+  else { color = 'var(--accent-coral)'; verdict = 'Rethink'; }
+
+  circle.style.stroke = color;
+  document.getElementById('scoreText').textContent = total;
+  const v = document.getElementById('scoreVerdict');
+  v.textContent = verdict;
+  v.style.color = color;
+
+  // Breakdown bars
+  ['market', 'solution', 'execution', 'team'].forEach(d => {
+    const maxPts = weights[d] * 100;
+    const pts = Math.round(dims[d] * weights[d]);
+    document.getElementById('break' + d.charAt(0).toUpperCase() + d.slice(1)).style.width = (dims[d]) + '%';
+    document.getElementById('break' + d.charAt(0).toUpperCase() + d.slice(1) + 'Val').textContent = pts;
+  });
+
+  // Radar chart
+  updateRadar(dims);
+}
+
+function updateRadar(dims) {
+  const angles = [
+    -Math.PI / 2,
+    -Math.PI / 2 + 2 * Math.PI / 5,
+    -Math.PI / 2 + 4 * Math.PI / 5,
+    -Math.PI / 2 + 6 * Math.PI / 5,
+    -Math.PI / 2 + 8 * Math.PI / 5,
+  ];
+  const values = [
+    dims.market / 100,
+    dims.solution / 100,
+    dims.execution / 100,
+    dims.team / 100,
+    (dims.market + dims.solution) / 200,
+  ];
+  const r = 70;
+  const points = values.map((v, i) => {
+    const x = Math.cos(angles[i]) * r * v;
+    const y = Math.sin(angles[i]) * r * v;
+    return `${x.toFixed(2)},${y.toFixed(2)}`;
+  }).join(' ');
+  document.getElementById('radarShape').setAttribute('points', points);
+}
+
+document.querySelectorAll('.criteria-slider').forEach(s => {
+  s.addEventListener('input', updateScorecard);
+});
+updateScorecard();
+
+// ═══════════════ MILESTONE TOGGLE ═══════════════
+function showMilestone(index) {
+  document.querySelectorAll('.milestone-detail').forEach(d => d.classList.remove('active'));
+  const detail = document.getElementById('ms-detail-' + index);
+  if (detail) detail.classList.add('active');
+}
+
+// ═══════════════ PLAYBOOK TABS ═══════════════
+document.querySelectorAll('.playbook-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.playbook-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.playbook-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('pb-' + tab.dataset.pb).classList.add('active');
+  });
+});
+
+// ═══════════════ MONITORING CHARTS ═══════════════
+function buildSparkline(containerId, data, color) {
+  const container = document.getElementById(containerId);
+  const max = Math.max(...data);
+  data.forEach(val => {
+    const bar = document.createElement('div');
+    bar.className = 'spark-bar';
+    bar.style.height = (val / max * 100) + '%';
+    bar.style.background = color;
+    bar.style.opacity = 0.4 + (val / max) * 0.6;
+    container.appendChild(bar);
+  });
+}
+
+buildSparkline('cpaSparkline',
+  [6.2, 5.8, 5.5, 5.9, 5.1, 4.8, 5.2, 4.9, 4.6, 4.7, 4.5, 4.3, 4.4, 4.1, 4.2, 4.0, 4.3, 4.1, 3.9, 4.2, 4.0, 4.1, 4.3, 4.2, 4.0, 3.8, 4.1, 4.2, 4.0, 4.2],
+  'var(--accent-amber)'
+);
+
+buildSparkline('signupSparkline',
+  [12, 15, 18, 14, 20, 22, 19, 24, 21, 26, 23, 28, 25, 30, 27, 32, 29, 34, 31, 28, 33, 30, 35, 32, 36, 33, 38, 34, 36, 34],
+  'var(--accent-coral)'
+);
+
+// Heatmap
+const heatmapData = [
+  0.2, 0.5, 0.7, 0.8, 0.9, 0.4, 0.3,
+  0.3, 0.6, 0.8, 0.9, 0.7, 0.5, 0.2,
+  0.4, 0.7, 0.6, 0.8, 0.9, 0.6, 0.3,
+  0.5, 0.8, 0.9, 0.7, 0.8, 0.4, 0.2,
+];
+const heatmapGrid = document.getElementById('heatmapGrid');
+heatmapData.forEach(val => {
+  const cell = document.createElement('div');
+  cell.className = 'heatmap-cell';
+  const alpha = 0.1 + val * 0.8;
+  cell.style.background = `rgba(45, 212, 191, ${alpha})`;
+  heatmapGrid.appendChild(cell);
+});
+
+// Retention curve
+const retentionData = [100, 68, 52, 44, 38, 35, 33, 31];
+const retentionCurve = document.getElementById('retentionCurve');
+retentionData.forEach(val => {
+  const bar = document.createElement('div');
+  bar.className = 'retention-bar';
+  bar.style.height = val + '%';
+  bar.style.opacity = 0.3 + (val / 100) * 0.7;
+  retentionCurve.appendChild(bar);
+});
+
+// ═══════════════ SCROLL REVEAL ═══════════════
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+revealElements.forEach(el => revealObserver.observe(el));
+
+// ═══════════════ HEALTH GAUGE ANIMATION ═══════════════
+const healthObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const score = 75;
+      const circumference = 314.16;
+      const offset = circumference - (score / 100) * circumference;
+      document.getElementById('healthCircle').style.strokeDashoffset = offset;
+    }
+  });
+}, { threshold: 0.3 });
+const healthSection = document.getElementById('health');
+if (healthSection) healthObserver.observe(healthSection);
+</script>
+</body>
+</html>

@@ -325,12 +325,12 @@ This is by design — the tier system rewards platform-wide track record, not ju
 | Month | Contributors | Contrib/mo | Revenue | Cum. Karma | E ($/karma) |
 |-------|-------------|------------|---------|------------|-------------|
 | 1 | 5 | 25 | $0 | 878 | $0 |
-| 3 | 15 | 75 | $500 | 4,350 | $0.08 |
-| 6 | 30 | 150 | $5,000 | 12,800 | $0.27 |
-| 9 | 40 | 200 | $12,000 | 22,400 | $0.38 |
-| 12 | 50 | 250 | $20,000 | 33,300 | $0.42 |
-| 18 | 50 | 250 | $30,000 | 55,500 | $0.38 |
-| 24 | 40 | 200 | $35,000 | 72,500 | $0.34 |
+| 3 | 15 | 75 | $500 | 4,350 | $0.11 |
+| 6 | 30 | 150 | $5,000 | 12,800 | $0.39 |
+| 9 | 40 | 200 | $12,000 | 22,400 | $0.54 |
+| 12 | 50 | 250 | $20,000 | 33,300 | $0.60 |
+| 18 | 50 | 250 | $30,000 | 55,500 | $0.54 |
+| 24 | 40 | 200 | $35,000 | 72,500 | $0.48 |
 
 Exchange rate rises during growth, peaks when revenue growth outpaces karma emission, then stabilizes or declines as contributor pool matures. Healthy trajectory — no pathologies.
 
@@ -339,22 +339,22 @@ Exchange rate rises during growth, peaks when revenue growth outpaces karma emis
 | Month | Contributors | Contrib/mo | Revenue | Cum. Karma | E ($/karma) |
 |-------|-------------|------------|---------|------------|-------------|
 | 1 | 3 | 15 | $0 | 527 | $0 |
-| 6 | 8 | 40 | $200 | 3,500 | $0.04 |
-| 12 | 12 | 60 | $1,000 | 8,700 | $0.08 |
-| 18 | 15 | 75 | $2,000 | 15,500 | $0.09 |
-| 24 | 15 | 75 | $3,000 | 22,300 | $0.09 |
+| 6 | 8 | 40 | $200 | 3,500 | $0.06 |
+| 12 | 12 | 60 | $1,000 | 8,700 | $0.11 |
+| 18 | 15 | 75 | $2,000 | 15,500 | $0.13 |
+| 24 | 15 | 75 | $3,000 | 22,300 | $0.13 |
 
-Low per-karma value throughout. Contributors earn modest amounts ($5-50/month at 5% share). Sustainable but not exciting. These projects survive on intrinsic motivation + tier-building incentive.
+Low per-karma value throughout. Contributors earn modest amounts ($7-70/month at 5% share). Sustainable but not exciting. These projects survive on intrinsic motivation + tier-building incentive.
 
 ### 5.3 Archetype: "Plateau" (Quick Start, Levels Off)
 
 | Month | Contributors | Contrib/mo | Revenue | Cum. Karma | E ($/karma) |
 |-------|-------------|------------|---------|------------|-------------|
 | 1 | 20 | 100 | $0 | 3,510 | $0 |
-| 3 | 8 | 40 | $3,000 | 6,900 | $0.30 |
-| 6 | 8 | 40 | $3,000 | 10,500 | $0.20 |
-| 12 | 8 | 40 | $3,000 | 16,300 | $0.13 |
-| 24 | 5 | 25 | $3,000 | 24,300 | $0.09 |
+| 3 | 8 | 40 | $3,000 | 6,900 | $0.43 |
+| 6 | 8 | 40 | $3,000 | 10,500 | $0.29 |
+| 12 | 8 | 40 | $3,000 | 16,300 | $0.18 |
+| 24 | 5 | 25 | $3,000 | 24,300 | $0.12 |
 
 **Pathology detected:** Exchange rate halves from month 3 to month 12. Contributors watch their per-karma value erode with every contribution while revenue stays flat. Rational response: stop contributing and coast on existing karma — which is exactly what happens (contributor count drops). The system self-corrects toward stasis, which is acceptable for a mature product.
 
@@ -362,9 +362,9 @@ Low per-karma value throughout. Contributors earn modest amounts ($5-50/month at
 
 | Month | Contributors | Contrib/mo | Revenue | Cum. Karma | E ($/karma) |
 |-------|-------------|------------|---------|------------|-------------|
-| 1 | 10 | 50 | $500 | 1,755 | $0.20 |
-| 3 | 8 | 40 | $1,000 | 4,700 | $0.15 |
-| 6 | 3 | 15 | $200 | 6,200 | $0.02 |
+| 1 | 10 | 50 | $500 | 1,755 | $0.28 |
+| 3 | 8 | 40 | $1,000 | 4,700 | $0.21 |
+| 6 | 3 | 15 | $200 | 6,200 | $0.03 |
 | 9 | 1 | 5 | $0 | 6,500 | $0 |
 
 **Failure mode:** Revenue cliff. Karma earned in months 1-3 becomes worthless. Contributors who vested feel cheated. But their absolute karma was never "taken away" — it's still there, the revenue behind it dried up. This is equivalent to holding stock in a failing company. The system is honest about this: karma is equity, and equity in a failed project is worth zero.
@@ -375,9 +375,9 @@ No circuit breaker is appropriate here — projects fail, and that's reality.
 
 | Month | Contributors | Contrib/mo | Revenue | Cum. Karma | E ($/karma) |
 |-------|-------------|------------|---------|------------|-------------|
-| 1 | 1 | 10 | $5,000 | 351 | $9.97 |
-| 6 | 1 | 5 | $8,000 | 1,100 | $5.09 |
-| 12 | 1 | 3 | $10,000 | 1,500 | $4.67 |
+| 1 | 1 | 10 | $5,000 | 351 | $14.25 |
+| 6 | 1 | 5 | $8,000 | 1,100 | $7.27 |
+| 12 | 1 | 3 | $10,000 | 1,500 | $6.67 |
 
 **Observation:** With 100% revenue flowing to contributors, the solo contributor keeps everything. This is economically equivalent to freelancing with CrowdForge providing infrastructure and payment processing for free (funded by the platform's separate revenue streams). Ghost projects are not a pathology under this split — they're a valid use case.
 
@@ -400,8 +400,13 @@ salesperson_payout = R_total * salesperson_share
 If the salesperson's sales are the entire revenue (R_s = R_total):
 
 ```
-self_recapture = R_s * (R_s/100) / S_total
-recapture_rate = R_s / (100 * S_total)
+self_recapture = R_total * (R_s/100) / S_total
+recapture_rate = self_recapture / R_s = R_total / (100 * S_total)
+```
+
+When R_s = R_total (salesperson is the sole revenue source):
+```
+recapture_rate = R_total / (100 * S_total)
 ```
 
 **Example:** Salesperson brings $50K, total karma pool is 10,000.
@@ -514,11 +519,11 @@ Exchange rate E(t) = R(t) / S(t)
 
 | Archetype | Month 6 | Month 12 | Month 24 | Trend |
 |-----------|---------|----------|----------|-------|
-| Rocket | $0.27 | $0.42 | $0.34 | Rises then stabilizes |
-| Slow Burn | $0.04 | $0.08 | $0.09 | Slowly rising |
-| Plateau | $0.20 | $0.13 | $0.09 | Declining (fixed revenue, growing karma) |
-| Decline | $0.02 | $0 | $0 | Collapse |
-| Ghost | $5.09 | $4.67 | — | High but declining |
+| Rocket | $0.39 | $0.60 | $0.48 | Rises then stabilizes |
+| Slow Burn | $0.06 | $0.11 | $0.13 | Slowly rising |
+| Plateau | $0.29 | $0.18 | $0.12 | Declining (fixed revenue, growing karma) |
+| Decline | $0.03 | $0 | $0 | Collapse |
+| Ghost | $7.27 | $6.67 | — | High but declining |
 
 ### 8.2 Volatility and Damping
 
@@ -538,8 +543,8 @@ This smooths income by 3x while maintaining responsiveness to real trends. Contr
 
 ### 8.3 Cross-Project Exchange Rate Disparity
 
-Karma in a $50K/month project: E ≈ $0.50/karma
-Karma in a $500/month project: E ≈ $0.05/karma
+Karma in a $50K/month project: E ≈ $0.70/karma
+Karma in a $500/month project: E ≈ $0.07/karma
 
 The tier system uses cumulative cross-project karma. Can someone game this by farming karma on cheap projects for tier advancement, then collecting dividends on expensive projects?
 
@@ -667,17 +672,18 @@ At decay_rate = 0.005, the pioneer bonus persists for nearly a year. At 0.05, it
 
 **The default (0.01) creates a ~3-month meaningful window and a ~12-month residual tail.** This matches the typical lifecycle where early months are highest-risk.
 
-### 10.3 Contributor Pool Percentage
+### 10.3 Platform Cost Sensitivity
 
-| contributor_pool_pct | Payout on $10K revenue | Impact on contributor behavior |
-|---------------------|----------------------|-------------------------------|
-| 60% | $6,000 | Contributors feel shortchanged; retention drops |
-| **70% (default)** | **$7,000** | **Balanced** |
-| 80% | $8,000 | Better for contributors; less for treasury/platform |
+Under the COGS model, the key parameter is the platform's cost efficiency ratio: C(t)/R(t).
 
-At 60%, the 15% platform fee + 15% treasury + 10% "missing" money creates perception that the platform takes too much. At 80%, the project treasury (now 5%) has almost no reinvestment capacity.
+| Cost Efficiency | Effect on $10K Project | Contributor Perception |
+|----------------|----------------------|----------------------|
+| 2% (excellent) | $9,800 distributable | Nearly invisible — contributors barely notice costs |
+| 3% (good) | $9,700 distributable | Acceptable — payment processing is the visible cost |
+| 5% (moderate) | $9,500 distributable | Noticeable but tolerable |
+| 10% (poor) | $9,000 distributable | Contributors question platform value — risk of exodus |
 
-**The default (70%) is the sweet spot.** The 85/15 split in the business model doc (eliminating treasury) is simpler but removes reinvestment capacity. Recommendation: reconcile the docs around 70/15/15.
+The platform should target and maintain <5% cost efficiency. Above 5%, contributors start comparing unfavorably to self-hosting alternatives.
 
 ### 10.4 Tier Multipliers
 
@@ -756,7 +762,7 @@ One project generates 80% of platform revenue. If it leaves, platform revenue dr
 |---|-------------|---------|----------|----------------|-----------------|
 | 1 | **Karma hyperinflation** | 100+ contributors, 20 contributions each/month | Medium | Yes (dilution makes marginal contributions worthless, people leave) | Cap per-project monthly emissions at 20x the rolling 3-month average. Excess contributions queue for next month. |
 | 2 | **Revenue cliff** | Product loses customers | High | No (karma holders trapped) | Explicit notification at >50% revenue drop. Provide "project hibernation" option that freezes karma accounting. |
-| 3 | **Ghost project (solo freelancer)** | 1 contributor, all revenue | Low | N/A (stable) | Waive treasury split for single-contributor projects. Display warning that CrowdForge adds 15% overhead vs. direct freelancing. |
+| 3 | **Ghost project (solo freelancer)** | 1 contributor, all revenue | Low | N/A (stable) | Platform costs (~3%) are the only deduction. Solo projects are valid but don't generate network effects. Gate premium features behind multi-contributor thresholds. |
 | 4 | **Whale contributor rest-and-vest** | Dominant contributor goes dormant | High | Slowly (dilution over months/years) | Contribution velocity floor: 6 months inactivity → gradual payout reduction to 50% of entitled share. |
 | 5 | **Tier inflation** | Absolute thresholds become easy to reach | Medium | No | Ratcheted hybrid thresholds (see Section 3.3). Annual recalibration. |
 | 6 | **Sales karma dominance** | Salesperson captures >50% of karma | Medium | Partially (more builders join if payouts are high) | Per-project governance can adjust sales_karma_rate. Platform sets maximum sales karma at 50% of total project karma — excess sales karma is capped but still counts toward tier. |
@@ -765,7 +771,7 @@ One project generates 80% of platform revenue. If it leaves, platform revenue dr
 | 9 | **Vesting abandonment** | Contributors leave mid-vest, forfeiting karma | Low | N/A | Forfeited karma is burned (removed from total), not redistributed. This prevents gaming via temporary contributors who inflate then deflate the pool. |
 | 10 | **Cross-project tier gaming** | Farm small projects for tier, collect on big projects | Low | N/A (vector is weak per Section 8.3) | No circuit breaker needed. The 2.5x maximum tier multiplier cannot overcome significant project-karma deficits. |
 | 11 | **Payout threshold exclusion** | Small contributors stuck below 0.1% threshold forever | Medium | No (dilution pushes them further below) | Allow karma below threshold to accumulate across payout periods. If 6 months of accumulated share exceeds $25, trigger a lump payout. |
-| 12 | **Split discrepancy confusion** | Docs say 85/15 in one place and 70/15/15 in another | High | No | Reconcile documentation. Adopt 70/15/15 as canonical. |
+| 12 | **Platform cost opacity** | Contributors can't verify platform cost deductions | Medium | No | Publish per-project cost breakdown in contributor dashboards. Make every cost line item auditable. |
 
 ---
 
@@ -786,7 +792,7 @@ Most parameters can remain fixed across 10 to 100,000 contributors. These cannot
 
 | Issue | Doc A | Doc B | Impact | Recommendation |
 |-------|-------|-------|--------|----------------|
-| Revenue split | karma-system: 70/15/15 | business-model: 85/15 | Contributors see different numbers depending on which doc they read | Adopt 70/15/15. Update business model doc. |
+| Revenue split | karma-system: 70/15/15 | business-model: 85/15 | Both are superseded | Adopt COGS model: 100% to contributors minus actual platform costs (~3%). Update both docs. |
 | Vesting schedule | value-pricing: 25% immediate + 90d | fraud-prevention: 30d cliff + 90d | New contributors experience different economics | Adopt Model A (25% immediate + 90d). Provides immediate value. |
 | Pioneer multiplier | karma-system: continuous decay (3.0x→1.0x) | spawn-protection: phase-based (3x/2x/1.5x/1x) | Two competing time-bonus mechanics | Choose one. The phase-based model from spawn-protection is simpler and integrates with project lifecycle. The continuous model from karma-system is mathematically cleaner. Recommend continuous for underlying math, phase gates for UX presentation. |
 | Karma at submission vs. acceptance | karma-system: implied at submission | spawn-protection: explicitly at acceptance only | Determines when karma enters the supply | Adopt "at acceptance" universally. Prevents supply inflation from unreviewed contributions. |
@@ -795,13 +801,13 @@ Most parameters can remain fixed across 10 to 100,000 contributors. These cannot
 
 ## 15. Recommendations Summary
 
-1. **Reconcile the revenue split** to 70/15/15 across all docs.
+1. **Adopt COGS revenue model** — 100% to contributors minus actual platform costs (~3%). No percentage cut. Update all design docs.
 2. **Adopt Model A vesting** (25% immediate + 90-day linear) — balances fraud prevention with newcomer experience.
 3. **Implement ratcheted hybrid tier thresholds** — annual recalibration preserving existing tiers.
 4. **Compress tier multipliers** to [0, 0.7, 1.0, 1.3, 1.7, 2.2] — reduces distortion while preserving aspiration.
 5. **Add rolling 3-month payout averaging** — smooths exchange rate volatility.
 6. **Cap sales karma** at 50% of total project karma — prevents sales-dominated distortions.
 7. **Implement contribution velocity floor** — 6 months inactivity triggers gradual payout reduction to 50%.
-8. **Waive project treasury** for single-contributor projects — prevents penalizing solo work.
-9. **Burn forfeited (unvested) karma** rather than leaving it in the pool — prevents dead-karma supply inflation.
-10. **Add 1-upvote gate** on pioneer multiplier — prevents 3x rewards on trivial unvalidated contributions.
+8. **Burn forfeited (unvested) karma** rather than leaving it in the pool — prevents dead-karma supply inflation.
+9. **Add 1-upvote gate** on pioneer multiplier — prevents 3x rewards on trivial unvalidated contributions.
+10. **Publish per-project cost breakdowns** in contributor dashboards — platform cost transparency builds trust.
