@@ -26,18 +26,19 @@ Each Scene (project) is a campfire. Contributors swarm around it. The artifact i
 
 This is why the platform emphasizes live prototypes over documents, canvases over backlogs, and ensemble sculpting over assigned tickets.
 
-## 4. Zero-commission, donation-backed
+## 4. Zero-commission — the founder doesn't want to make money from this
 
-100% of project revenue goes to contributors. The platform takes zero cut.
+100% of project revenue goes to contributors. The platform takes zero cut. The founder's explicit commitment: CrowdForge exists to serve creators, not to generate profit. The only revenue the platform seeks is enough to cover server and infrastructure costs.
 
-The platform covers operational costs through voluntary donations from the community. Donations are karma-linked (higher-karma members see donation prompts, get recognition for donating) but never required. Think Wikipedia's donation model applied to a creative platform.
+The platform covers operational costs through voluntary donations from the community, infrastructure hosting fees (direct cost pass-through), and optional Pro subscriptions. Donations are karma-linked (higher-karma members see donation prompts, get recognition for donating) but never required. Think Wikipedia's donation model applied to a creative platform.
 
 Critical constraints:
 - The platform does NOT earn karma.
 - The platform does NOT take a percentage.
 - The platform does NOT insert itself into the revenue chain.
+- The founder does NOT personally profit from contributor work.
 
-Contributors built it. Contributors earn from it. The platform is infrastructure, not a landlord.
+Contributors built it. Contributors earn from it. The platform is infrastructure, not a landlord. This isn't a business decision — it's a values decision. A platform that profits from creative labor will always face the tension between extracting value and serving creators. By removing profit motive entirely, that tension disappears.
 
 ## 5. Not free labor
 
