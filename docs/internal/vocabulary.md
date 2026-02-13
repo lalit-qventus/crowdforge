@@ -48,8 +48,23 @@ These terms are used in internal docs and code comments but must never appear in
 
 - **Founder's Circle** — permanently retired. The tier is called **Inner Circle**.
 
-## Usage Notes
+## Where Vocabulary Applies
 
-When writing user-facing copy, use the vocabulary naturally. "Start a Scene" not "Create a project." "Drop a Riff" not "Submit a contribution." "Join the Ensemble" not "Join the team."
+### Inside the platform (use vocabulary)
+Once someone is logged in and using CrowdForge, use the vocabulary naturally. "Start a Scene" not "Create a project." "Drop a Riff" not "Submit a contribution." "Join the Ensemble" not "Join the team."
 
 The vocabulary should feel like slang that a community invented, not terminology that a product team imposed. If it sounds like a glossary entry, rewrite it until it sounds like something someone would actually say.
+
+### Landing page and marketing (use plain English)
+First-time visitors have zero context. "Riff," "Scene," "Ensemble," "Stage" mean nothing to them. The landing page SHOWS what happens (through the demo/chain) and EXPLAINS it in everyday language. Visitors earn the vocabulary by using the product — the landing page doesn't teach it.
+
+**Landing page rules:**
+- Never use "Riff" — say "contribution," "idea," or just show it happening
+- Never use "Scene" — say "project" or "idea" or describe what's being built
+- Never use "Ensemble" — say "strangers," "builders," "people"
+- Never use "Stage" — just show the platform
+- "Karma" is OK — it's widely understood from Reddit/gaming culture
+- "Yes, and..." is OK — it's the core concept and is self-explanatory in context
+
+### Internal docs and code (use vocabulary freely)
+All internal documents, code comments, variable names, and team communication use the full vocabulary without restriction.

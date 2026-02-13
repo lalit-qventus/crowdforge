@@ -31,10 +31,11 @@ Approved messaging for all channels. Pull from this document — don't improvise
 ## Hero Messages
 
 ### Primary Hero (Landing Page)
-> Every great thing starts with
-> **"Yes, and..."**
+> Strangers build startups together.
 
-Sub: Someone pitches an idea. Others build on it. The ensemble riffs together in the open, ships something real, and shares the upside through karma. No scripts. No permission. Just "Yes, and..."
+Sub: Someone shares an idea. Others add to it — design, code, marketing, names. It gets built, deployed, and when it earns money, everyone who helped shares the revenue.
+
+NOTE: The landing page uses plain English only. No "riff," "scene," "ensemble," or "stage." See docs/internal/vocabulary.md for the decoupling rules.
 
 ### Technical Hero (Developer Audience)
 > Stop vibe-coding alone.
