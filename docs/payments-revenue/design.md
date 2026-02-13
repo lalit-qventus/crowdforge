@@ -519,8 +519,8 @@ Every financial event is recorded in an append-only audit log:
 | `payout.disbursed` | contributor_id, amount, method, transfer_id |
 | `holdback.released` | contributor_id, amount, original_payout_id |
 | `holdback.clawed_back` | contributor_id, amount, reason, original_payout_id |
-| `treasury.spent` | project_id, amount, purpose, approved_by (governance vote ID) |
-| `split.changed` | project_id, old_split, new_split, governance_vote_id |
+| `reinvestment.spent` | project_id, amount, purpose, approved_by (governance vote ID) |
+| `distribution.changed` | project_id, old_config, new_config, governance_vote_id |
 
 The audit log is publicly queryable (read-only) by any project contributor. Platform-wide aggregate data (total payouts, total revenue) is public on the transparency dashboard.
 
@@ -630,20 +630,17 @@ CREATE TABLE tax_forms (
     created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- Project revenue split configuration
-CREATE TABLE project_splits (
+-- Project revenue distribution configuration
+-- 100% of revenue flows to karma-weighted contributors (platform earns karma as a contributor)
+CREATE TABLE project_distribution (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     project_id          UUID NOT NULL REFERENCES projects(id),
-    contributor_pool_pct NUMERIC(5,4) NOT NULL DEFAULT 0.7000,
-    platform_fee_pct    NUMERIC(5,4) NOT NULL DEFAULT 0.1500,
-    treasury_pct        NUMERIC(5,4) NOT NULL DEFAULT 0.1500,
+    contributor_pool_pct NUMERIC(5,4) NOT NULL DEFAULT 1.0000,
     governance_vote_id  UUID, -- null for default, references governance vote that changed it
     effective_from      TIMESTAMPTZ NOT NULL DEFAULT now(),
     created_at          TIMESTAMPTZ NOT NULL DEFAULT now(),
-    CONSTRAINT valid_split CHECK (
-        contributor_pool_pct + platform_fee_pct + treasury_pct = 1.0000
-        AND contributor_pool_pct BETWEEN 0.6000 AND 0.8000
-        AND platform_fee_pct = 0.1500
+    CONSTRAINT valid_distribution CHECK (
+        contributor_pool_pct = 1.0000
     )
 );
 
@@ -652,7 +649,7 @@ CREATE TABLE payment_audit_log (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     event_type  TEXT NOT NULL,
     actor_id    UUID, -- null for system events
-    entity_type TEXT NOT NULL, -- 'project', 'contributor', 'payout', 'holdback', 'treasury'
+    entity_type TEXT NOT NULL, -- 'project', 'contributor', 'payout', 'holdback', 'reinvestment'
     entity_id   UUID NOT NULL,
     payload     JSONB NOT NULL,
     created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -710,8 +707,8 @@ Tax Compliance Service (forms + reporting)
 POST   /api/projects/:id/stripe/connect     -- Provision Connected Account
 GET    /api/projects/:id/revenue             -- Revenue dashboard data
 GET    /api/projects/:id/revenue/ledger      -- Raw revenue events (paginated)
-GET    /api/projects/:id/split               -- Current revenue split config
-PUT    /api/projects/:id/split               -- Update split (requires governance vote)
+GET    /api/projects/:id/distribution         -- Current revenue distribution config
+PUT    /api/projects/:id/reinvestment        -- Update reinvestment config (requires governance vote)
 
 GET    /api/contributors/me/earnings         -- Personal earnings dashboard
 GET    /api/contributors/me/payouts          -- Payout history with breakdowns
@@ -742,7 +739,7 @@ GET    /api/audit/payments                   -- Query audit log (contributor-sco
 | `w8ben_expiry_check` | Monthly, 1st | Flags W-8BEN forms expiring within 90 days |
 | `revenue_reconciler` | Daily, 02:00 UTC | Reconciles revenue ledger against Stripe balance reports |
 | `weekly_payout_calculator` | Monday 00:00 UTC | Computes weekly payouts for Pro plan contributors |
-| `treasury_report` | Quarterly | Generates treasury spending reports for projects >$10K/month |
+| `reinvestment_report` | Quarterly | Generates reinvestment spending reports for projects >$10K/month |
 | `stripe_fee_reconciler` | Monthly | Verifies platform's Stripe fee absorption against actual fees |
 
 ---
@@ -759,7 +756,7 @@ Vested karma continues to generate payouts as long as the project earns revenue.
 
 ### Project Revenue Drops to Zero
 
-Payouts cease. Accumulated karma remains. If revenue resumes, payouts resume using the same karma distribution. The treasury balance (if any) remains available under governance control.
+Payouts cease. Accumulated karma remains. If revenue resumes, payouts resume using the same karma distribution.
 
 ### Stripe Account Suspension
 
@@ -830,7 +827,7 @@ Expansion to additional countries follows legal review of local contractor payme
 - Wise international transfers
 - W-8BEN collection + non-US contributor support
 - Weekly payout option (Pro plan)
-- Project treasury management
+- Project reinvestment governance
 - Tax form expiry tracking
 
 ### Phase 3: Scale & Compliance (Month 6-12)
@@ -838,7 +835,7 @@ Expansion to additional countries follows legal review of local contractor payme
 - 1099-NEC auto-generation and e-filing
 - VAT/GST collection on platform fees (Stripe Tax integration)
 - Revenue reconciliation automation
-- Configurable project splits with governance voting
+- Governance-based reinvestment configuration
 - Multi-currency revenue normalization improvements
 - Payout retry automation
 - Treasury governance for high-revenue projects

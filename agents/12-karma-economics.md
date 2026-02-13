@@ -76,12 +76,12 @@ Model:
 
 ### 7. Platform-Level Economics
 
-The platform takes 15% of gross project revenue. Projects pay 70% to contributors, 15% to platform, 15% to project treasury.
+100% of project revenue flows to karma-weighted contributors. The platform earns its share by participating as a contributor — earning karma for hosting, tooling, deployment, CI/CD, payment processing, and karma computation. There is no platform fee, no commission, and no separate treasury allocation.
 
 Model:
-- **Platform revenue as a function of project count, average revenue, and contributor count.** Build the financial model.
-- **Break-even sensitivity.** The current estimate is ~2,300 revenue-generating projects. How sensitive is this to average project revenue, contributor count, and infrastructure costs?
-- **The project treasury.** 15% of revenue stays in the project. How should this be governed? What happens when the treasury grows large?
+- **Platform karma share as a function of infrastructure contributions.** How much karma does the platform earn per project, and how does this scale with project complexity?
+- **Platform revenue model.** Karma-based revenue share + infrastructure tier fees + Pro subscriptions. Build the financial model.
+- **Break-even sensitivity.** How sensitive is platform sustainability to average project revenue, platform karma share, and infrastructure tier adoption?
 
 ### 8. Edge Cases and Failure Modes
 

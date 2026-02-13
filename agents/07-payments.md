@@ -8,7 +8,7 @@ Build CrowdForge's payment infrastructure — the system that collects revenue f
 ### Revenue Collection
 - Stripe integration for project monetization (subscriptions, one-time payments, invoicing)
 - Each project gets its own Stripe Connected Account (or sub-merchant)
-- Revenue tracking dashboard per project (real-time GMV, net revenue, platform cut)
+- Revenue tracking dashboard per project (real-time GMV, net revenue, karma-weighted distribution)
 
 ### Payout Distribution
 - Monthly payout cycle (15th of each month for previous month's earnings)
@@ -31,10 +31,9 @@ Build CrowdForge's payment infrastructure — the system that collects revenue f
 - VAT/GST on platform fees (subscriptions, infrastructure) based on contributor country
 
 ### Revenue Split
-- 70% contributor pool (distributed by karma)
-- 15% platform fee
-- 15% project treasury (governed by project contributors)
-- Configurable per-project within 60-80% contributor share bounds
+- 100% of project revenue flows to karma-weighted contributors
+- Zero platform commission — the platform earns its share through karma (it's a contributor too, earning karma for hosting, tooling, and infrastructure)
+- No separate treasury allocation
 
 ### Legal
 - Revenue Sharing Agreement (RSA) template — signed by every contributor joining a project

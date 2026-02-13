@@ -558,7 +558,7 @@ X's weighted karma: 200. Y's weighted karma: 4,500. Y dominates 22.5:1.
 
 ---
 
-## 9. Platform Cost Economics (COGS Model)
+## 9. Platform Cost Economics (Platform-as-Contributor Model)
 
 The platform earns its share through karma, not through a fee or commission. CrowdForge is a contributor to every project — it earns karma for hosting, tooling, deployment, CI/CD, payment processing, and karma computation. Platform operational costs are reflected in the karma the platform earns for providing these infrastructure contributions.
 
