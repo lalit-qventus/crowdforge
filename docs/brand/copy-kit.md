@@ -34,7 +34,7 @@ Approved messaging for all channels. Pull from this document — don't improvise
 > Every great thing starts with
 > **"Yes, and..."**
 
-Sub: Someone pitches an idea. Others build on it. The ensemble riffs together, ships something real, and splits the revenue through karma. No scripts. No permission. Just "Yes, and..."
+Sub: Someone pitches an idea. Others build on it. The ensemble riffs together in the open, ships something real, and shares the upside through karma. No scripts. No permission. Just "Yes, and..."
 
 ### Technical Hero (Developer Audience)
 > Stop vibe-coding alone.
@@ -46,7 +46,7 @@ Sub: Claim tasks on real projects. Ship code alongside the ensemble. Earn karma 
 > On freelance platforms, you sell your time.
 > **On CrowdForge, you earn ownership.**
 
-Sub: Every merged PR, every closed deal, every design review earns karma. Karma determines your share of revenue. Not a bounty. Not a gig. Ongoing income from things you helped build.
+Sub: Every merged PR, every closed deal, every design review earns karma. Karma determines your share — and every calculation is transparent. Not a bounty. Not a gig. Ongoing income from things you helped build.
 
 ### Spectacle Hero (Viral/Social)
 > Pull up a chair.
@@ -59,20 +59,20 @@ Sub: Code, decisions, deploys — all happening live on the forge stream. The en
 ## Elevator Pitches
 
 ### One-line (10 seconds)
-CrowdForge is an improv stage where anyone walks on, the ensemble builds something real, and revenue is shared through karma.
+CrowdForge is an improv stage where anyone walks on, the ensemble creates something real together, and the upside is shared through karma.
 
 ### Three-line (30 seconds)
-Anyone can pitch an idea on CrowdForge. The community votes, an ensemble forms, and builders start shipping together. Every contribution earns karma, and karma determines your share of revenue. No hiring. No equity negotiations. Just walk on stage and build.
+Anyone can pitch an idea on CrowdForge — a startup, a manga, a cookbook, a game, anything. The community votes, an ensemble forms, and creators start shipping together. Every contribution earns karma, and karma determines your share. No hiring. No equity negotiations. Just walk on stage and create.
 
 ### Paragraph (60 seconds)
-Pitch an idea on CrowdForge. The community votes in 72 hours. If it resonates, an ensemble self-assembles to build, ship, and monetize it. A karma system tracks every contribution — code, design, growth, bug reports — and revenue flows proportionally. Early contributors earn a pioneer multiplier. Spectators watch live. The audience becomes the builders. This is how things get made now. Everyone builds. Everything ships.
+Pitch an idea on CrowdForge. The community votes. If it resonates, an ensemble self-assembles to build, ship, and monetize it. A karma system tracks every contribution — code, design, growth, bug reports — and the upside is shared proportionally. Every formula is public. Every calculation is auditable. Early contributors earn a pioneer multiplier. Spectators watch live. The audience becomes the builders. This is how things get made now. Everyone builds. Everything ships.
 
 ---
 
 ## Section Headlines
 
 ### How It Works
-> From "what if..." to revenue in five acts.
+> From "what if..." to shipped in five acts.
 
 ### Karma
 > Your standing in the ensemble.
@@ -96,26 +96,27 @@ Pitch an idea on CrowdForge. The community votes in 72 hours. If it resonates, a
 ## Value Propositions by Audience
 
 ### For Developers
-- Earn ongoing revenue share, not one-time bounties
 - Ship real production code alongside an ensemble that catches what you miss
 - Your karma is a portable, public reputation — proof of what you've built
-- Pioneer multiplier: join early scenes for 3x karma weight
+- Every calculation is transparent — trace any number to its source
+
+### For Creators (Writers, Artists, Designers)
+- Write chapters, illustrate panels, design interfaces — all earn karma
+- Same system as engineers. Every creative contribution is valued and tracked.
+- Build a manga with strangers. Co-author a cookbook. Create a game world together.
 
 ### For Non-Technical Contributors
-- Growth, marketing, design, sales — all earn karma
-- Same revenue share mechanism as engineers
-- Close a deal? That's +240 karma. Write copy that converts? Karma.
-- You're a co-builder, not a contractor
+- Growth, marketing, sales — all earn karma
+- Close a deal? That's karma. Write copy that converts? Karma.
+- You're a co-creator, not a contractor
 
 ### For Idea People
-- Pitch your idea. The community decides in 72 hours.
+- Pitch your idea. The community decides.
 - If it resonates, you get a distributed team instantly — no hiring
-- Your scene founder karma compounds as the project grows
-- No equity dilution. Karma tracks contribution naturally.
+- Your founder karma compounds as the project grows
 
 ### For Spectators
-- Watch real scenes being built live, cinema-mode
-- See code appear, tasks move, revenue flow in real-time
+- Watch real projects being created live
 - When you're ready, walk on stage yourself
 - First contribution is intentionally low-barrier
 
@@ -125,14 +126,15 @@ Pitch an idea on CrowdForge. The community votes in 72 hours. If it resonates, a
 
 ### Karma System
 - "Earned on stage, never bought."
-- "Higher standing, higher dividends."
+- "Every number, explained. Every formula, public."
 - "Only humans applaud." (the ensemble validates, always)
 - "Your karma is your portable proof of contribution."
+- "No black boxes. Trace any number back to its source."
 
 ### Revenue Sharing
-- "70% to the ensemble. 15% to the platform. 15% to the project treasury."
+- "100% to the ensemble. Zero commission. The platform earns karma too."
 - "Not a bounty. Not a salary. Ongoing ownership."
-- "The platform profits when contributors profit."
+- "Everyone shares, including the platform — through karma, not commission."
 
 ### Pioneer Multiplier
 - "First on stage, higher reward."
@@ -175,7 +177,7 @@ The shareable "payout card" is the nuclear weapon of organic growth. Each card i
 > Show HN: [X] builders shipped a [product type] on CrowdForge — from pitch to revenue in [Y] days
 
 Examples:
-- Show HN: 47 builders shipped a SaaS product on CrowdForge — from pitch to revenue in 3 weeks
+- Show HN: 47 creators shipped a product on CrowdForge — from pitch to live in 3 weeks
 - Show HN: CrowdForge — an improv stage where anyone walks on and the ensemble ships
 - Show HN: I earned $347 last month from code I contributed to a CrowdForge scene
 
@@ -183,10 +185,10 @@ Examples:
 
 ## Newsletter / Email Subject Lines
 
-- What the swarm built this week
-- Scene #7 hit $10K MRR. Here's how.
-- Your first 48 hours on CrowdForge (a guide)
-- This bug report earned someone $89
+- What the ensemble created this week
+- Scene #7 just went live. Here's how.
+- Your first days on CrowdForge (a guide)
+- One bug report. One stranger. Karma earned.
 - The pioneer multiplier is decaying. Clock's ticking.
 - The ensemble shipped again. Here's what went live.
 

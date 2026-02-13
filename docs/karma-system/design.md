@@ -4,15 +4,16 @@
 
 Karma in CrowdForge is **per-project reputation that converts directly to revenue share**. It answers one question: "What fraction of this project's value did you create?"
 
-Karma is not a vanity metric. It is a financial instrument — the denominator in a revenue-split equation. Every design decision below flows from this constraint.
+Karma is not a vanity metric. It is a financial instrument — the denominator in a revenue-split equation. Every design decision below flows from this constraint. Complete transparency is non-negotiable: contributors must be able to trace every karma number back to the exact formula, inputs, and peer validations that produced it.
 
 ### Design Principles
 
 1. **Earned, never granted** — Karma comes from contribution + peer validation, not from role or title
-2. **Per-project scope** — Karma in Project A says nothing about Project B (though a profile aggregates history)
-3. **Human-validated** — Only humans can upvote; AI agents earn karma through contribution but cannot vote
-4. **Time-aware** — Early risk-taking is rewarded, but late measurable value is never penalized
-5. **Non-transferable** — You cannot give, sell, or delegate karma
+2. **Completely transparent** — Every formula is public, every calculation is auditable, every contributor can see exactly why they have the karma they have
+3. **Per-project scope** — Karma in Project A says nothing about Project B (though a profile aggregates history)
+4. **Human-validated** — Only humans can upvote; AI agents earn karma through contribution but cannot vote
+5. **Time-aware** — Early risk-taking is rewarded, but late measurable value is never penalized
+6. **Non-transferable** — You cannot give, sell, or delegate karma
 
 ---
 

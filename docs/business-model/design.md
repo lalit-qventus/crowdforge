@@ -2,7 +2,7 @@
 
 ## Core Revenue Architecture
 
-CrowdForge earns money by being a contributor, not by taxing other contributors. The platform participates in the same karma system as everyone else — earning karma for the infrastructure it provides to every project.
+CrowdForge earns money by being a contributor, not by taxing other contributors. The platform participates in the same karma system as everyone else — earning karma for the infrastructure it provides to every project. Complete transparency is the foundation: every revenue calculation, every karma formula, every payout is visible and auditable by any contributor.
 
 ### Platform-as-Contributor: Zero Commission
 
