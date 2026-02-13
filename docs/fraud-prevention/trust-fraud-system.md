@@ -2,7 +2,7 @@
 
 The integrated defense infrastructure for CrowdForge. This document synthesizes the fraud prevention layers, spawn-kill protection mechanisms, and governance principles from Wikipedia/Ostrom research into a single operational system.
 
-Companion documents: [`design.md`](./design.md) (fraud layer details), [`../05-spawn-protection/design.md`](../05-spawn-protection/design.md) (spawn mechanics), [`../09-wikipedia-research/analysis.md`](../09-wikipedia-research/analysis.md) (governance research).
+Companion documents: [`design.md`](./design.md) (fraud layer details), [`../spawn-protection/design.md`](../spawn-protection/design.md) (spawn mechanics), [`../research/wikipedia.md`](../research/wikipedia.md) (governance research).
 
 ---
 

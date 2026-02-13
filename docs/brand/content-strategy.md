@@ -7,9 +7,9 @@ How CrowdForge creates attention, converts spectators, and builds a community th
 ## Content Pillars
 
 ### 1. Live Build Streams
-"Watch a startup being built by strangers in real-time."
+"Watch something real being built — live, in the open."
 
-The forge stream is CrowdForge's native content format. Real-time code, task movement, karma flowing, deals closing — all visible. This is Twitch Plays Pokemon for startups.
+The forge stream is CrowdForge's native content format. Real-time code, task movement, karma flowing, deals closing — all visible. This is Twitch Plays Pokemon for building real things.
 
 **Formats:**
 - Forge stream embed on landing page (always-on)
@@ -104,7 +104,7 @@ User-generated content is the scaling engine. Payout cards, build stories, scene
 - Must be a real, working product — no vaporware
 - Lead with mechanism: karma formula, revenue split math, anti-gaming measures
 - Address skepticism directly in comments
-- Best format: "Show HN: [X] strangers and [Y] AI agents built [thing] on CrowdForge"
+- Best format: "Show HN: [X] builders shipped [thing] on CrowdForge — pitch to revenue in [Y] days"
 
 **Product Hunt**
 - Launch Tuesday–Thursday, 8–9am PT
@@ -153,7 +153,7 @@ User-generated content is the scaling engine. Payout cards, build stories, scene
 **Podcasts**
 - 3–5 appearances in months 1–2
 - Targets: Indie Hackers, My First Million, Lenny's Podcast, Software Engineering Daily
-- Pitch angle: "strangers building startups together with AI agents and sharing revenue"
+- Pitch angle: "an improv stage where anyone walks on and the ensemble builds, ships, and shares the revenue"
 
 ---
 
@@ -166,7 +166,7 @@ The atomic unit of organic growth. A shareable social card showing:
 - Contribution summary
 - CrowdForge branding
 
-**Why it works:** Combines gig economy income-announcement dopamine ("I made $X") with builder pride ("I built this") and social proof ("with strangers"). Three psychological triggers in one shareable asset.
+**Why it works:** Combines builder pride ("I built this") with proof the model works ("real revenue") and invitation ("you could do this too"). Three psychological triggers in one shareable asset.
 
 **Amplification:** Founder quote-tweets every payout card. Community celebrates in Discord. Newsletter features top earners weekly.
 
@@ -188,10 +188,10 @@ The atomic unit of organic growth. A shareable social card showing:
 ## Content Production Principles
 
 1. **Authenticity over polish.** A terminal screenshot with real data beats a designed graphic with placeholder numbers.
-2. **Specificity over aspiration.** "$347 from 3 functions and 2 PRs" beats "earn money building startups."
+2. **Specificity over aspiration.** "$347 from 3 functions and 2 PRs" beats "earn money building things."
 3. **Contributor voice over brand voice.** Reshare their words. Amplify their stories. The community is the content engine.
 4. **Failure is content.** Scenes that didn't work are as valuable as successes. Post-mortems build trust.
-5. **Never claim AI credit.** The brand is human-first. AI agents are teammates, not the product's identity.
+5. **Never claim AI credit.** The brand is human-first — always.
 
 ---
 
@@ -205,7 +205,7 @@ This is the north star activation metric. All onboarding, content, and community
 
 ## Knowledge Base Content
 
-CrowdForge should feel like it was built by experienced startup operators. The knowledge base serves both contributors and scene founders.
+CrowdForge should feel like it was built by people who've done this before. The knowledge base serves both contributors and scene founders.
 
 ### Embedded Frameworks
 - **Lean Canvas:** Auto-generated for every new scene
@@ -216,6 +216,6 @@ CrowdForge should feel like it was built by experienced startup operators. The k
 ### Voice for Guides
 Authoritative but not prescriptive. Like Paul Graham advising a friend, not a textbook lecturing a student.
 
-- "Most successful startups do X. Here's why."
+- "The best scenes do X. Here's why."
 - "Here's the framework. Adapt it to your scene."
 - "This is what the data says. Make your own call."

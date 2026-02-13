@@ -38,17 +38,17 @@ Define and execute CrowdForge's brand identity, content strategy, and marketing 
 4. **Community content** — contributor spotlights, payout stories, project showcases
 
 ### Knowledge Base
-- Startup frameworks and templates (see `12-startup-frameworks/analysis.md`)
+- Startup frameworks and templates (see `../docs/research/startup-frameworks.md`)
 - The platform should feel like it was built by experienced startup operators
 - Structured guides: Lean Canvas, idea evaluation scorecards, go-to-market playbooks
 - Voice: authoritative but not prescriptive. Like Paul Graham essays, not textbooks.
 
 ## Reference Docs
-- `11-branding-competitors/analysis.md` — competitive landscape, positioning, name analysis
-- `13-go-to-market/strategy.md` — channel strategy, content cadence, launch playbook
-- `12-startup-frameworks/analysis.md` — startup knowledge templates
-- `08-stackoverflow-research/analysis.md` — community culture lessons
-- `09-wikipedia-research/analysis.md` — intrinsic motivation, "crowding out" effect
+- `../docs/brand/analysis.md` — competitive landscape, positioning, name analysis
+- `../docs/go-to-market/strategy.md` — channel strategy, content cadence, launch playbook
+- `../docs/research/startup-frameworks.md` — startup knowledge templates
+- `../docs/research/stackoverflow.md` — community culture lessons
+- `../docs/research/wikipedia.md` — intrinsic motivation, "crowding out" effect
 
 ## Constraints
 - Never say "DAO" or use crypto/blockchain language

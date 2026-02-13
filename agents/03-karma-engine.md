@@ -42,7 +42,7 @@ Karma is NOT a direct cash conversion. It determines your dividend tier:
 | Builder | 1.0x |
 | Architect | 1.5x |
 | Master | 2.0x |
-| Founder's Circle | 2.5x |
+| Inner Circle | 2.5x |
 
 Effective revenue share = `(contributor_karma * tier_multiplier) / sum(all_contributor_karma * their_tier_multipliers)`
 
@@ -66,9 +66,9 @@ Reverted contributions lose 120% of earned karma. Net negative.
 6. Audit trail — every karma event traceable to its source contribution and formula inputs
 
 ## Reference Docs
-- `02-karma-system/design.md` — complete design with worked examples
-- `10-value-pricing/analysis.md` — tier system rationale, behavioral economics
-- `05-spawn-protection/design.md` — milestone-gated multiplier details
+- `../docs/karma-system/design.md` — complete design with worked examples
+- `../docs/value-pricing/analysis.md` — tier system rationale, behavioral economics
+- `../docs/spawn-protection/design.md` — milestone-gated multiplier details
 
 ## Constraints
 - Deterministic: same inputs must produce same outputs, always

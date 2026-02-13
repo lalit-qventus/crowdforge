@@ -41,9 +41,9 @@ Contributors who improve CrowdForge itself do NOT earn karma-to-revenue. Instead
 - Graduated sanctions (warning → restriction → suspension → ban)
 
 ## Reference Docs
-- `09-wikipedia-research/analysis.md` — governance hierarchy, admin elections, Ostrom's 8 principles for governing commons
-- `03-fraud-prevention/design.md` — graduated trust, insider defense
-- `08-stackoverflow-research/analysis.md` — how reputation aristocracy killed the community
+- `../docs/research/wikipedia.md` — governance hierarchy, admin elections, Ostrom's 8 principles for governing commons
+- `../docs/fraud-prevention/design.md` — graduated trust, insider defense
+- `../docs/research/stackoverflow.md` — how reputation aristocracy killed the community
 
 ## The Anti-Aristocracy Principle
 Stack Overflow died because high-rep users weaponized moderation to gatekeep newcomers. CrowdForge must prevent this:

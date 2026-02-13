@@ -40,7 +40,7 @@ Model:
 
 ### 3. The Tier System as Monetary Policy
 
-The 6-tier system (Observer → Founder's Circle) acts as a monetary policy layer. Tier multipliers (0x, 0.5x, 1.0x, 1.5x, 2.0x, 2.5x) change the effective purchasing power of karma.
+The 6-tier system (Observer → Inner Circle) acts as a monetary policy layer. Tier multipliers (0x, 0.5x, 1.0x, 1.5x, 2.0x, 2.5x) change the effective purchasing power of karma.
 
 Model:
 - **Tier distribution over time.** As the platform grows, what percentage of contributors land in each tier? Does the distribution converge on something healthy (pyramid) or pathological (everyone at Tier 1, or everyone at Tier 4)?
@@ -93,11 +93,11 @@ Model these scenarios explicitly:
 - **The plateau problem:** A mature project with stable revenue and no new contributions. Karma supply is frozen, shares are fixed. Is this healthy or stagnant?
 
 ## Reference Docs
-- `02-karma-system/design.md` — base karma formulas, pioneer multiplier, upvote scaling, worked example
-- `10-value-pricing/analysis.md` — tier system rationale, crowding-out effect, behavioral economics foundation
-- `04-business-model/design.md` — revenue flow, unit economics, break-even analysis
-- `05-spawn-protection/design.md` — vesting, cliff periods, anti-gaming mechanisms
-- `03-fraud-prevention/design.md` — economic deterrence layer, cost-of-attack analysis
+- `../docs/karma-system/design.md` — base karma formulas, pioneer multiplier, upvote scaling, worked example
+- `../docs/value-pricing/analysis.md` — tier system rationale, crowding-out effect, behavioral economics foundation
+- `../docs/business-model/design.md` — revenue flow, unit economics, break-even analysis
+- `../docs/spawn-protection/design.md` — vesting, cliff periods, anti-gaming mechanisms
+- `../docs/fraud-prevention/design.md` — economic deterrence layer, cost-of-attack analysis
 
 ## Deliverables
 1. **A mathematical model** of karma supply, dilution, and per-karma value over time — with simulations for 3-5 project archetypes

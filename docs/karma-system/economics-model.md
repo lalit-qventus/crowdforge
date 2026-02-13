@@ -195,7 +195,7 @@ Thresholds: [0, 50, 250, 1,000, 5,000, 25,000]
 | 2 (Builder) | 250 | 25% | 250 |
 | 3 (Architect) | 1,000 | 12% | 120 |
 | 4 (Partner) | 5,000 | 3% | 30 |
-| 5 (Founder's Circle) | 25,000 | 0% | 0 |
+| 5 (Inner Circle) | 25,000 | 0% | 0 |
 
 Healthy pyramid. Tier 5 is unreachable this early.
 
@@ -223,7 +223,7 @@ Still roughly pyramid-shaped but Tier 3+ is growing (30% combined). Veteran coho
 | 4 | 18% | 18,000 |
 | 5 | 10% | 10,000 |
 
-**Tier inflation is visible.** Half the platform is at Tier 3+. The pyramid has become a diamond, then approaches a top-heavy trapezoid. Tier 5 at 10% means 10,000 Founder's Circle members — the "founder" label loses exclusivity.
+**Tier inflation is visible.** Half the platform is at Tier 3+. The pyramid has become a diamond, then approaches a top-heavy trapezoid. Tier 5 at 10% means 10,000 Inner Circle members — the "founder" label loses exclusivity.
 
 ### 3.2 Percentile-Based Thresholds
 

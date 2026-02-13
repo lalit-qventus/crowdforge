@@ -57,11 +57,11 @@ The **payout card** is the atomic unit of virality. Make it beautiful, shareable
 - Make the first 1,000 contributors legends (special badges, profiles, status)
 
 ## Reference Docs
-- `13-go-to-market/strategy.md` — full GTM playbook with week-by-week plan
-- `08-stackoverflow-research/analysis.md` — community rise and fall lessons
-- `09-wikipedia-research/analysis.md` — collaboration motivation, governance
-- `07-moat-defensibility/design.md` — community as moat (Tier 2)
-- `11-branding-competitors/analysis.md` — channel strategy, positioning
+- `../docs/go-to-market/strategy.md` — full GTM playbook with week-by-week plan
+- `../docs/research/stackoverflow.md` — community rise and fall lessons
+- `../docs/research/wikipedia.md` — collaboration motivation, governance
+- `../docs/moat-defensibility/design.md` — community as moat (Tier 2)
+- `../docs/brand/analysis.md` — channel strategy, positioning
 
 ## Constraints
 - Zero paid acquisition budget initially — organic and community-driven only

@@ -2,7 +2,7 @@
 
 ## The Core Problem
 
-The current karma system (documented in `02-karma-system/design.md`) treats karma as a direct financial instrument: `payout = revenue_pool * (contributor_karma / total_project_karma)`. This is cost-based pricing applied to human contribution. It makes karma a transparent proxy for cash, which triggers three destructive dynamics:
+The current karma system (documented in `../karma-system/design.md`) treats karma as a direct financial instrument: `payout = revenue_pool * (contributor_karma / total_project_karma)`. This is cost-based pricing applied to human contribution. It makes karma a transparent proxy for cash, which triggers three destructive dynamics:
 
 1. **Commodification** -- Contributors mentally convert every action to dollars. "This PR is worth ~$14 of karma." The contribution becomes a transaction, not an investment.
 2. **Resentment transparency** -- When someone can see exactly how the sausage is made (my 38.8 karma / 394.9 total = 9.8% = $343/month), they start gaming denominators instead of maximizing value.
@@ -155,7 +155,7 @@ Replace direct karma-to-revenue conversion with a tiered contributor system wher
 | 2 | Builder | 250 | 1.0x (baseline) | Priority project invitations, profile badge, governance voting |
 | 3 | Architect | 1,000 | 1.5x | Access to premium projects, mentorship matching, featured profile |
 | 4 | Partner | 5,000 | 2.0x | Revenue share on platform-level earnings (not just projects), advisory board eligibility |
-| 5 | Founder's Circle | 25,000 | 2.5x | Equity-equivalent participation, strategic governance, early access to all platform features |
+| 5 | Inner Circle | 25,000 | 2.5x | Equity-equivalent participation, strategic governance, early access to all platform features |
 
 ### How Dividends Work
 
@@ -250,7 +250,7 @@ The dividend amounts should also be large enough to be meaningful (avoiding the 
 
 ## Part 8: Migration Path from Current System
 
-The current system (`02-karma-system/design.md`) already has most of the right primitives. The migration involves reframing, not rebuilding.
+The current system (`../karma-system/design.md`) already has most of the right primitives. The migration involves reframing, not rebuilding.
 
 ### What Stays
 
@@ -293,7 +293,7 @@ The current system (`02-karma-system/design.md`) already has most of the right p
 
 **Scenario:** As the platform grows, more contributors reach high tiers, diluting the status value.
 
-**Mitigation:** Tier thresholds should scale with platform growth. Alternatively, tiers can be percentile-based (top 1% = Founder's Circle, top 5% = Partner) rather than absolute-threshold-based. This preserves scarcity.
+**Mitigation:** Tier thresholds should scale with platform growth. Alternatively, tiers can be percentile-based (top 1% = Inner Circle, top 5% = Partner) rather than absolute-threshold-based. This preserves scarcity.
 
 ### Risk: Over-Complexity Deters New Contributors
 
@@ -305,7 +305,7 @@ The current system (`02-karma-system/design.md`) already has most of the right p
 
 **Scenario:** The dividend framing makes karma look more like a security (investment of effort in a common enterprise with expectation of profits from others' efforts).
 
-**Mitigation:** The existing Howey analysis in `04-business-model/design.md` still holds because: (a) contributors invest effort, not money; (b) karma requires *active* contribution to earn; (c) the dividend is compensation for demonstrated service, not a return on passive investment; (d) karma cannot be purchased or transferred. The tier system strengthens the "active participation" defense because tier maintenance requires ongoing contribution. However, the language shift from "revenue share" to "dividend" should be reviewed by securities counsel. The internal model can use "dividend" as a design metaphor without the legal/public-facing language adopting that term.
+**Mitigation:** The existing Howey analysis in `../business-model/design.md` still holds because: (a) contributors invest effort, not money; (b) karma requires *active* contribution to earn; (c) the dividend is compensation for demonstrated service, not a return on passive investment; (d) karma cannot be purchased or transferred. The tier system strengthens the "active participation" defense because tier maintenance requires ongoing contribution. However, the language shift from "revenue share" to "dividend" should be reviewed by securities counsel. The internal model can use "dividend" as a design metaphor without the legal/public-facing language adopting that term.
 
 ---
 

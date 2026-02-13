@@ -269,10 +269,10 @@ What makes this feel alive, not like another project management tool:
 
 ## Detailed Design Documents
 
-- [Karma System](../02-karma-system/design.md) — formulas, worked examples, parameter tables
-- [Fraud Prevention](../03-fraud-prevention/design.md) — 6-layer defense with attack scenarios
-- [Business Model](../04-business-model/design.md) — revenue flow, legal structure, unit economics, investor Q&A
-- [Spawn Protection](../05-spawn-protection/design.md) — lifecycle phases, gating mechanisms, adversarial analysis
-- [Platform Architecture](../06-architecture/design.md) — UX flows, tech stack, system diagram
-- [Moat & Defensibility](../07-moat-defensibility/design.md) — moat stack, attacker playbook, phased strategy
-- [Lovable Analysis](../07-moat-defensibility/lovable-analysis.md) — friction reduction lessons, growth mechanics
+- [Karma System](karma-system/design.md) — formulas, worked examples, parameter tables
+- [Fraud Prevention](fraud-prevention/design.md) — 6-layer defense with attack scenarios
+- [Business Model](business-model/design.md) — revenue flow, legal structure, unit economics, investor Q&A
+- [Spawn Protection](spawn-protection/design.md) — lifecycle phases, gating mechanisms, adversarial analysis
+- [Platform Architecture](architecture/design.md) — UX flows, tech stack, system diagram
+- [Moat & Defensibility](moat-defensibility/design.md) — moat stack, attacker playbook, phased strategy
+- [Lovable Analysis](moat-defensibility/lovable-analysis.md) — friction reduction lessons, growth mechanics

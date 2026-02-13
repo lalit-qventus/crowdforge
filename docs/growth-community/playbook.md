@@ -834,11 +834,11 @@ Formal governance mechanisms emerge:
 
 ## Sources
 
-- Stack Overflow rise and decline analysis: `08-stackoverflow-research/analysis.md`
-- Wikipedia collaboration and governance: `09-wikipedia-research/analysis.md`
-- Moat and defensibility strategy: `07-moat-defensibility/design.md`
-- Competitive landscape and branding: `11-branding-competitors/analysis.md`
-- Go-to-market playbook: `13-go-to-market/strategy.md`
-- Platform vision: `01-platform-vision/vision.md`
-- Karma system design: `02-karma-system/design.md`
-- Business model: `04-business-model/design.md`
+- Stack Overflow rise and decline analysis: `../research/stackoverflow.md`
+- Wikipedia collaboration and governance: `../research/wikipedia.md`
+- Moat and defensibility strategy: `../moat-defensibility/design.md`
+- Competitive landscape and branding: `../brand/analysis.md`
+- Go-to-market playbook: `../go-to-market/strategy.md`
+- Platform vision: `../vision.md`
+- Karma system design: `../karma-system/design.md`
+- Business model: `../business-model/design.md`

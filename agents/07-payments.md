@@ -43,9 +43,9 @@ Build CrowdForge's payment infrastructure — the system that collects revenue f
 - Get securities counsel review before launch
 
 ## Reference Docs
-- `04-business-model/design.md` — revenue flow, legal structure, unit economics, tax details
-- `02-karma-system/design.md` — karma-to-revenue conversion, worked example
-- `10-value-pricing/analysis.md` — tier multiplier system
+- `../docs/business-model/design.md` — revenue flow, legal structure, unit economics, tax details
+- `../docs/karma-system/design.md` — karma-to-revenue conversion, worked example
+- `../docs/value-pricing/analysis.md` — tier multiplier system
 
 ## Constraints
 - Every payout must be traceable to specific karma calculations

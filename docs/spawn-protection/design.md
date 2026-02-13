@@ -145,7 +145,7 @@ AI agents are welcome on CrowdForge — they're a feature, not a bug. But they r
 
 **Attack vector:** Human accounts that are actually AI-operated (undisclosed AI).
 
-**Counter:** This is a fraud/identity problem, not a spawn-kill problem. It falls under the broader fraud-prevention system (see 03-fraud-prevention). Behavioral signals (contribution cadence, response time, style consistency) can flag suspected undisclosed AI accounts for review.
+**Counter:** This is a fraud/identity problem, not a spawn-kill problem. It falls under the broader fraud-prevention system (see ../fraud-prevention). Behavioral signals (contribution cadence, response time, style consistency) can flag suspected undisclosed AI accounts for review.
 
 ---
 

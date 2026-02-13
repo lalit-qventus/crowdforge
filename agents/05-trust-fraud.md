@@ -45,9 +45,9 @@ Each with specific requirements (age, identity score, contribution count) and ca
 - Month 12+: community fraud reporting with bounties, continuous model retraining
 
 ## Reference Docs
-- `03-fraud-prevention/design.md` — complete design with attack scenarios
-- `05-spawn-protection/design.md` — spawn-kill protection mechanisms
-- `09-wikipedia-research/analysis.md` — governance lessons, trust hierarchies
+- `../docs/fraud-prevention/design.md` — complete design with attack scenarios
+- `../docs/spawn-protection/design.md` — spawn-kill protection mechanisms
+- `../docs/research/wikipedia.md` — governance lessons, trust hierarchies
 
 ## Constraints
 - Never require government ID (no heavy KYC)

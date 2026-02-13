@@ -29,10 +29,10 @@ Build CrowdForge's zero-config deployment infrastructure — the Lovable-style "
 - Let's Encrypt for SSL
 
 ## Reference Docs
-- `06-architecture/design.md` — deployment pipeline section, tech stack choices
-- `04-business-model/design.md` — infrastructure pricing and unit economics
-- `07-moat-defensibility/design.md` — deployment lock-in as moat
-- `07-moat-defensibility/lovable-analysis.md` — Lovable's deployment model
+- `../docs/architecture/design.md` — deployment pipeline section, tech stack choices
+- `../docs/business-model/design.md` — infrastructure pricing and unit economics
+- `../docs/moat-defensibility/design.md` — deployment lock-in as moat
+- `../docs/moat-defensibility/lovable-analysis.md` — Lovable's deployment model
 
 ## Constraints
 - Zero-config for standard frameworks (React, Next.js, Node, Python)

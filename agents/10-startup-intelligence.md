@@ -53,12 +53,12 @@ Three-layer architecture:
 - **Case Studies** — narrative examples from successful CrowdForge projects (and external examples initially)
 
 ## Reference Docs
-- `12-startup-frameworks/analysis.md` — complete research with templates, scoring rubrics, content structure
-- `06-architecture/design.md` — dashboard designs
-- `04-business-model/design.md` — revenue model details
+- `../docs/research/startup-frameworks.md` — complete research with templates, scoring rubrics, content structure
+- `../docs/architecture/design.md` — dashboard designs
+- `../docs/business-model/design.md` — revenue model details
 
 ## Constraints
 - Frameworks should guide, not prescribe. Language: "Consider..." not "You must..."
 - Templates are starting points, not requirements. Projects can ignore them.
 - Voice: like Paul Graham essays — opinionated but earned. Not like a textbook.
-- The intelligence layer should get smarter over time (this is the data moat — see `07-moat-defensibility/design.md`)
+- The intelligence layer should get smarter over time (this is the data moat — see `../docs/moat-defensibility/design.md`)

@@ -6,9 +6,9 @@ The canonical reference for CrowdForge's brand identity, voice, and visual syste
 
 ## Brand Essence
 
-**Tagline:** Startups are multiplayer now.
+**Tagline:** Everyone builds. Everything ships.
 
-**One-sentence pitch:** CrowdForge is where strangers and AI agents build, deploy, and monetize startups together — an improv stage for collective creation where karma tracks contribution and revenue is split proportionally.
+**One-sentence pitch:** CrowdForge is an improv stage where anyone walks on, the ensemble builds something real, karma tracks every contribution, and revenue is split proportionally.
 
 **Brand personality in three words:** Alive. Earned. Unscripted.
 
@@ -55,8 +55,8 @@ CrowdForge sounds like a founder who's built things advising a friend who's abou
 1. **Specific over aspirational.** Numbers, metrics, real outcomes. Not superlatives.
 2. **Active over passive.** "You earn karma" not "Karma is awarded."
 3. **Short over long.** If you can cut a word, cut it.
-4. **Show over tell.** "Watch 50 strangers build a SaaS product" beats "collaborative startup creation platform."
-5. **Provocative over safe.** "Startups are multiplayer now" beats "build startups together."
+4. **Show over tell.** "Watch 50 builders ship a product live" beats "collaborative creation platform."
+5. **Provocative over safe.** "Everyone builds. Everything ships." beats "build things together."
 
 ### Word Choice
 
@@ -75,7 +75,8 @@ CrowdForge sounds like a founder who's built things advising a friend who's abou
 ### Forbidden Language
 
 - "DAO," "token," "staking," "governance token," "blockchain," "decentralized," "web3" — triggers instant skepticism
-- "AI-generated," "Built with AI," "AI-powered" — the brand is human-first even though AI agents are core
+- "AI-generated," "Built with AI," "AI-powered" — the brand is human-first
+- "Startup" as primary framing — too Silicon Valley, too hustle-culture. Use "scene," "something real," "what we're building," "what ships"
 - "Disrupting," "revolutionizing," "game-changing" — corporate vapidity
 - "Leverage," "synergy," "scalable" — business school noise
 - "Simple," "easy," "just" — diminishes the complexity people respect
@@ -187,22 +188,22 @@ Do not:
 ## Positioning Architecture
 
 ### Primary Positioning
-CrowdForge is the multiplayer platform where strangers and AI agents build startups together. Unlike vibe coding tools (single-player), freelance marketplaces (transactional), and bounty platforms (one-time), CrowdForge provides ongoing ownership through karma-weighted revenue sharing.
+CrowdForge is the stage where anyone walks on and builds something real with the ensemble. Unlike vibe coding tools (single-player), freelance marketplaces (transactional), and bounty platforms (one-time), CrowdForge provides ongoing ownership through karma-weighted revenue sharing.
 
 ### Positioning by Audience
 
 | Audience | Hook | Mechanism | Differentiator |
 |---|---|---|---|
 | Developers | Earn ownership building real products | Claim tasks, ship code, earn karma | Unlike freelancing, your contributions compound |
-| Non-technical builders | Your skills drive real startup growth | Growth, marketing, design — all earn karma | Unlike freelancing, non-code contributions earn revenue |
-| Founders with ideas | Get a fully distributed team instantly | Pitch → community votes → ensemble forms | No hiring, no equity dilution, reputation-weighted |
-| Spectators | Watch a startup being built live | Real-time forge stream, cinema mode | The audience becomes the next generation of builders |
+| Non-technical builders | Your skills drive real growth | Growth, marketing, design — all earn karma | Unlike freelancing, non-code contributions earn revenue |
+| Idea people | Get a full ensemble instantly | Pitch → community votes → ensemble forms | No hiring, no equity dilution, reputation-weighted |
+| Spectators | Watch something real get built live | Real-time forge stream, cinema mode | The audience becomes the next generation of builders |
 
 ### Competitive Positioning
 
 | Competitor | Our line |
 |---|---|
-| Lovable / Bolt.new | "Vibe coding is single-player. Startups are multiplayer." |
+| Lovable / Bolt.new | "Vibe coding is single-player. CrowdForge is the ensemble." |
 | Upwork / Toptal | "On Upwork, you sell your time. On CrowdForge, you earn ownership." |
 | Algora / Gitcoin bounties | "We don't do bounties. We do shared ownership." |
 | Colony.io / Coordinape | "Revenue sharing without the blockchain baggage." |
@@ -234,9 +235,9 @@ Social handles: Audit X, GitHub, Discord, Product Hunt availability before commi
 ## Content Principles
 
 1. **Build in public.** Share real data, real failures, real learnings. Developers detect inauthenticity instantly.
-2. **Spectacle drives attention.** "Watch 50 strangers and 20 AI agents build a SaaS product" has Twitch Plays Pokemon energy.
-3. **The payout card is the viral unit.** "I earned $347 building with strangers on CrowdForge" combines gig economy dopamine with developer pride.
-4. **Frameworks, not rules.** Present guidance as starting points. "Most successful startups do X. Here's why, and here's how to decide if it applies to you."
+2. **Spectacle drives attention.** "Watch 50 builders ship a product live on CrowdForge" has Twitch Plays Pokemon energy.
+3. **The payout card is the viral unit.** "I earned $347 building PetMatch on CrowdForge" combines builder pride with proof that the model works.
+4. **Frameworks, not rules.** Present guidance as starting points. "Here's what works. Here's why. Decide if it applies to your scene."
 5. **Community content over brand content.** Contributor spotlights, payout stories, project showcases > corporate blog posts.
 
 ---
@@ -249,4 +250,4 @@ Social handles: Audit X, GitHub, Discord, Product Hunt availability before commi
 4. Never promise specific earnings or returns
 5. Never position against open source — we're adjacent, not competitive
 6. Transparent pricing always — Lovable's #1 complaint is credit unpredictability
-7. The brand is human-first, even though AI agents are core participants
+7. The brand is human-first — always

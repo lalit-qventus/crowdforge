@@ -7,8 +7,14 @@ Build CrowdForge's entire frontend — from landing page to Forge editor to dash
 - "Yes, and..." improv energy — the platform feels like collective creation in motion
 - Dark theme, terminal-noir with green/cyan glows
 - Every page has something moving, updating, or pulsing ("alive by default")
-- The Forge Stream (cinema-mode spectator view) is the signature experience — like Twitch for building startups
+- The Forge Stream is the signature experience — like Twitch for building startups
 - Git is the underlying metaphor: contributions are PRs, acceptances are merges
+
+## Copy Voice Rules
+- **Internal-only vocabulary** (NEVER in user-facing copy): "cinema-mode", "spectator view", "alive by default", "signature experience", "bioluminescent". These are design direction terms for builders, not marketing copy.
+- **User-facing copy** should feel like a friend showing you something cool, not a product spec. Say "watch strangers build a startup" not "cinema-mode spectator view."
+- **De-emphasize money.** Lead with building, creating, and status. Revenue/earnings are a consequence, not the pitch. Home feed events should mostly be about building activity (merged PR, deployed, joined project), not financial events.
+- **Tier 5 is "Inner Circle"** (NOT "Founder's Circle" — that name is permanently retired). The six karma tiers: Observer, Contributor, Builder, Architect, Partner, Inner Circle. CSS class: `.tier--inner-circle`.
 
 ## Key Pages to Build
 1. **Landing page** — exists at `index.html`, needs improv-themed redesign (current tagline "Watch strangers build startups together" is rejected — needs edgier positioning)
@@ -28,10 +34,10 @@ Build CrowdForge's entire frontend — from landing page to Forge editor to dash
 - Tailwind or CSS modules for styling
 
 ## Reference Docs
-- `06-architecture/design.md` — full UX flows, information architecture, page designs
-- `10-value-pricing/analysis.md` — karma tier UI (6 tiers with visual hierarchy)
-- `11-branding-competitors/analysis.md` — positioning, aesthetic direction
-- `01-platform-vision/vision.md` — overall vision and principles
+- `../docs/architecture/design.md` — full UX flows, information architecture, page designs
+- `../docs/value-pricing/analysis.md` — karma tier UI (6 tiers with visual hierarchy)
+- `../docs/brand/analysis.md` — positioning, aesthetic direction
+- `../docs/vision.md` — overall vision and principles
 
 ## Constraints
 - No generic AI aesthetics (no purple gradients, no Inter font, no cookie-cutter layouts)

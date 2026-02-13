@@ -173,7 +173,7 @@ Where `tier_multiplier` is determined by the contributor's cumulative cross-proj
 | 2 | Builder | 250 | 1.0x |
 | 3 | Architect | 1,000 | 1.5x |
 | 4 | Partner | 5,000 | 2.0x |
-| 5 | Founder's Circle | 25,000 | 2.5x |
+| 5 | Inner Circle | 25,000 | 2.5x |
 
 Only **vested karma** counts toward payout calculation. Unvested karma contributes to tier progression but does not generate dividends.
 

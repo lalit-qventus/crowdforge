@@ -40,8 +40,8 @@ Per-project read-only real-time view:
 - Client subscriptions: per-project, per-user, global channels
 
 ## Reference Docs
-- `06-architecture/design.md` — real-time architecture section, Forge architecture, magic moments
-- `01-platform-vision/vision.md` — "alive by default" principle
+- `../docs/architecture/design.md` — real-time architecture section, Forge architecture, magic moments
+- `../docs/vision.md` — "alive by default" principle
 
 ## Constraints
 - Latency: events must reach spectators within 500ms of occurrence
